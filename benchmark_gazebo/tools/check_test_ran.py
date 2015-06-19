@@ -82,22 +82,6 @@ def check_main():
     if len(sys.argv) < 2:
         usage()
     test_file = sys.argv[1]
-        
-    # kill rogue gzservers from INTEGRATION_world_clone test
-    # https://bitbucket.org/osrf/gazebo/issue/1299
-    if 'INTEGRATION_world_clone' in test_file:
-        process = subprocess.Popen(['ps', 'ax'], stdout=subprocess.PIPE)
-        stdout, stderr = process.communicate()
-        for line in string.split(stdout, '\n'):
-            if line.find('gzserver /tmp/clone.11347.world') >= 0:
-                print(line)
-                m = re.search('^ *([0-9]+) .*', line)
-                if m == None:
-                    print("Error identifying process id, not killing any gzserver's")
-                else:
-                    pid = m.group(1)
-                    print("killing gzserver with pid %s" % (pid))
-                    subprocess.call(["kill", "-9", "%s" % (pid)])
 
     print("Checking for test results in %s"%test_file)
     
