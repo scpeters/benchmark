@@ -30,31 +30,3 @@ set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS
   boxes.cc
 )
 gz_build_tests(${BOXES_TEST_FILES})
-#foreach(BOXES_TEST_file ${BOXES_TEST_FILES})
-#  string(REGEX REPLACE ".cc" "" BINARY_NAME ${BOXES_TEST_file})
-#  set(BINARY_NAME ${TEST_PREFIX}_${BINARY_NAME})
-#  add_executable(${BINARY_NAME}
-#    ${BOXES_TEST_file}
-#    boxes.cc
-#  )
-#  target_link_libraries(${BINARY_NAME}
-#    gtest
-#    gtest_main
-#    gazebo_test_fixture
-#    ${GAZEBO_LIBRARIES}
-#    ${Boost_LIBRARIES}
-#  )
-#
-#  add_test(${BINARY_NAME} ${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}
-#    --gtest_output=xml:${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml
-#  )
-#  set_tests_properties(${BINARY_NAME} PROPERTIES TIMEOUT 5000)
-#  # Check that the test produced a result and create a failure if it didn't.
-#  # Guards against crashed and timed out tests.
-#  add_test(check_${BINARY_NAME} ${PROJECT_SOURCE_DIR}/tools/check_test_ran.py
-#	  ${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml)
-#
-#  install(TARGETS ${BINARY_NAME}
-#    RUNTIME DESTINATION bin
-#  )
-#endforeach()
