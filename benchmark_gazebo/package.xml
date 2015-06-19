@@ -1,0 +1,31 @@
+<package>
+
+  <name>benchmark_gazebo</name>
+  <version>0.1.0</version>
+  <description>
+    Benchmark tests using gazebo.
+  </description>
+  <license>Apache2</license>
+  <author>Open Source Robotics Foundation</author>
+
+  <maintainer email="scpeters@osrfoundation.org">Steve Peters</maintainer>
+
+  <url>http://github.com/scpeters/benchmark</url>
+
+  <buildtool_depend>cmake</buildtool_depend>
+  <buildtool_depend>pkg-config</buildtool_depend>
+
+    <run_depend>catkin</run_depend>
+
+  <build_depend>gazebo</build_depend>
+    <run_depend>gazebo</run_depend>
+
+  <build_depend>libgazebo6-dev</build_depend>
+    <run_depend>libgazebo6</run_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+
+</package>
+
