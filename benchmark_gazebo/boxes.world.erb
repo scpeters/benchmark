@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<%
+  # Boxes benchmark example world
+  # SI units (length in meters)
+
+  # Geometry
+  dx   = 0.1
+  dy   = 0.4
+  dz   = 0.9
+
+  # inertia
+  mass = 10
+  ixx  = mass/12.0 * (dy**2 + dz**2)
+  iyy  = mass/12.0 * (dz**2 + dx**2)
+  izz  = mass/12.0 * (dx**2 + dy**2)
+
+  boxes = 5
+
+  nonlinear = true
+  if nonlinear
+    v0 = [-2.0, 2.0, 8.0]
+    w0 = [0.1, 5.0, 0.1]
+    gravity = [0, 0, -9.80]
+  else
+    v0 = [-0.9, 0.4, 0.1]
+    w0 = [1.5, 0.0, 0.0]
+    gravity = [0, 0, 0]
+  end
+%>
+<sdf version="1.5">
+  <world name="default">
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <gravity><%= gravity.join(" ") %></gravity>
+    </physics>
+<%
+  boxes.times do |i|
+    name = "box_" + i.to_s
+    y0 = dz * 2 * i
+%>
+    <%= "<model name=\"#{name}\">" %>
+      <link name="link">
+        <pose>0 <%= y0 %> 0  0 0 0</pose>
+        <inertial>
+          <mass><%= mass %></mass>
+          <inertia>
+            <ixx><%= ixx %></ixx>
+            <iyy><%= iyy %></iyy>
+            <izz><%= izz %></izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size><%= dx %> <%= dy %> <%= dz %></size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size><%= dx %> <%= dy %> <%= dz %></size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <%= "<plugin name=\"#{name}\" filename=\"libInitialVelocityPlugin.so\">" %>
+        <linear><%= v0.join(" ") %></linear>
+        <angular><%= w0.join(" ") %></angular>
+      </plugin>
+    </model>
+<%
+  end
+%>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>8.5 5.5 0.3  0 0 3.14159</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>

@@ -78,7 +78,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   physics::LinkPtr link;
 
   // initial linear velocity in global frame
-  const math::Vector3 v0(0.1, 0.4, 0.9);
+  math::Vector3 v0;
 
   // initial angular velocity in global frame
   math::Vector3 w0;
@@ -88,18 +88,20 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
 
   if (!_nonlinear)
   {
+    v0.Set(-0.9, 0.4, 0.1);
     // Use angular velocity with one non-zero component
     // to ensure linear angular trajectory
-    w0.Set(1.5e-1, 0.0, 0.0);
-    E0 = 4.9090937462499999;
+    w0.Set(1.5, 0, 0);
+    E0 = 5.8093746250000002;
   }
   else
   {
+    v0.Set(-2.0, 2.0, 8.0);
     // Since Ixx > Iyy > Izz,
     // angular velocity with large y component
     // will cause gyroscopic tumbling
-    w0.Set(1e-3, 1.5e0, 1.5e-2);
-    E0 = 5.668765966704;
+    w0.Set(0.1, 5.0, 0.1);
+    E0 = 368.54641249999997;
   }
 
   for (int i = 0; i < _modelCount; ++i)
@@ -108,7 +110,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
     msgModel.set_name(this->GetUniqueString("model"));
     // give models unique positions
     msgs::Set(msgModel.mutable_pose()->mutable_position(),
-              math::Vector3(dz*2*i, 0.0, 0.0));
+              math::Vector3(0.0, dz*2*i, 0.0));
 
     model = this->SpawnModel(msgModel);
     ASSERT_TRUE(model != NULL);
