@@ -30,3 +30,5 @@ set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS
   boxes.cc
 )
 gz_build_tests(${BOXES_TEST_FILES})
+
+set_tests_properties(BENCHMARK_boxes_model_count PROPERTIES TIMEOUT 3000)

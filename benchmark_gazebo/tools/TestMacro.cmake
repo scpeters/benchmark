@@ -28,6 +28,14 @@ macro (gz_build_tests)
     add_test(check_${BINARY_NAME} ${PROJECT_SOURCE_DIR}/tools/check_test_ran.py
 	    ${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml)
 
+    # Convert junit file to csv and place in test_results in source folder.
+    add_test(NAME csv_${BINARY_NAME}
+      COMMAND
+      ${PROJECT_SOURCE_DIR}/tools/junit_to_csv.rb
+	    ${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml
+      ${CMAKE_CURRENT_SOURCE_DIR}/test_results/${BINARY_NAME}.csv
+    )
+
     install(TARGETS ${BINARY_NAME}
       RUNTIME DESTINATION bin
     )
