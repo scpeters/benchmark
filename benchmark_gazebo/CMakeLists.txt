@@ -5,7 +5,7 @@ enable_testing()
 include(FindBoost)
 find_package(Boost ${MIN_BOOST_VERSION} REQUIRED filesystem thread system)
 
-find_package(gazebo REQUIRED)
+find_package(gazebo 6)
 include_directories(${GAZEBO_INCLUDE_DIRS}
   ${PROJECT_SOURCE_DIR}/gtest/include
   ${PROJECT_SOURCE_DIR}/gtest
