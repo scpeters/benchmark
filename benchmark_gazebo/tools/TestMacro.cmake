@@ -33,7 +33,7 @@ macro (gz_build_tests)
       COMMAND
       ${PROJECT_SOURCE_DIR}/tools/junit_to_csv.rb
 	    ${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml
-      ${CMAKE_CURRENT_SOURCE_DIR}/test_results/${BINARY_NAME}.csv
+      ${CMAKE_CURRENT_SOURCE_DIR}/test_results/${BINARY_NAME}
     )
 
     install(TARGETS ${BINARY_NAME}

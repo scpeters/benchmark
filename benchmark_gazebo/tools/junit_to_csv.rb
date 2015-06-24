@@ -3,7 +3,7 @@
 require 'rexml/document'
 
 xmlInput = File.read(ARGV[0])
-csvOutput = ARGV[1]
+csvOutputPrefix = ARGV[1]
 
 doc, arrayOfHashes = REXML::Document.new(xmlInput), []
 doc.elements.each('testsuites/testsuite/testcase') do |t|
@@ -12,6 +12,8 @@ end
 sortedKeys = arrayOfHashes.first.keys.sort
 sortedKeys.delete("value_param")
 
+timestamp = doc.elements.first.attributes["timestamp"]
+csvOutput = csvOutputPrefix + "_" + timestamp + ".csv"
 File.open(csvOutput, "w") do |f|
   f.puts sortedKeys.join(',')
   arrayOfHashes.each do |h|
