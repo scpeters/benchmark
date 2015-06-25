@@ -204,7 +204,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   this->Record("energyError_", energyError);
   this->Record("angMomentum0", H0mag);
   this->Record("angMomentumErr_", angularMomentumError.Mag());
-  this->Record("angPositionErr_", angularPositionError.Mag());
+  this->Record("angPositionErr", angularPositionError);
   this->Record("linPositionErr_", linearPositionError.Mag());
   this->Record("linVelocityErr_", linearVelocityError.Mag());
 }
