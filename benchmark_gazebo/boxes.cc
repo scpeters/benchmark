@@ -30,7 +30,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
                     , double _dt
                     , int _modelCount
                     , bool _collision
-                    , bool _nonlinear)
+                    , bool _complex)
 {
   // Load a blank world (no ground plane)
   Load("worlds/blank.world", true, _physicsEngine);
@@ -43,7 +43,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   ASSERT_EQ(physics->GetType(), _physicsEngine);
 
   // get gravity value
-  if (!_nonlinear)
+  if (!_complex)
   {
     physics->SetGravity(math::Vector3::Zero);
   }
@@ -86,7 +86,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   // initial energy value
   double E0;
 
-  if (!_nonlinear)
+  if (!_complex)
   {
     v0.Set(-0.9, 0.4, 0.1);
     // Use angular velocity with one non-zero component
@@ -182,7 +182,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
     angularMomentumError.InsertData((H - H0) / H0mag);
 
     // angular position error
-    if (!_nonlinear)
+    if (!_complex)
     {
       math::Vector3 a = link->GetWorldInertialPose().rot.GetAsEuler();
       math::Quaternion angleTrue(w0 * t);
@@ -216,21 +216,21 @@ TEST_P(BoxesTest, Boxes)
   double dt                 = std::tr1::get<1>(GetParam());
   int modelCount            = std::tr1::get<2>(GetParam());
   bool collision            = std::tr1::get<3>(GetParam());
-  bool nonlinear            = std::tr1::get<4>(GetParam());
+  bool isComplex            = std::tr1::get<4>(GetParam());
   gzdbg << physicsEngine
         << ", dt: " << dt
         << ", modelCount: " << modelCount
         << ", collision: " << collision
-        << ", nonlinear: " << nonlinear
+        << ", isComplex: " << isComplex
         << std::endl;
   RecordProperty("engine", physicsEngine);
   this->Record("dt", dt);
   RecordProperty("modelCount", modelCount);
   RecordProperty("collision", collision);
-  RecordProperty("nonlinear", nonlinear);
+  RecordProperty("isComplex", isComplex);
   Boxes(physicsEngine
       , dt
       , modelCount
       , collision
-      , nonlinear);
+      , isComplex);
 }

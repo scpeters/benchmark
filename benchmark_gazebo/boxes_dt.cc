@@ -24,14 +24,14 @@ using namespace gazebo;
 #define DT_MIN 1e-4
 #define DT_MAX 1.01e-3
 #define DT_STEP 3.0e-4
-INSTANTIATE_TEST_CASE_P(EnginesDtLinear, BoxesTest,
+INSTANTIATE_TEST_CASE_P(EnginesDtSimple, BoxesTest,
   ::testing::Combine(PHYSICS_ENGINE_VALUES
   , ::testing::Range(DT_MIN, DT_MAX, DT_STEP)
   , ::testing::Values(1)
   , ::testing::Values(true)
   , ::testing::Values(false)));
 
-INSTANTIATE_TEST_CASE_P(EnginesDtNonlinear, BoxesTest,
+INSTANTIATE_TEST_CASE_P(EnginesDtComplex, BoxesTest,
   ::testing::Combine(PHYSICS_ENGINE_VALUES
   , ::testing::Range(DT_MIN, DT_MAX, DT_STEP)
   , ::testing::Values(1)

@@ -15,8 +15,8 @@
  *
 */
 
-#ifndef _GAZEBO_TEST_ACCURACY_BOXES_HH_
-#define _GAZEBO_TEST_ACCURACY_BOXES_HH_
+#ifndef _BENCHMARK_GAZEBO_BOXES_HH_
+#define _BENCHMARK_GAZEBO_BOXES_HH_
 
 #include <string>
 #include "gazebo/test/ServerFixture.hh"
@@ -27,7 +27,7 @@ namespace gazebo
   // dt
   // number of boxes to spawn
   // collision shape on / off
-  // nonlinear trajectory on / off
+  // complex trajectory on / off
   typedef std::tr1::tuple < const char *
                           , double
                           , int
@@ -42,12 +42,12 @@ namespace gazebo
     /// \param[in] _dt Max time step size.
     /// \param[in] _modelCount Number of boxes to spawn.
     /// \param[in] _collision Flag for collision shape on / off.
-    /// \param[in] _nonlinear Flag for nonlinear trajectory on / off.
+    /// \param[in] _complex Flag for complex trajectory on / off.
     public: void Boxes(const std::string &_physicsEngine
                      , double _dt
                      , int _modelCount
                      , bool _collision
-                     , bool _nonlinear);
+                     , bool _complex);
   };
-}       // namespace gazebo
-#endif  // define _GAZEBO_TEST_ACCURACY_BOXES_HH_
+}
+#endif
