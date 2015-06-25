@@ -44,7 +44,7 @@
       </link>
       <plugin name="box_0" filename="libInitialVelocityPlugin.so">
         <linear>-0.9 0.4 0.1</linear>
-        <angular>1.5 0.0 0.0</angular>
+        <angular>0.5 0.0 0.0</angular>
       </plugin>
     </model>
 
@@ -85,7 +85,7 @@
       </link>
       <plugin name="box_1" filename="libInitialVelocityPlugin.so">
         <linear>-0.9 0.4 0.1</linear>
-        <angular>1.5 0.0 0.0</angular>
+        <angular>0.5 0.0 0.0</angular>
       </plugin>
     </model>
 
@@ -126,7 +126,7 @@
       </link>
       <plugin name="box_2" filename="libInitialVelocityPlugin.so">
         <linear>-0.9 0.4 0.1</linear>
-        <angular>1.5 0.0 0.0</angular>
+        <angular>0.5 0.0 0.0</angular>
       </plugin>
     </model>
 
@@ -167,7 +167,7 @@
       </link>
       <plugin name="box_3" filename="libInitialVelocityPlugin.so">
         <linear>-0.9 0.4 0.1</linear>
-        <angular>1.5 0.0 0.0</angular>
+        <angular>0.5 0.0 0.0</angular>
       </plugin>
     </model>
 
@@ -208,7 +208,7 @@
       </link>
       <plugin name="box_4" filename="libInitialVelocityPlugin.so">
         <linear>-0.9 0.4 0.1</linear>
-        <angular>1.5 0.0 0.0</angular>
+        <angular>0.5 0.0 0.0</angular>
       </plugin>
     </model>
 

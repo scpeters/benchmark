@@ -91,8 +91,8 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
     v0.Set(-0.9, 0.4, 0.1);
     // Use angular velocity with one non-zero component
     // to ensure linear angular trajectory
-    w0.Set(1.5, 0, 0);
-    E0 = 5.8093746250000002;
+    w0.Set(0.5, 0, 0);
+    E0 = 5.001041625;
   }
   else
   {
