@@ -1,8 +1,12 @@
 # Physics benchmarks using the Gazebo Simulator
 
 Documentation for physics benchmarks in the [gazebo simulator](http://gazebosim.org).
-This document is hosted on github and can be
-[viewed here]().
+This folder contains documentation for several multibody benchmark problems
+in iPython notebook format.
+These documents can be viewed online in the following locations
+or on your own machine following the instructions given below:
+
+* [Boxes: free-floating rigid bodies](http://nbviewer.ipython.org/github/scpeters/benchmark/blob/master/benchmark_gazebo/boxes_description.ipynb)
 
 These benchmarks can be run for the physics engines supported by gazebo:
 
