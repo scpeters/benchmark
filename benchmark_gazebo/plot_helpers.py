@@ -30,6 +30,9 @@ def vector_log10_scale(x, scale):
     logx = np.log10(x)
     scaled = vector_scale(logx, scale)
     return [10**l for l in scaled]
+
+# Create a plot with time step Dt on horizontal axis
+# Value of `yname` plotted on vertical axis
 def plotEnginesDt(params, yname
                 , axscale=1.1
                 , ayscale=1.1
@@ -40,10 +43,12 @@ def plotEnginesDt(params, yname
                 , ylabel='Error'
                 , yscale='linear'
                 , title='title'
+                , skipDart=False
                 ):
     engines = {}
     engines['bullet'] = ['$B$', 'b--']
-    engines['dart'] = ['$d$', 'g--']
+    if not skipDart:
+        engines['dart'] = ['$d$', 'g--']
     engines['ode'] = ['$O$', 'r--']
     engines['simbody'] = ['$S$', 'k--']
     fig = plt.figure()
@@ -76,7 +81,7 @@ def plotEnginesDt(params, yname
     else:
         plt.ylim(vector_scale(plt.ylim(), ayscale))
     plt.legend(sorted(engines.keys()), loc=legend)
-    plt.show()
+    plt.show();
     # some extra info about each plot
     xdata_minmax = {}
     ydata_minmax = {}
@@ -87,6 +92,7 @@ def plotEnginesDt(params, yname
 def plotEnginesTime(params, yname
                   , csvDict=boxes
                   , legend='best'
+                  , skipDart=False
                   , xname='timeRatio'
                   , xlabel='Time ratio (real / sim)'
                   , ylabel='Error'
@@ -96,6 +102,7 @@ def plotEnginesTime(params, yname
     plotEnginesDt(params, yname
                   , csvDict=csvDict
                   , legend=legend
+                  , skipDart=skipDart
                   , xname=xname
                   , xlabel=xlabel
                   , ylabel=ylabel
@@ -105,6 +112,7 @@ def plotEnginesTime(params, yname
 def plotEnginesModelCount(params, yname
                   , csvDict=boxes
                   , legend='best'
+                  , skipDart=False
                   , xname='modelCount'
                   , xlabel='Model count'
                   , ylabel='Time ratio (real / sim)'
@@ -114,12 +122,44 @@ def plotEnginesModelCount(params, yname
     plotEnginesDt(params, yname
                   , csvDict=csvDict
                   , legend=legend
+                  , skipDart=skipDart
                   , xname=xname
                   , xlabel=xlabel
                   , ylabel=ylabel
                   , yscale=yscale
                   , title=title
                   )
+
+def plot3TimeDt(params
+                , csvDict=boxes
+                , yname='linPositionErr_maxAbs'
+                , title=''
+                , skipDart=False
+                , yscale='linear'
+                ):
+    plotEnginesDt(params
+                , csvDict=csvDict
+                , yname=yname
+                , title=title
+                , skipDart=skipDart
+                , yscale=yscale
+                )
+    plotEnginesDt(params
+                , csvDict=csvDict
+                , yname='timeRatio'
+                , ylabel='Computational time / sim time'
+                , title='Computational time'
+                , skipDart=skipDart
+                , yscale=yscale
+                )
+    plotEnginesTime(params
+                , csvDict=csvDict
+                , yname=yname
+                , title=title
+                , skipDart=skipDart
+                , yscale=yscale
+                )
+
 def plotErrorDt(classname, title_prefix
                 , csvDict=boxes
                 , legend='best'
