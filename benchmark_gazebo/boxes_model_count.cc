@@ -21,34 +21,35 @@
 
 using namespace gazebo;
 
-#define MODELS_MIN 1
-#define MODELS_MAX 105
-#define MODELS_STEP 20
+const int g_models_min = 1;
+const int g_models_max = 105;
+const int g_models_step = 20;
+
 INSTANTIATE_TEST_CASE_P(OdeBoxes, BoxesTest,
   ::testing::Combine(::testing::Values("ode")
-  , ::testing::Values(3.0e-4)
-  , ::testing::Range(MODELS_MIN, MODELS_MAX, MODELS_STEP)
+  , ::testing::Values(5.0e-4)
+  , ::testing::Range(g_models_min, g_models_max, g_models_step)
   , ::testing::Bool()
   , ::testing::Values(true)));
 
 INSTANTIATE_TEST_CASE_P(BulletBoxes, BoxesTest,
   ::testing::Combine(::testing::Values("bullet")
-  , ::testing::Values(3.0e-4)
-  , ::testing::Range(MODELS_MIN, MODELS_MAX, MODELS_STEP)
+  , ::testing::Values(5.0e-4)
+  , ::testing::Range(g_models_min, g_models_max, g_models_step)
   , ::testing::Bool()
   , ::testing::Values(true)));
 
 INSTANTIATE_TEST_CASE_P(SimbodyBoxes, BoxesTest,
   ::testing::Combine(::testing::Values("simbody")
-  , ::testing::Values(7.0e-4)
-  , ::testing::Range(MODELS_MIN, MODELS_MAX, MODELS_STEP)
+  , ::testing::Values(1.0e-3)
+  , ::testing::Range(g_models_min, g_models_max, g_models_step)
   , ::testing::Bool()
   , ::testing::Values(true)));
 
 INSTANTIATE_TEST_CASE_P(DartBoxes, BoxesTest,
   ::testing::Combine(::testing::Values("dart")
-  , ::testing::Values(7.0e-4)
-  , ::testing::Range(MODELS_MIN, MODELS_MAX, MODELS_STEP)
+  , ::testing::Values(5.0e-4)
+  , ::testing::Range(g_models_min, g_models_max, g_models_step)
   , ::testing::Bool()
   , ::testing::Values(true)));
 
