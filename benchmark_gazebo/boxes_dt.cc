@@ -21,19 +21,20 @@
 
 using namespace gazebo;
 
-#define DT_MIN 1e-4
-#define DT_MAX 1.01e-3
-#define DT_STEP 3.0e-4
+const double g_dt_min = 1e-4;
+const double g_dt_max = 1.01e-3;
+const double g_dt_step = 1.0e-4;
+
 INSTANTIATE_TEST_CASE_P(EnginesDtSimple, BoxesTest,
   ::testing::Combine(PHYSICS_ENGINE_VALUES
-  , ::testing::Range(DT_MIN, DT_MAX, DT_STEP)
+  , ::testing::Range(g_dt_min, g_dt_max, g_dt_step)
   , ::testing::Values(1)
   , ::testing::Values(true)
   , ::testing::Values(false)));
 
 INSTANTIATE_TEST_CASE_P(EnginesDtComplex, BoxesTest,
   ::testing::Combine(PHYSICS_ENGINE_VALUES
-  , ::testing::Range(DT_MIN, DT_MAX, DT_STEP)
+  , ::testing::Range(g_dt_min, g_dt_max, g_dt_step)
   , ::testing::Values(1)
   , ::testing::Values(true)
   , ::testing::Values(true)));
