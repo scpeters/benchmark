@@ -39,7 +39,8 @@ make
 make test
 ~~~
 
-Once the tests are completed, they will create csv files in the `test_results` folder.
+Once the tests are completed,
+they will create time-stamped csv files in the `test_results` folder of the git repository.
 
 To load and visualize the test results, you should make sure ipython notebook, matplotlib, and numpy are installed on your machine:
 ~~~
@@ -56,9 +57,10 @@ brew install matplotlib
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 ~~~
 
-With the proper dependencies installed run ipython notebook from the test/accuracy/doc folder:
+With the proper dependencies installed run ipython notebook from the
+root of the git repository and open the
+[boxes_results notebook](http://nbviewer.ipython.org/github/scpeters/benchmark/blob/master/boxes_results.ipynb):
 
 ~~~
-cd test/accuracy/doc
 ipython notebook
 ~~~
