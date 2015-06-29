@@ -7,6 +7,7 @@ These documents can be viewed online in the following locations
 or on your own machine following the instructions given below:
 
 * [Boxes: free-floating rigid bodies](http://nbviewer.ipython.org/github/scpeters/benchmark/blob/master/boxes_description.ipynb)
+![boxes benchmark animation](img/boxes_5_complex.gif)
 
 These benchmarks can be run for the physics engines supported by gazebo:
 
