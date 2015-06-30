@@ -41,6 +41,9 @@ def plotEnginesDt(params, yname
                 , xname='dt'
                 , xlabel='Time step (s)'
                 , ylabel='Error'
+                , xlim=[]
+                , ylim=[]
+                , xscale='linear'
                 , yscale='linear'
                 , title='title'
                 , skipDart=False
@@ -72,11 +75,19 @@ def plotEnginesDt(params, yname
     plt.grid()
     plt.xlabel(xlabel, fontsize=18)
     plt.ylabel(ylabel, fontsize=18)
+    plt.gca().set_xscale(xscale)
     plt.gca().set_yscale(yscale)
     plt.title(title)
     plt.gcf().set_size_inches(10, 6)
-    plt.xlim(vector_scale(plt.xlim(), axscale))
-    if yscale == 'log':
+    if len(xlim) == 2:
+        plt.xlim(xlim)
+    elif xscale == 'log':
+        plt.xlim(vector_log10_scale(plt.xlim(), axscale))
+    else:
+        plt.xlim(vector_scale(plt.xlim(), axscale))
+    if len(ylim) == 2:
+        plt.ylim(ylim)
+    elif yscale == 'log':
         plt.ylim(vector_log10_scale(plt.ylim(), ayscale))
     else:
         plt.ylim(vector_scale(plt.ylim(), ayscale))
@@ -96,6 +107,9 @@ def plotEnginesTime(params, yname
                   , xname='timeRatio'
                   , xlabel='Time ratio (real / sim)'
                   , ylabel='Error'
+                  , xlim=[]
+                  , ylim=[]
+                  , xscale='linear'
                   , yscale='linear'
                   , title='title'
                    ):
@@ -106,6 +120,9 @@ def plotEnginesTime(params, yname
                   , xname=xname
                   , xlabel=xlabel
                   , ylabel=ylabel
+                  , xlim=xlim
+                  , ylim=ylim
+                  , xscale=xscale
                   , yscale=yscale
                   , title=title
                   )
@@ -116,6 +133,9 @@ def plotEnginesModelCount(params, yname
                   , xname='modelCount'
                   , xlabel='Model count'
                   , ylabel='Time ratio (real / sim)'
+                  , xlim=[]
+                  , ylim=[]
+                  , xscale='linear'
                   , yscale='linear'
                   , title='title'
                    ):
@@ -126,6 +146,9 @@ def plotEnginesModelCount(params, yname
                   , xname=xname
                   , xlabel=xlabel
                   , ylabel=ylabel
+                  , xlim=xlim
+                  , ylim=ylim
+                  , xscale=xscale
                   , yscale=yscale
                   , title=title
                   )
@@ -135,6 +158,7 @@ def plot3TimeDt(params
                 , yname='linPositionErr_maxAbs'
                 , title=''
                 , skipDart=False
+                , xscale='linear'
                 , yscale='linear'
                 ):
     plotEnginesDt(params
@@ -142,6 +166,7 @@ def plot3TimeDt(params
                 , yname=yname
                 , title=title
                 , skipDart=skipDart
+                , xscale=xscale
                 , yscale=yscale
                 )
     plotEnginesDt(params
@@ -150,6 +175,7 @@ def plot3TimeDt(params
                 , ylabel='Computational time / sim time'
                 , title='Computational time'
                 , skipDart=skipDart
+                , xscale=xscale
                 , yscale=yscale
                 )
     plotEnginesTime(params
@@ -157,18 +183,20 @@ def plot3TimeDt(params
                 , yname=yname
                 , title=title
                 , skipDart=skipDart
+                , xscale=xscale
                 , yscale=yscale
                 )
 
 def plotErrorDt(classname, title_prefix
                 , csvDict=boxes
                 , legend='best'
+                , xscale='linear'
                 , yscale='linear'):
     p = {}
     p['classname'] = classname
     title_prefix = title_prefix
     plotEnginesDt(p, yname='linPositionErr_maxAbs', title=title_prefix + 'position'
-                  , csvDict=csvDict, legend=legend, yscale=yscale)
+                  , csvDict=csvDict, legend=legend, xscale=xscale, yscale=yscale)
     plotEnginesDt(p, yname='angPositionErr_mag_maxAbs', title=title_prefix + 'angle'
                   , csvDict=csvDict, legend=legend, yscale=yscale)
     plotEnginesDt(p, yname='linVelocityErr_maxAbs', title=title_prefix + 'velocity'
