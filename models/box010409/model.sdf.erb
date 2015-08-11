@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<%
+  # Box with dimensions 10 cm x 40 cm x 90 cm
+  # SI units (length in meters)
+
+  # Geometry
+  dx   = 0.1
+  dy   = 0.4
+  dz   = 0.9
+
+  # inertia
+  mass = 10
+  ixx  = mass/12.0 * (dy**2 + dz**2)
+  iyy  = mass/12.0 * (dz**2 + dx**2)
+  izz  = mass/12.0 * (dx**2 + dy**2)
+%>
+<sdf version="1.5">
+  <model name="box010409">
+    <link name="link">
+      <inertial>
+        <mass><%= mass %></mass>
+        <inertia>
+          <ixx><%= ixx %></ixx>
+          <iyy><%= iyy %></iyy>
+          <izz><%= izz %></izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size><%= dx %> <%= dy %> <%= dz %></size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size><%= dx %> <%= dy %> <%= dz %></size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
