@@ -6,6 +6,9 @@
       <max_step_size>0.001</max_step_size>
       <gravity>0 0 -9.8</gravity>
     </physics>
+    <include>
+      <uri>model://sun</uri>
+    </include>
 
     <model name="box_0">
       <include>

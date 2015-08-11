@@ -27,6 +27,9 @@
       <max_step_size>0.001</max_step_size>
       <gravity><%= gravity.join(" ") %></gravity>
     </physics>
+    <include>
+      <uri>model://sun</uri>
+    </include>
 <%
   boxes.times do |i|
     name = "box_" + i.to_s
