@@ -21,7 +21,12 @@ macro (gz_build_tests)
     add_test(${BINARY_NAME} ${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}
 	    --gtest_output=xml:${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml)
 
-    set_tests_properties(${BINARY_NAME} PROPERTIES TIMEOUT 240)
+    set(_env_vars)
+    list(APPEND _env_vars "GAZEBO_MODEL_PATH=${CMAKE_SOURCE_DIR}/models:${GAZEBO_MODEL_PATH}")
+    set_tests_properties(${BINARY_NAME} PROPERTIES
+      TIMEOUT 240
+      ENVIRONMENT "${_env_vars}"
+    )
 
     # Check that the test produced a result and create a failure if it didn't.
     # Guards against crashed and timed out tests.
