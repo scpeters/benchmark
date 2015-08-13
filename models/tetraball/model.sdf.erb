@@ -164,7 +164,7 @@
       initial_axis = Vector[0.0, 0.0, 1.0]
 
       # Cross product of these unit vectors
-      axes_cross = cylinder_axis.cross_product initial_axis
+      axes_cross = cylinder_axis.cross initial_axis
 
       # The magnitude of the cross product is the sine of the angle between them
       sin_angle = axes_cross.magnitude
