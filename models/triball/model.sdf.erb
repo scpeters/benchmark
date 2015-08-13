@@ -146,7 +146,9 @@
       # The center of the cylinder is the average of the two sphere locations
       cylinder_center = 0.5 * (pos + pos2)
 
-      # The orientation of the cylinder is more challenging
+      # Compute quaternion representing the required cylinder rotation
+      # using axis-angle quaternion representation
+
       # First compute the vector pointing from one sphere to the other
       position_difference = pos - pos2
 
@@ -164,26 +166,17 @@
 
       # The magnitude of the cross product is the sine of the angle between them
       sin_angle = axes_cross.magnitude
+      angle = Math::asin(sin_angle)
 
-      # Compute quaternion representing the required cylinder rotation
-      if sin_angle.abs < 1e-6
-        # if there is very little difference, then no rotation is required
-        # unit quaternion
-        q = Vector[1, 0, 0, 0]
-      else
-        # axis-angle quaternion representation
-        angle = Math::asin(sin_angle)
+      # w component of quaternion
+      c2 = Math::cos(angle / 2)
 
-        # w component of quaternion
-        c2 = Math::cos(angle / 2)
-
-        # axes_cross = sin(angle) * rotation_axis
-        # axis-angle requires sin(angle/2) * rotation_axis
-        # sin(angle) = 2 sin(angle/2) cos(angle/2)
-        # the xyz quaternion components are then axes_cross / (2 * cos(angle/2))
-        q_xyz = axes_cross / (2 * c2)
-        q = Vector[c2, q_xyz[0], q_xyz[1], q_xyz[2]]
-      end
+      # axes_cross = sin(angle) * rotation_axis
+      # axis-angle requires sin(angle/2) * rotation_axis
+      # sin(angle) = 2 sin(angle/2) cos(angle/2)
+      # the xyz quaternion components are then axes_cross / (2 * cos(angle/2))
+      q_xyz = axes_cross / (2 * c2)
+      q = Vector[c2, q_xyz[0], q_xyz[1], q_xyz[2]]
 
       # Convert quaternion to Euler angles
       cylinder_rpy = rpy_from_q(q)
