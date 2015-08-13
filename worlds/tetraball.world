@@ -1,0 +1,382 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.5">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <model name="tetraball_0">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>0.0 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_0" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -150.0</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_1">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>0.3 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_1" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -140.625</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_2">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>0.6 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_2" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -131.25</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_3">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>0.8999999999999999 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_3" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -121.875</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_4">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>1.2 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_4" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -112.5</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_5">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>1.5 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_5" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -103.125</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_6">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>1.7999999999999998 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_6" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -93.75</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_7">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>2.1 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_7" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -84.375</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_8">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>2.4 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_8" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -75.0</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_9">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>2.6999999999999997 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_9" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -65.625</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_10">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>3.0 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_10" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -56.25</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_11">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>3.3 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_11" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -46.875</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_12">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>3.5999999999999996 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_12" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -37.5</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_13">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>3.9 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_13" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -28.125</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_14">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>4.2 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_14" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -18.75</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_15">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>4.5 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_15" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 -9.375</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_16">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>4.8 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_16" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 0.0</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_17">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>5.1 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_17" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 9.375</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_18">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>5.3999999999999995 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_18" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 18.75</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_19">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>5.7 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_19" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 28.125</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_20">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>6.0 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_20" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 37.5</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_21">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>6.3 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_21" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 46.875</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_22">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>6.6 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_22" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 56.25</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_23">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>6.8999999999999995 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_23" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 65.625</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_24">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>7.199999999999999 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_24" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 75.0</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_25">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>7.5 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_25" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 84.375</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_26">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>7.8 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_26" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 93.75</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_27">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>8.1 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_27" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 103.125</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_28">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>8.4 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_28" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 112.5</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_29">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>8.7 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_29" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 121.875</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_30">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>9.0 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_30" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 131.25</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_31">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>9.299999999999999 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_31" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 140.625</angular>
+      </plugin>
+    </model>
+
+    <model name="tetraball_32">
+      <include>
+        <uri>model://tetraball</uri>
+        <pose>9.6 0 0  0 0 0</pose>
+      </include>
+      <plugin name="tetraball_32" filename="libInitialVelocityPlugin.so">
+        <linear>0 15 0</linear>
+        <angular>0 0 150.0</angular>
+      </plugin>
+    </model>
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>8.5 5.5 0.3  0 0 3.14159</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>

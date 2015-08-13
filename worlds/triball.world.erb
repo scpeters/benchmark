@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<%
+  # Triball benchmark example world
+  # SI units (length in meters)
+  require "matrix"
+
+  v0 = [0, 15, 0]
+  N = 16
+  w0max = 150.0
+  w0mags = w0max * Vector.elements((-N..N).to_a) / N.to_f
+%>
+<sdf version="1.5">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+<%
+  w0mags.to_a.each_index do |i|
+    name = "triball_" + i.to_s
+    w0 = [0, 0, w0mags[i]]
+    x0 = 0.3 * i
+%>
+    <model name="<%= name %>">
+      <include>
+        <uri>model://triball</uri>
+        <pose><%= x0 %> 0 0  0 0 0</pose>
+      </include>
+      <plugin name="<%= name %>" filename="libInitialVelocityPlugin.so">
+        <linear><%= v0.join(" ") %></linear>
+        <angular><%= w0.join(" ") %></angular>
+      </plugin>
+    </model>
+<%
+  end
+%>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>8.5 5.5 0.3  0 0 3.14159</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>
