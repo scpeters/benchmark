@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<%
+  # Model illustrating the Dzhanibekov effect
+  # Using dimensions from simbody
+  # SI units (length in meters)
+  require "matrix"
+  def a_to_s(v)
+    Array(v).join(" ")
+  end
+
+  # Box
+  dx   = 0.04
+  dy   = 0.08
+  dz   = 0.60
+  box = {}
+  box[:mass] = 2
+  box[:ixx]  = box[:mass]/12.0 * (dy**2 + dz**2)
+  box[:iyy]  = box[:mass]/12.0 * (dz**2 + dx**2)
+  box[:izz]  = box[:mass]/12.0 * (dx**2 + dy**2)
+
+  # Cylinder along X axis
+  radius = 0.02
+  length = 0.10
+  cylinder = {}
+  cylinder[:mass] = 2
+  cylinder[:ixx] = cylinder[:mass]/2.0 * radius**2
+  cylinder[:iyy] = cylinder[:mass]/12.0 * (length**2 + 3*radius**2)
+  cylinder[:izz] = cylinder[:iyy]
+  cylinderOffset = Vector[-0.05, 0, 0]
+  cylinderRPY = Vector[0, Math::PI/2, 0]
+
+  # Lumped inertia
+  mass = box[:mass] + cylinder[:mass]
+  ixx = box[:ixx] + cylinder[:ixx]
+  iyy = box[:iyy] + cylinder[:iyy]
+  izz = box[:izz] + cylinder[:izz]
+  ixy = 0
+  ixz = 0
+  iyz = 0
+  centerOfMass = cylinder[:mass] * cylinderOffset / mass
+  ixx += cylinder[:mass] * (cylinderOffset[1]**2 + cylinderOffset[2]**2)
+  iyy += cylinder[:mass] * (cylinderOffset[2]**2 + cylinderOffset[0]**2)
+  izz += cylinder[:mass] * (cylinderOffset[0]**2 + cylinderOffset[1]**2)
+  ixy -= cylinder[:mass] * cylinderOffset[0]*cylinderOffset[1]
+  ixz -= cylinder[:mass] * cylinderOffset[0]*cylinderOffset[2]
+  iyz -= cylinder[:mass] * cylinderOffset[1]*cylinderOffset[2]
+%>
+<sdf version="1.5">
+  <model name="dzhanibekov">
+    <link name="link">
+      <inertial>
+        <pose><%= a_to_s(centerOfMass) %>  0 0 0</pose>
+        <mass><%= mass %></mass>
+        <inertia>
+          <ixx><%= ixx %></ixx>
+          <iyy><%= iyy %></iyy>
+          <izz><%= izz %></izz>
+          <ixy><%= ixy %></ixy>
+          <ixz><%= ixz %></ixz>
+          <iyz><%= iyz %></iyz>
+        </inertia>
+      </inertial>
+      <collision name="boxCollision">
+        <geometry>
+          <box>
+            <size><%= dx %> <%= dy %> <%= dz %></size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="boxVisual">
+        <geometry>
+          <box>
+            <size><%= dx %> <%= dy %> <%= dz %></size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <collision name="cylinderCollision">
+        <pose><%= a_to_s(cylinderOffset) %>  <%= a_to_s(cylinderRPY) %></pose>
+        <geometry>
+          <cylinder>
+            <radius><%= radius %></radius>
+            <length><%= length %></length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="cylinderVisual">
+        <pose><%= a_to_s(cylinderOffset) %>  <%= a_to_s(cylinderRPY) %></pose>
+        <geometry>
+          <cylinder>
+            <radius><%= radius %></radius>
+            <length><%= length %></length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

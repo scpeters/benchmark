@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.5">
+  <model name="dzhanibekov">
+    <link name="link">
+      <inertial>
+        <pose>-0.025 0 0  0 0 0</pose>
+        <mass>4</mass>
+        <inertia>
+          <ixx>0.06146666666666666</ixx>
+          <iyy>0.06713333333333334</iyy>
+          <izz>0.0082</izz>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="boxCollision">
+        <geometry>
+          <box>
+            <size>0.04 0.08 0.6</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="boxVisual">
+        <geometry>
+          <box>
+            <size>0.04 0.08 0.6</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <collision name="cylinderCollision">
+        <pose>-0.05 0 0  0 1.5707963267948966 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.1</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="cylinderVisual">
+        <pose>-0.05 0 0  0 1.5707963267948966 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.1</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
