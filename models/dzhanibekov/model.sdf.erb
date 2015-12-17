@@ -17,16 +17,17 @@
   box[:ixx]  = box[:mass]/12.0 * (dy**2 + dz**2)
   box[:iyy]  = box[:mass]/12.0 * (dz**2 + dx**2)
   box[:izz]  = box[:mass]/12.0 * (dx**2 + dy**2)
+  boxOffset = Vector[dx/2, 0, 0]
 
   # Cylinder along X axis
   radius = 0.02
   length = 0.10
   cylinder = {}
-  cylinder[:mass] = 2
+  cylinder[:mass] = 1
   cylinder[:ixx] = cylinder[:mass]/2.0 * radius**2
   cylinder[:iyy] = cylinder[:mass]/12.0 * (length**2 + 3*radius**2)
   cylinder[:izz] = cylinder[:iyy]
-  cylinderOffset = Vector[-0.05, 0, 0]
+  cylinderOffset = Vector[-length/2, 0, 0]
   cylinderRPY = Vector[0, Math::PI/2, 0]
 
   # Lumped inertia
@@ -37,13 +38,22 @@
   ixy = 0
   ixz = 0
   iyz = 0
-  centerOfMass = cylinder[:mass] * cylinderOffset / mass
-  ixx += cylinder[:mass] * (cylinderOffset[1]**2 + cylinderOffset[2]**2)
-  iyy += cylinder[:mass] * (cylinderOffset[2]**2 + cylinderOffset[0]**2)
-  izz += cylinder[:mass] * (cylinderOffset[0]**2 + cylinderOffset[1]**2)
-  ixy -= cylinder[:mass] * cylinderOffset[0]*cylinderOffset[1]
-  ixz -= cylinder[:mass] * cylinderOffset[0]*cylinderOffset[2]
-  iyz -= cylinder[:mass] * cylinderOffset[1]*cylinderOffset[2]
+  centerOfMass = box[:mass] * boxOffset / mass
+  centerOfMass += cylinder[:mass] * cylinderOffset / mass
+  centerOfMassToBox = boxOffset - centerOfMass
+  ixx += box[:mass] * (centerOfMassToBox[1]**2 + centerOfMassToBox[2]**2)
+  iyy += box[:mass] * (centerOfMassToBox[2]**2 + centerOfMassToBox[0]**2)
+  izz += box[:mass] * (centerOfMassToBox[0]**2 + centerOfMassToBox[1]**2)
+  ixy -= box[:mass] * centerOfMassToBox[0]*centerOfMassToBox[1]
+  ixz -= box[:mass] * centerOfMassToBox[0]*centerOfMassToBox[2]
+  iyz -= box[:mass] * centerOfMassToBox[1]*centerOfMassToBox[2]
+  centerOfMassToCylinder = cylinderOffset - centerOfMass
+  ixx += cylinder[:mass] * (centerOfMassToCylinder[1]**2 + centerOfMassToCylinder[2]**2)
+  iyy += cylinder[:mass] * (centerOfMassToCylinder[2]**2 + centerOfMassToCylinder[0]**2)
+  izz += cylinder[:mass] * (centerOfMassToCylinder[0]**2 + centerOfMassToCylinder[1]**2)
+  ixy -= cylinder[:mass] * centerOfMassToCylinder[0]*centerOfMassToCylinder[1]
+  ixz -= cylinder[:mass] * centerOfMassToCylinder[0]*centerOfMassToCylinder[2]
+  iyz -= cylinder[:mass] * centerOfMassToCylinder[1]*centerOfMassToCylinder[2]
 %>
 <sdf version="1.5">
   <model name="dzhanibekov">
@@ -61,6 +71,7 @@
         </inertia>
       </inertial>
       <collision name="boxCollision">
+        <pose><%= a_to_s(boxOffset) %>  0 0 0</pose>
         <geometry>
           <box>
             <size><%= dx %> <%= dy %> <%= dz %></size>
@@ -68,6 +79,7 @@
         </geometry>
       </collision>
       <visual name="boxVisual">
+        <pose><%= a_to_s(boxOffset) %>  0 0 0</pose>
         <geometry>
           <box>
             <size><%= dx %> <%= dy %> <%= dz %></size>

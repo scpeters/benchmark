@@ -4,18 +4,19 @@
   <model name="dzhanibekov">
     <link name="link">
       <inertial>
-        <pose>-0.025 0 0  0 0 0</pose>
-        <mass>4</mass>
+        <pose>-0.0033333333333333322 0 0  0 0 0</pose>
+        <mass>3</mass>
         <inertia>
-          <ixx>0.06146666666666666</ixx>
-          <iyy>0.06713333333333334</iyy>
-          <izz>0.0082</izz>
+          <ixx>0.061266666666666664</ixx>
+          <iyy>0.06446666666666666</iyy>
+          <izz>0.005533333333333333</izz>
           <ixy>0.0</ixy>
           <ixz>0.0</ixz>
           <iyz>0</iyz>
         </inertia>
       </inertial>
       <collision name="boxCollision">
+        <pose>0.02 0 0  0 0 0</pose>
         <geometry>
           <box>
             <size>0.04 0.08 0.6</size>
@@ -23,6 +24,7 @@
         </geometry>
       </collision>
       <visual name="boxVisual">
+        <pose>0.02 0 0  0 0 0</pose>
         <geometry>
           <box>
             <size>0.04 0.08 0.6</size>
