@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.5">
+  <world name="default">
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <gravity>0 0 0</gravity>
+    </physics>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <model name="dzhanibekov_parent">
+      <include>
+        <uri>model://dzhanibekov</uri>
+      </include>
+      <plugin name="dzhanibekov" filename="libInitialVelocityPlugin.so">
+        <linear>0.0 0.0 0.0</linear>
+        <angular>10.0 0.0 1.0e-10</angular>
+      </plugin>
+    </model>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0 4 1  0 0.17 -1.5707963267948966</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>

@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<%
+  # dzhanibekov benchmark example world
+  # SI units (length in meters)
+
+  v0 = [0.0, 0.0, 0.0]
+  w0 = [10.0, 0.0, 1e-10]
+  gravity = [0, 0, 0]
+%>
+<sdf version="1.5">
+  <world name="default">
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <gravity><%= gravity.join(" ") %></gravity>
+    </physics>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <model name="dzhanibekov_parent">
+      <include>
+        <uri>model://dzhanibekov</uri>
+      </include>
+      <plugin name="dzhanibekov" filename="libInitialVelocityPlugin.so">
+        <linear><%= v0.join(" ") %></linear>
+        <angular><%= w0.join(" ") %></angular>
+      </plugin>
+    </model>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0 4 1  0 0.17 <%= -Math::PI/2 %></pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>
