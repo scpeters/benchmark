@@ -1,0 +1,128 @@
+<?xml version="1.0" ?>
+<%
+  # Two boxes at right angles
+  # lumped body has off-diagonal inertia
+  # SI units (length in meters)
+  require "matrix"
+  def a_to_s(v)
+    Array(v).join(" ")
+  end
+
+  # Box dimensions
+  t = 0.02
+  L = 0.20
+  density = 600
+
+  # boxX: aligned with X
+  dxX = L
+  dyX = t
+  dzX = t
+  boxX = {}
+  boxX[:offset] = Vector[(L+t)/2, 0, 0]
+  boxX[:size]   = Vector[dxX, dyX, dzX]
+  boxX[:volume] = dxX * dyX * dzX
+  boxX[:mass] = density * boxX[:volume]
+  boxX[:ixx]  = boxX[:mass]/12.0 * (dyX**2 + dzX**2)
+  boxX[:iyy]  = boxX[:mass]/12.0 * (dzX**2 + dxX**2)
+  boxX[:izz]  = boxX[:mass]/12.0 * (dxX**2 + dyX**2)
+
+  # boxY: aligned with Y
+  dxY = t
+  dyY = L
+  dzY = t
+  boxY = {}
+  boxY[:offset] = Vector[0, (L+t)/2, 0]
+  boxY[:size]   = Vector[dxY, dyY, dzY]
+  boxY[:volume] = dxY * dyY * dzY
+  boxY[:mass] = density * boxY[:volume]
+  boxY[:ixx]  = boxY[:mass]/12.0 * (dyY**2 + dzY**2)
+  boxY[:iyy]  = boxY[:mass]/12.0 * (dzY**2 + dxY**2)
+  boxY[:izz]  = boxY[:mass]/12.0 * (dxY**2 + dyY**2)
+
+  # Lumped inertia
+  mass = boxX[:mass] + boxY[:mass]
+  ixx = boxX[:ixx] + boxY[:ixx]
+  iyy = boxX[:iyy] + boxY[:iyy]
+  izz = boxX[:izz] + boxY[:izz]
+  ixy = 0
+  ixz = 0
+  iyz = 0
+  centerOfMass = boxX[:mass] * boxX[:offset] / mass
+  centerOfMass += boxY[:mass] * boxY[:offset] / mass
+  centerOfMassToBoxX = boxX[:offset] - centerOfMass
+  ixx += boxX[:mass] * (centerOfMassToBoxX[1]**2 + centerOfMassToBoxX[2]**2)
+  iyy += boxX[:mass] * (centerOfMassToBoxX[2]**2 + centerOfMassToBoxX[0]**2)
+  izz += boxX[:mass] * (centerOfMassToBoxX[0]**2 + centerOfMassToBoxX[1]**2)
+  ixy -= boxX[:mass] * centerOfMassToBoxX[0]*centerOfMassToBoxX[1]
+  ixz -= boxX[:mass] * centerOfMassToBoxX[0]*centerOfMassToBoxX[2]
+  iyz -= boxX[:mass] * centerOfMassToBoxX[1]*centerOfMassToBoxX[2]
+  centerOfMassToBoxY = boxY[:offset] - centerOfMass
+  ixx += boxY[:mass] * (centerOfMassToBoxX[1]**2 + centerOfMassToBoxX[2]**2)
+  iyy += boxY[:mass] * (centerOfMassToBoxX[2]**2 + centerOfMassToBoxX[0]**2)
+  izz += boxY[:mass] * (centerOfMassToBoxX[0]**2 + centerOfMassToBoxX[1]**2)
+  ixy -= boxY[:mass] * centerOfMassToBoxX[0]*centerOfMassToBoxX[1]
+  ixz -= boxY[:mass] * centerOfMassToBoxX[0]*centerOfMassToBoxX[2]
+  iyz -= boxY[:mass] * centerOfMassToBoxX[1]*centerOfMassToBoxX[2]
+%>
+<sdf version="1.5">
+  <model name="boxes_right_angle">
+    <link name="link">
+      <inertial>
+        <pose><%= a_to_s(centerOfMass) %>  0 0 0</pose>
+        <mass><%= mass %></mass>
+        <inertia>
+          <ixx><%= ixx %></ixx>
+          <iyy><%= iyy %></iyy>
+          <izz><%= izz %></izz>
+          <ixy><%= ixy %></ixy>
+          <ixz><%= ixz %></ixz>
+          <iyz><%= iyz %></iyz>
+        </inertia>
+      </inertial>
+      <collision name="boxXCollision">
+        <pose><%= a_to_s(boxX[:offset]) %>  0 0 0</pose>
+        <geometry>
+          <box>
+            <size><%= a_to_s(boxX[:size]) %></size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="boxXVisual">
+        <pose><%= a_to_s(boxX[:offset]) %>  0 0 0</pose>
+        <geometry>
+          <box>
+            <size><%= a_to_s(boxX[:size]) %></size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <collision name="boxYCollision">
+        <pose><%= a_to_s(boxY[:offset]) %>  0 0 0</pose>
+        <geometry>
+          <box>
+            <size><%= a_to_s(boxY[:size]) %></size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="boxYVisual">
+        <pose><%= a_to_s(boxY[:offset]) %>  0 0 0</pose>
+        <geometry>
+          <box>
+            <size><%= a_to_s(boxY[:size]) %></size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

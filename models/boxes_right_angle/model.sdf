@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.5">
+  <model name="boxes_right_angle">
+    <link name="link">
+      <inertial>
+        <pose>0.055 0.055 0.0  0 0 0</pose>
+        <mass>0.096</mass>
+        <inertia>
+          <ixx>0.00045520000000000006</ixx>
+          <iyy>0.00045520000000000006</iyy>
+          <izz>0.0009040000000000001</izz>
+          <ixy>0.0002904</ixy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="boxXCollision">
+        <pose>0.11 0 0  0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.02 0.02</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="boxXVisual">
+        <pose>0.11 0 0  0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.02 0.02</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <collision name="boxYCollision">
+        <pose>0 0.11 0  0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02 0.2 0.02</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="boxYVisual">
+        <pose>0 0.11 0  0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02 0.2 0.02</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
