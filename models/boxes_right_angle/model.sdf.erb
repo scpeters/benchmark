@@ -33,6 +33,10 @@
   boxes["Y"] = box_inertia(t, L, t)
   boxes["Y"][:offset] = Vector[0, (L+t)/2, 0]
 
+  # # box Z: aligned with Y axis
+  # boxes["Z"] = box_inertia(t, t, L)
+  # boxes["Z"][:offset] = Vector[0, 0, (L+t)/2]
+
   # Lumped inertia
   mass = boxes.map {|i| i[1][:mass]}.reduce(0, &:+)
   ixx = boxes.map {|i| i[1][:ixx]}.reduce(0, &:+)
