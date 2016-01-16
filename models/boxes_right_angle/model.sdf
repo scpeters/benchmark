@@ -7,14 +7,15 @@
         <pose>0.055 0.055 0.0  0 0 0</pose>
         <mass>0.096</mass>
         <inertia>
-          <ixx>0.00045520000000000006</ixx>
-          <iyy>0.00045520000000000006</iyy>
+          <ixx>0.0004552</ixx>
+          <iyy>0.0004552</iyy>
           <izz>0.0009040000000000001</izz>
           <ixy>0.0002904</ixy>
           <ixz>0.0</ixz>
           <iyz>0.0</iyz>
         </inertia>
       </inertial>
+
       <collision name="boxXCollision">
         <pose>0.11 0 0  0 0 0</pose>
         <geometry>
@@ -37,6 +38,7 @@
           </script>
         </material>
       </visual>
+
       <collision name="boxYCollision">
         <pose>0 0.11 0  0 0 0</pose>
         <geometry>
@@ -59,6 +61,7 @@
           </script>
         </material>
       </visual>
+
     </link>
   </model>
 </sdf>

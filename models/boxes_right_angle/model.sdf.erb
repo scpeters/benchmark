@@ -11,58 +11,46 @@
   # Box dimensions
   t = 0.02
   L = 0.20
-  density = 600
 
-  # boxX: aligned with X
-  dxX = L
-  dyX = t
-  dzX = t
-  boxX = {}
-  boxX[:offset] = Vector[(L+t)/2, 0, 0]
-  boxX[:size]   = Vector[dxX, dyX, dzX]
-  boxX[:volume] = dxX * dyX * dzX
-  boxX[:mass] = density * boxX[:volume]
-  boxX[:ixx]  = boxX[:mass]/12.0 * (dyX**2 + dzX**2)
-  boxX[:iyy]  = boxX[:mass]/12.0 * (dzX**2 + dxX**2)
-  boxX[:izz]  = boxX[:mass]/12.0 * (dxX**2 + dyX**2)
+  def box_inertia(dx, dy, dz)
+    density = 600
+    box = {}
+    box[:size]   = Vector[dx, dy, dz]
+    box[:volume] = dx * dy * dz
+    box[:mass] = density * box[:volume]
+    box[:ixx]  = box[:mass]/12.0 * (dy**2 + dz**2)
+    box[:iyy]  = box[:mass]/12.0 * (dz**2 + dx**2)
+    box[:izz]  = box[:mass]/12.0 * (dx**2 + dy**2)
+    box
+  end
+  boxes = {}
 
-  # boxY: aligned with Y
-  dxY = t
-  dyY = L
-  dzY = t
-  boxY = {}
-  boxY[:offset] = Vector[0, (L+t)/2, 0]
-  boxY[:size]   = Vector[dxY, dyY, dzY]
-  boxY[:volume] = dxY * dyY * dzY
-  boxY[:mass] = density * boxY[:volume]
-  boxY[:ixx]  = boxY[:mass]/12.0 * (dyY**2 + dzY**2)
-  boxY[:iyy]  = boxY[:mass]/12.0 * (dzY**2 + dxY**2)
-  boxY[:izz]  = boxY[:mass]/12.0 * (dxY**2 + dyY**2)
+  # box X: aligned with X axis
+  boxes["X"] = box_inertia(L, t, t)
+  boxes["X"][:offset] = Vector[(L+t)/2, 0, 0]
+
+  # box Y: aligned with Y axis
+  boxes["Y"] = box_inertia(t, L, t)
+  boxes["Y"][:offset] = Vector[0, (L+t)/2, 0]
 
   # Lumped inertia
-  mass = boxX[:mass] + boxY[:mass]
-  ixx = boxX[:ixx] + boxY[:ixx]
-  iyy = boxX[:iyy] + boxY[:iyy]
-  izz = boxX[:izz] + boxY[:izz]
+  mass = boxes.map {|i| i[1][:mass]}.reduce(0, &:+)
+  ixx = boxes.map {|i| i[1][:ixx]}.reduce(0, &:+)
+  iyy = boxes.map {|i| i[1][:iyy]}.reduce(0, &:+)
+  izz = boxes.map {|i| i[1][:izz]}.reduce(0, &:+)
   ixy = 0
   ixz = 0
   iyz = 0
-  centerOfMass = boxX[:mass] * boxX[:offset] / mass
-  centerOfMass += boxY[:mass] * boxY[:offset] / mass
-  centerOfMassToBoxX = boxX[:offset] - centerOfMass
-  ixx += boxX[:mass] * (centerOfMassToBoxX[1]**2 + centerOfMassToBoxX[2]**2)
-  iyy += boxX[:mass] * (centerOfMassToBoxX[2]**2 + centerOfMassToBoxX[0]**2)
-  izz += boxX[:mass] * (centerOfMassToBoxX[0]**2 + centerOfMassToBoxX[1]**2)
-  ixy -= boxX[:mass] * centerOfMassToBoxX[0]*centerOfMassToBoxX[1]
-  ixz -= boxX[:mass] * centerOfMassToBoxX[0]*centerOfMassToBoxX[2]
-  iyz -= boxX[:mass] * centerOfMassToBoxX[1]*centerOfMassToBoxX[2]
-  centerOfMassToBoxY = boxY[:offset] - centerOfMass
-  ixx += boxY[:mass] * (centerOfMassToBoxX[1]**2 + centerOfMassToBoxX[2]**2)
-  iyy += boxY[:mass] * (centerOfMassToBoxX[2]**2 + centerOfMassToBoxX[0]**2)
-  izz += boxY[:mass] * (centerOfMassToBoxX[0]**2 + centerOfMassToBoxX[1]**2)
-  ixy -= boxY[:mass] * centerOfMassToBoxX[0]*centerOfMassToBoxX[1]
-  ixz -= boxY[:mass] * centerOfMassToBoxX[0]*centerOfMassToBoxX[2]
-  iyz -= boxY[:mass] * centerOfMassToBoxX[1]*centerOfMassToBoxX[2]
+  centerOfMass = boxes.map {|i| i[1][:mass] * i[1][:offset] / mass }.reduce(Vector[0, 0, 0], &:+)
+  boxes.keys.each do |k|
+    boxes[k][:centerOfMassToBox] = boxes[k][:offset] - centerOfMass
+  end
+  ixx += boxes.map {|i| i[1][:mass] * (i[1][:centerOfMassToBox][1]**2 + i[1][:centerOfMassToBox][2]**2) }.reduce(0, &:+)
+  iyy += boxes.map {|i| i[1][:mass] * (i[1][:centerOfMassToBox][2]**2 + i[1][:centerOfMassToBox][0]**2) }.reduce(0, &:+)
+  izz += boxes.map {|i| i[1][:mass] * (i[1][:centerOfMassToBox][0]**2 + i[1][:centerOfMassToBox][1]**2) }.reduce(0, &:+)
+  ixy -= boxes.map {|i| i[1][:mass] * i[1][:centerOfMassToBox][0]*i[1][:centerOfMassToBox][1] }.reduce(0, &:+)
+  ixz -= boxes.map {|i| i[1][:mass] * i[1][:centerOfMassToBox][0]*i[1][:centerOfMassToBox][2] }.reduce(0, &:+)
+  iyz -= boxes.map {|i| i[1][:mass] * i[1][:centerOfMassToBox][1]*i[1][:centerOfMassToBox][2] }.reduce(0, &:+)
 %>
 <sdf version="1.5">
   <model name="boxes_right_angle">
@@ -79,19 +67,23 @@
           <iyz><%= iyz %></iyz>
         </inertia>
       </inertial>
-      <collision name="boxXCollision">
-        <pose><%= a_to_s(boxX[:offset]) %>  0 0 0</pose>
+<%
+  boxes.keys.each do |k|
+    box = boxes[k]
+%>
+      <collision name="box<%= k %>Collision">
+        <pose><%= a_to_s(box[:offset]) %>  0 0 0</pose>
         <geometry>
           <box>
-            <size><%= a_to_s(boxX[:size]) %></size>
+            <size><%= a_to_s(box[:size]) %></size>
           </box>
         </geometry>
       </collision>
-      <visual name="boxXVisual">
-        <pose><%= a_to_s(boxX[:offset]) %>  0 0 0</pose>
+      <visual name="box<%= k %>Visual">
+        <pose><%= a_to_s(box[:offset]) %>  0 0 0</pose>
         <geometry>
           <box>
-            <size><%= a_to_s(boxX[:size]) %></size>
+            <size><%= a_to_s(box[:size]) %></size>
           </box>
         </geometry>
         <material>
@@ -101,28 +93,9 @@
           </script>
         </material>
       </visual>
-      <collision name="boxYCollision">
-        <pose><%= a_to_s(boxY[:offset]) %>  0 0 0</pose>
-        <geometry>
-          <box>
-            <size><%= a_to_s(boxY[:size]) %></size>
-          </box>
-        </geometry>
-      </collision>
-      <visual name="boxYVisual">
-        <pose><%= a_to_s(boxY[:offset]) %>  0 0 0</pose>
-        <geometry>
-          <box>
-            <size><%= a_to_s(boxY[:size]) %></size>
-          </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
-          </script>
-        </material>
-      </visual>
+<%
+  end
+%>
     </link>
   </model>
 </sdf>
