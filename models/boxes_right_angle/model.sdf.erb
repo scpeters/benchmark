@@ -25,9 +25,17 @@
   end
   boxes = {}
 
+  # box O: at origin
+  boxes["O"] = box_inertia(t, t, t)
+  boxes["O"][:offset] = Vector[0, 0, 0]
+
   # box X: aligned with X axis
   boxes["X"] = box_inertia(L, t, t)
   boxes["X"][:offset] = Vector[(L+t)/2, 0, 0]
+
+  # # box OX: merge of boxes O and X
+  # boxes["OX"] = box_inertia(L+t, t, t)
+  # boxes["OX"][:offset] = Vector[L/2, 0, 0]
 
   # box Y: aligned with Y axis
   boxes["Y"] = box_inertia(t, L, t)
