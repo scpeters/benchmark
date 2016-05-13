@@ -4,11 +4,11 @@
   <model name="box010409">
     <link name="link">
       <inertial>
-        <mass>10</mass>
+        <mass>12</mass>
         <inertia>
-          <ixx>0.8083333333333335</ixx>
-          <iyy>0.6833333333333335</iyy>
-          <izz>0.14166666666666672</izz>
+          <ixx>0.9700000000000001</ixx>
+          <iyy>0.8200000000000001</iyy>
+          <izz>0.17000000000000004</izz>
           <ixy>0</ixy>
           <ixz>0</ixz>
           <iyz>0</iyz>
