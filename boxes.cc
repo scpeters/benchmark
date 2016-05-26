@@ -36,11 +36,11 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   // Load a blank world (no ground plane)
   Load("worlds/blank.world", true, _physicsEngine);
   physics::WorldPtr world = physics::get_world("default");
-  ASSERT_TRUE(world != NULL);
+  ASSERT_NE(world, nullptr);
 
   // Verify physics engine type
   physics::PhysicsEnginePtr physics = world->GetPhysicsEngine();
-  ASSERT_TRUE(physics != NULL);
+  ASSERT_NE(physics, nullptr);
   ASSERT_EQ(physics->GetType(), _physicsEngine);
 
   // get gravity value
@@ -114,10 +114,10 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
               ignition::math::Vector3d(0.0, dz*2*i, 0.0));
 
     model = this->SpawnModel(msgModel);
-    ASSERT_TRUE(model != NULL);
+    ASSERT_NE(model, nullptr);
 
     link = model->GetLink();
-    ASSERT_TRUE(link != NULL);
+    ASSERT_NE(link, nullptr);
 
     // Set initial conditions
     link->SetLinearVel(v0);
