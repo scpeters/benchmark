@@ -21,6 +21,7 @@
 #include "boxes.hh"
 
 using namespace gazebo;
+using namespace benchmark;
 
 /////////////////////////////////////////////////
 // Boxes:

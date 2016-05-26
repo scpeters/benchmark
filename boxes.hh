@@ -15,39 +15,42 @@
  *
 */
 
-#ifndef _BENCHMARK_GAZEBO_BOXES_HH_
-#define _BENCHMARK_GAZEBO_BOXES_HH_
+#ifndef BENCHMARK_GAZEBO_BOXES_HH_
+#define BENCHMARK_GAZEBO_BOXES_HH_
 
 #include <string>
 #include "gazebo/test/ServerFixture.hh"
 
 namespace gazebo
 {
-  // physics engine
-  // dt
-  // number of boxes to spawn
-  // collision shape on / off
-  // complex trajectory on / off
-  typedef std::tr1::tuple < const char *
-                          , double
-                          , int
-                          , bool
-                          , bool
-                          > char1double1int1bool2;
-  class BoxesTest : public ServerFixture,
-                    public testing::WithParamInterface<char1double1int1bool2>
+  namespace benchmark
   {
-    /// \brief Test accuracy of unconstrained rigid body motion.
-    /// \param[in] _physicsEngine Physics engine to use.
-    /// \param[in] _dt Max time step size.
-    /// \param[in] _modelCount Number of boxes to spawn.
-    /// \param[in] _collision Flag for collision shape on / off.
-    /// \param[in] _complex Flag for complex trajectory on / off.
-    public: void Boxes(const std::string &_physicsEngine
-                     , double _dt
-                     , int _modelCount
-                     , bool _collision
-                     , bool _complex);
-  };
+    // physics engine
+    // dt
+    // number of boxes to spawn
+    // collision shape on / off
+    // complex trajectory on / off
+    typedef std::tr1::tuple < const char *
+                            , double
+                            , int
+                            , bool
+                            , bool
+                            > char1double1int1bool2;
+    class BoxesTest : public ServerFixture,
+                      public testing::WithParamInterface<char1double1int1bool2>
+    {
+      /// \brief Test accuracy of unconstrained rigid body motion.
+      /// \param[in] _physicsEngine Physics engine to use.
+      /// \param[in] _dt Max time step size.
+      /// \param[in] _modelCount Number of boxes to spawn.
+      /// \param[in] _collision Flag for collision shape on / off.
+      /// \param[in] _complex Flag for complex trajectory on / off.
+      public: void Boxes(const std::string &_physicsEngine
+                       , double _dt
+                       , int _modelCount
+                       , bool _collision
+                       , bool _complex);
+    };
+  }
 }
 #endif

@@ -20,6 +20,7 @@
 #include "gazebo/test/helper_physics_generator.hh"
 
 using namespace gazebo;
+using namespace benchmark;
 
 const double g_dt_min = 1e-4;
 const double g_dt_max = 1.01e-3;
