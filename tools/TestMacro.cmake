@@ -23,6 +23,7 @@ macro (gz_build_tests)
 
     set(_env_vars)
     list(APPEND _env_vars "GAZEBO_MODEL_PATH=${CMAKE_SOURCE_DIR}/models:${GAZEBO_MODEL_PATH}")
+    list(APPEND _env_vars "GAZEBO_RESOURCE_PATH=${CMAKE_SOURCE_DIR}:${GAZEBO_RESOURCE_PATH}")
     set_tests_properties(${BINARY_NAME} PROPERTIES
       TIMEOUT 240
       ENVIRONMENT "${_env_vars}"

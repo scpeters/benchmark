@@ -14,7 +14,9 @@
  * limitations under the License.
  *
 */
-#include <string.h>
+#include <map>
+#include <string>
+#include <utility>
 
 #include "gazebo/msgs/msgs.hh"
 #include "gazebo/physics/physics.hh"
@@ -23,18 +25,22 @@
 using namespace gazebo;
 using namespace benchmark;
 
+void OnContacts(ConstContactsPtr &/*_msg*/)
+{
+}
+
+typedef std::map<double, std::pair<physics::ModelPtr, physics::ModelPtr>>
+        mapSeparatedModels;
 /////////////////////////////////////////////////
-// Boxes:
-// Spawn a single box and record accuracy for momentum and enery
-// conservation
-      public: void CollideSpheres(const std::string &_physicsEngine
-                                , double _dt);
+// Collide spheres:
+// Load world with many pairs of spheres in contact.
+// Disable physics and verify collision checking.
 void CollideTest::Spheres(const std::string &_physicsEngine
                         , double _dt)
 {
   // Load collide_spheres world
   Load("worlds/collide_spheres.world", true, _physicsEngine);
-  physics::WorldPtr world = physics::get_world("default");
+  physics::WorldPtr world = physics::get_world("collide_spheres");
   ASSERT_NE(world, nullptr);
 
   // Verify physics engine type
@@ -42,188 +48,135 @@ void CollideTest::Spheres(const std::string &_physicsEngine
   ASSERT_NE(physics, nullptr);
   ASSERT_EQ(physics->GetType(), _physicsEngine);
 
-  // Sphere radius
-  const double dx = 0.1;
-  const double dy = 0.4;
-  const double dz = 0.9;
-  const double mass = 10.0;
-  // expected inertia matrix, recompute if the above change
-  const double Ixx = 0.80833333;
-  const double Iyy = 0.68333333;
-  const double Izz = 0.14166667;
-  const math::Matrix3 I0(Ixx, 0.0, 0.0
-                       , 0.0, Iyy, 0.0
-                       , 0.0, 0.0, Izz);
+  // Disable physics updates
+  world->EnablePhysicsEngine(false);
 
-  // Create box with inertia based on box of uniform density
-  msgs::Model msgModel;
-  msgs::AddBoxLink(msgModel, mass, ignition::math::Vector3d(dx, dy, dz));
-  if (!_collision)
+  // Models with 1mm and 100mm radius
+  auto models = world->GetModels();
+  mapSeparatedModels mmRadius, dmRadius;
+  for (const auto model : models)
   {
-    // Test without collision shapes.
-    msgModel.mutable_link(0)->clear_collision();
-  }
-
-  // spawn multiple boxes
-  // compute error statistics only on the last box
-  ASSERT_GT(_modelCount, 0);
-  physics::ModelPtr model;
-  physics::LinkPtr link;
-
-  // initial linear velocity in global frame
-  math::Vector3 v0;
-
-  // initial angular velocity in global frame
-  math::Vector3 w0;
-
-  // initial energy value
-  double E0;
-
-  if (!_complex)
-  {
-    v0.Set(-0.9, 0.4, 0.1);
-    // Use angular velocity with one non-zero component
-    // to ensure linear angular trajectory
-    w0.Set(0.5, 0, 0);
-    E0 = 5.001041625;
-  }
-  else
-  {
-    v0.Set(-2.0, 2.0, 8.0);
-    // Since Ixx > Iyy > Izz,
-    // angular velocity with large y component
-    // will cause gyroscopic tumbling
-    w0.Set(0.1, 5.0, 0.1);
-    E0 = 368.54641249999997;
-  }
-
-  for (int i = 0; i < _modelCount; ++i)
-  {
-    // give models unique names
-    msgModel.set_name(this->GetUniqueString("model"));
-    // give models unique positions
-    msgs::Set(msgModel.mutable_pose()->mutable_position(),
-              ignition::math::Vector3d(0.0, dz*2*i, 0.0));
-
-    model = this->SpawnModel(msgModel);
-    ASSERT_NE(model, nullptr);
-
-    link = model->GetLink();
-    ASSERT_NE(link, nullptr);
-
-    // Set initial conditions
-    link->SetLinearVel(v0);
-    link->SetAngularVel(w0);
-  }
-  ASSERT_EQ(v0, link->GetWorldCoGLinearVel());
-  ASSERT_EQ(w0, link->GetWorldAngularVel());
-  ASSERT_EQ(I0, link->GetInertial()->GetMOI());
-  ASSERT_NEAR(link->GetWorldEnergy(), E0, 1e-6);
-
-  // initial time
-  common::Time t0 = world->GetSimTime();
-
-  // initial linear position in global frame
-  math::Vector3 p0 = link->GetWorldInertialPose().pos;
-
-  // initial angular momentum in global frame
-  math::Vector3 H0 = link->GetWorldAngularMomentum();
-  ASSERT_EQ(H0, math::Vector3(Ixx, Iyy, Izz) * w0);
-  double H0mag = H0.GetLength();
-
-  // change step size after setting initial conditions
-  // since simbody requires a time step
-  physics->SetMaxStepSize(_dt);
-  const double simDuration = 10.0;
-  int steps = ceil(simDuration / _dt);
-
-  // variables to compute statistics on
-  math::Vector3Stats linearPositionError;
-  math::Vector3Stats linearVelocityError;
-  math::Vector3Stats angularPositionError;
-  math::Vector3Stats angularMomentumError;
-  math::SignalStats energyError;
-  {
-    const std::string statNames = "maxAbs";
-    EXPECT_TRUE(linearPositionError.InsertStatistics(statNames));
-    EXPECT_TRUE(linearVelocityError.InsertStatistics(statNames));
-    EXPECT_TRUE(angularPositionError.InsertStatistics(statNames));
-    EXPECT_TRUE(angularMomentumError.InsertStatistics(statNames));
-    EXPECT_TRUE(energyError.InsertStatistics(statNames));
-  }
-
-  // unthrottle update rate
-  physics->SetRealTimeUpdateRate(0.0);
-  common::Time startTime = common::Time::GetWallTime();
-  for (int i = 0; i < steps; ++i)
-  {
-    world->Step(1);
-
-    // current time
-    double t = (world->GetSimTime() - t0).Double();
-
-    // linear velocity error
-    math::Vector3 v = link->GetWorldCoGLinearVel();
-    linearVelocityError.InsertData(v - (v0 + g*t));
-
-    // linear position error
-    math::Vector3 p = link->GetWorldInertialPose().pos;
-    linearPositionError.InsertData(p - (p0 + v0 * t + 0.5*g*t*t));
-
-    // angular momentum error
-    math::Vector3 H = link->GetWorldAngularMomentum();
-    angularMomentumError.InsertData((H - H0) / H0mag);
-
-    // angular position error
-    if (!_complex)
+    const auto name = model->GetName();
+    double radius;
+    if (name.find("mm") == 0)
     {
-      math::Vector3 a = link->GetWorldInertialPose().rot.GetAsEuler();
-      math::Quaternion angleTrue(w0 * t);
-      angularPositionError.InsertData(a - angleTrue.GetAsEuler());
+      double separation = std::stod(name.substr(2, 2)) / 10;
+      if (name.at(4) == 'A')
+      {
+        mmRadius[separation].first = model;
+      }
+      else if (name.at(4) == 'B')
+      {
+        mmRadius[separation].second = model;
+      }
+      else
+      {
+        gzerr << "Unrecognized model name: " << name << std::endl;
+      }
     }
-
-    // energy error
-    energyError.InsertData((link->GetWorldEnergy() - E0) / E0);
+    else if (name.find("dm") == 0)
+    {
+      double separation = std::stod(name.substr(2, 2)) / 10;
+      if (name.at(4) == 'A')
+      {
+        dmRadius[separation].first = model;
+      }
+      else if (name.at(4) == 'B')
+      {
+        dmRadius[separation].second = model;
+      }
+      else
+      {
+        gzerr << "Unrecognized model name: " << name << std::endl;
+      }
+    }
   }
-  common::Time elapsedTime = common::Time::GetWallTime() - startTime;
-  this->Record("wallTime", elapsedTime.Double());
-  common::Time simTime = (world->GetSimTime() - t0).Double();
-  ASSERT_NEAR(simTime.Double(), simDuration, _dt*1.1);
-  this->Record("simTime", simTime.Double());
-  this->Record("timeRatio", elapsedTime.Double() / simTime.Double());
 
-  // Record statistics on pitch and yaw angles
-  this->Record("energy0", E0);
-  this->Record("energyError_", energyError);
-  this->Record("angMomentum0", H0mag);
-  this->Record("angMomentumErr_", angularMomentumError.Mag());
-  this->Record("angPositionErr", angularPositionError);
-  this->Record("linPositionErr_", linearPositionError.Mag());
-  this->Record("linVelocityErr_", linearVelocityError.Mag());
+  // Confirm no models are missing a partner
+  for (const auto mmPair : mmRadius)
+  {
+    gzdbg << "Checking mm radius pair with separation "
+          << mmPair.first
+          << std::endl;
+    ASSERT_NE(mmPair.second.first, nullptr);
+    ASSERT_NE(mmPair.second.second, nullptr);
+  }
+  for (const auto dmPair : dmRadius)
+  {
+    gzdbg << "Checking dm radius pair with separation "
+          << dmPair.first
+          << std::endl;
+    ASSERT_NE(dmPair.second.first, nullptr);
+    ASSERT_NE(dmPair.second.second, nullptr);
+  }
+
+  // compute distance between object centers
+  for (const auto mmPair : mmRadius)
+  {
+    auto modelA = mmPair.second.first;
+    auto modelB = mmPair.second.second;
+    auto positionDiff = modelA->GetWorldPose().Ign().Pos()
+                      - modelB->GetWorldPose().Ign().Pos();
+    EXPECT_DOUBLE_EQ(positionDiff.Length(), mmPair.first * 1e-3);
+  }
+  for (const auto dmPair : dmRadius)
+  {
+    auto modelA = dmPair.second.first;
+    auto modelB = dmPair.second.second;
+    auto positionDiff = modelA->GetWorldPose().Ign().Pos()
+                      - modelB->GetWorldPose().Ign().Pos();
+    EXPECT_DOUBLE_EQ(positionDiff.Length(), dmPair.first * 1e-1);
+  }
+
+  // You have to subscribe to a contacts topic in order to use
+  // the C++ API, otherwise it skips it to save CPU time
+  auto contactSub = this->node->Subscribe("~/physics/contacts", &OnContacts);
+
+  world->Step(1);
+
+  // Contact data
+  auto contactManager = physics->GetContactManager();
+  ASSERT_NE(contactManager, nullptr);
+  unsigned int contactCount = contactManager->GetContactCount();
+  EXPECT_EQ(contactCount, 16u);
+  auto contacts = contactManager->GetContacts();
+
+  for (unsigned int i = 0; i < contactCount; ++i)
+  {
+    const auto contact = contacts[i];
+    EXPECT_EQ(contact->count, 1);
+    if (contact->count != 1)
+      continue;
+    gzdbg << contact->collision1->GetScopedName()
+          << " "
+          << contact->collision2->GetScopedName()
+          << " "
+          << contact->normals[0] << " normal, "
+          << contact->depths[0] << " depth"
+          << std::endl;
+  }
+
+  // Recording data
+  // // Record statistics on pitch and yaw angles
+  // this->Record("energy0", E0);
+  // this->Record("energyError_", energyError);
+  // this->Record("angMomentum0", H0mag);
+  // this->Record("angMomentumErr_", angularMomentumError.Mag());
+  // this->Record("angPositionErr", angularPositionError);
+  // this->Record("linPositionErr_", linearPositionError.Mag());
+  // this->Record("linVelocityErr_", linearVelocityError.Mag());
 }
 
 /////////////////////////////////////////////////
-TEST_P(BoxesTest, Boxes)
+TEST_P(CollideTest, Spheres)
 {
   std::string physicsEngine = std::tr1::get<0>(GetParam());
   double dt                 = std::tr1::get<1>(GetParam());
-  int modelCount            = std::tr1::get<2>(GetParam());
-  bool collision            = std::tr1::get<3>(GetParam());
-  bool isComplex            = std::tr1::get<4>(GetParam());
   gzdbg << physicsEngine
         << ", dt: " << dt
-        << ", modelCount: " << modelCount
-        << ", collision: " << collision
-        << ", isComplex: " << isComplex
         << std::endl;
   RecordProperty("engine", physicsEngine);
   this->Record("dt", dt);
-  RecordProperty("modelCount", modelCount);
-  RecordProperty("collision", collision);
-  RecordProperty("isComplex", isComplex);
-  Boxes(physicsEngine
-      , dt
-      , modelCount
-      , collision
-      , isComplex);
+  Spheres(physicsEngine
+        , dt);
 }

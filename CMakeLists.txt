@@ -40,3 +40,12 @@ gz_build_tests(${BOXES_TEST_FILES})
 
 set_tests_properties(BENCHMARK_boxes_dt PROPERTIES TIMEOUT 500)
 set_tests_properties(BENCHMARK_boxes_model_count PROPERTIES TIMEOUT 3000)
+
+# Collide sphere tests
+set(COLLIDE_SPHERES_TEST_FILES
+  collide_spheres_dt.cc
+)
+set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS
+  collide_spheres.cc
+)
+gz_build_tests(${COLLIDE_SPHERES_TEST_FILES})
