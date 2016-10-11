@@ -9,9 +9,12 @@
       <uri>model://sun</uri>
     </include>
 
-    <model name="mm30A">
+    <model name="mm30">
       <pose>0.0 0.0 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -44,11 +47,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm30B">
-      <pose>0.003 0.0 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.003 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -81,11 +82,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm25A">
+    <model name="mm25">
       <pose>0.0 0.3 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -118,11 +123,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm25B">
-      <pose>0.0025 0.3 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.0025 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -155,11 +158,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm22A">
+    <model name="mm22">
       <pose>0.0 0.6 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -192,11 +199,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm22B">
-      <pose>0.0022 0.6 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.0022 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -229,11 +234,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm21A">
+    <model name="mm21">
       <pose>0.0 0.8999999999999999 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -266,11 +275,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm21B">
-      <pose>0.0021000000000000003 0.8999999999999999 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.0021000000000000003 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -303,11 +310,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm20A">
+    <model name="mm20">
       <pose>0.0 1.2 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -340,11 +351,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm20B">
-      <pose>0.002 1.2 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.002 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -377,11 +386,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm19A">
+    <model name="mm19">
       <pose>0.0 1.5 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -414,11 +427,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm19B">
-      <pose>0.0019 1.5 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.0019 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -451,11 +462,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm18A">
+    <model name="mm18">
       <pose>0.0 1.7999999999999998 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -488,11 +503,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm18B">
-      <pose>0.0018000000000000002 1.7999999999999998 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.0018000000000000002 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -525,11 +538,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm15A">
+    <model name="mm15">
       <pose>0.0 2.1 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -562,11 +579,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm15B">
-      <pose>0.0015 2.1 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.0015 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -599,11 +614,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm10A">
+    <model name="mm10">
       <pose>0.0 2.4 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -636,11 +655,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm10B">
-      <pose>0.001 2.4 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.001 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -673,11 +690,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm05A">
+    <model name="mm05">
       <pose>0.0 2.6999999999999997 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -710,11 +731,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm05B">
-      <pose>0.0005 2.6999999999999997 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.0005 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -747,11 +766,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm01A">
+    <model name="mm01">
       <pose>0.0 3.0 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -784,11 +807,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm01B">
-      <pose>0.0001 3.0 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.0001 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -821,11 +842,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="mm00A">
+    <model name="mm00">
       <pose>0.0 3.3 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -858,11 +883,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="mm00B">
-      <pose>0.0 3.3 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.5132741228718346e-06</mass>
           <inertia>
@@ -895,11 +918,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm30A">
+    <model name="dm30">
       <pose>0.0 3.5999999999999996 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -932,11 +959,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm30B">
-      <pose>0.30000000000000004 3.5999999999999996 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.30000000000000004 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -969,11 +994,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm25A">
+    <model name="dm25">
       <pose>0.0 3.9 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1006,11 +1035,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm25B">
-      <pose>0.25 3.9 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.25 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1043,11 +1070,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm22A">
+    <model name="dm22">
       <pose>0.0 4.2 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1080,11 +1111,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm22B">
-      <pose>0.22000000000000003 4.2 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.22000000000000003 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1117,11 +1146,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm21A">
+    <model name="dm21">
       <pose>0.0 4.5 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1154,11 +1187,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm21B">
-      <pose>0.21000000000000002 4.5 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.21000000000000002 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1191,11 +1222,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm20A">
+    <model name="dm20">
       <pose>0.0 4.8 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1228,11 +1263,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm20B">
-      <pose>0.2 4.8 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.2 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1265,11 +1298,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm19A">
+    <model name="dm19">
       <pose>0.0 5.1 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1302,11 +1339,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm19B">
-      <pose>0.19 5.1 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.19 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1339,11 +1374,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm18A">
+    <model name="dm18">
       <pose>0.0 5.3999999999999995 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1376,11 +1415,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm18B">
-      <pose>0.18000000000000002 5.3999999999999995 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.18000000000000002 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1413,11 +1450,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm15A">
+    <model name="dm15">
       <pose>0.0 5.7 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1450,11 +1491,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm15B">
-      <pose>0.15000000000000002 5.7 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.15000000000000002 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1487,11 +1526,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm10A">
+    <model name="dm10">
       <pose>0.0 6.0 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1524,11 +1567,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm10B">
-      <pose>0.1 6.0 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.1 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1561,11 +1602,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm05A">
+    <model name="dm05">
       <pose>0.0 6.3 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1598,11 +1643,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm05B">
-      <pose>0.05 6.3 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.05 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1635,11 +1678,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm01A">
+    <model name="dm01">
       <pose>0.0 6.6 0.5  0 0 0</pose>
-      <link name="link">
+      <self_collide>true</self_collide>
+
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1672,11 +1719,9 @@
           </material>
         </visual>
       </link>
-    </model>
 
-    <model name="dm01B">
-      <pose>0.010000000000000002 6.6 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkB">
+        <pose>0.010000000000000002 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1709,48 +1754,15 @@
           </material>
         </visual>
       </link>
+
     </model>
 
-    <model name="dm00A">
+    <model name="dm00">
       <pose>0.0 6.8999999999999995 0.5  0 0 0</pose>
-      <link name="link">
-        <inertial>
-          <mass>2.513274122871835</mass>
-          <inertia>
-            <ixx>0.010053096491487343</ixx>
-            <iyy>0.010053096491487343</iyy>
-            <izz>0.010053096491487343</izz>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyz>0</iyz>
-          </inertia>
-        </inertial>
-        <collision name="collision">
-          <geometry>
-            <sphere>
-              <radius>0.1</radius>
-            </sphere>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.1</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
-            </script>
-          </material>
-        </visual>
-      </link>
-    </model>
+      <self_collide>true</self_collide>
 
-    <model name="dm00B">
-      <pose>0.0 6.8999999999999995 0.5  0 0 0</pose>
-      <link name="link">
+      <link name="linkA">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
         <inertial>
           <mass>2.513274122871835</mass>
           <inertia>
@@ -1783,6 +1795,42 @@
           </material>
         </visual>
       </link>
+
+      <link name="linkB">
+        <pose>0.0 0.0 0.0  0 0 0</pose>
+        <inertial>
+          <mass>2.513274122871835</mass>
+          <inertia>
+            <ixx>0.010053096491487343</ixx>
+            <iyy>0.010053096491487343</iyy>
+            <izz>0.010053096491487343</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <sphere>
+              <radius>0.1</radius>
+            </sphere>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.1</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
     </model>
 
   </world>
