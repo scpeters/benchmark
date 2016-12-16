@@ -21,6 +21,12 @@ These benchmarks can be run for the physics engines supported by gazebo:
 The benchmarks tests are hosted in the
 [scpeters/benchmark](https://github.com/scpeters/benchmark)
 repository on github.
+There are several plots and presentations in the
+[pdf folder](https://github.com/scpeters/benchmark/tree/master/pdf),
+including presentations from
+[ROSCon 2014](https://github.com/scpeters/benchmark/blob/master/pdf/roscon2014_scpeters.pdf)
+([video](https://vimeo.com/107517366))
+and [Multibody 2015](https://github.com/scpeters/benchmark/blob/master/pdf/multibody2015_scpeters.pdf).
 
 # Instructions
 
