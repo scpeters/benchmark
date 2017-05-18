@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <%
-  # Tetraball: a tetrahedron of spheres
+  # Triball: a triangle of spheres
   # SI units (length in meters)
   require "matrix"
   def a_to_s(v)
@@ -78,7 +78,7 @@
   friction = 0.9
 %>
 <sdf version="1.5">
-  <model name="tetraball">
+  <model name="triball">
     <link name="link">
       <pose>0 0 <%= ball_radius %>  0 0 0</pose>
       <inertial>
