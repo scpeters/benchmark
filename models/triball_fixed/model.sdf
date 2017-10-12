@@ -142,6 +142,12 @@
           </sphere>
         </geometry>
         <surface>
+          <contact>
+            <ode>
+              <kp>10000000.0</kp>
+              <kd>1.0</kd>
+            </ode>
+          </contact>
           <friction>
             <ode>
               <mu>0.9</mu>
@@ -190,6 +196,12 @@
           </sphere>
         </geometry>
         <surface>
+          <contact>
+            <ode>
+              <kp>10000000.0</kp>
+              <kd>1.0</kd>
+            </ode>
+          </contact>
           <friction>
             <ode>
               <mu>0.9</mu>
@@ -238,6 +250,12 @@
           </sphere>
         </geometry>
         <surface>
+          <contact>
+            <ode>
+              <kp>10000000.0</kp>
+              <kd>1.0</kd>
+            </ode>
+          </contact>
           <friction>
             <ode>
               <mu>0.9</mu>

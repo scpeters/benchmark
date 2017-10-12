@@ -78,6 +78,9 @@
     chassis_iyz -= ball_mass * dy*dz
   end
 
+  contact_kp = 1e7
+  contact_kd = 1e0
+
   friction = 0.9
   friction_dir1 = Vector[1, 0, 0]
 %>
@@ -222,6 +225,12 @@
           </sphere>
         </geometry>
         <surface>
+          <contact>
+            <ode>
+              <kp><%= contact_kp %></kp>
+              <kd><%= contact_kd %></kd>
+            </ode>
+          </contact>
           <friction>
             <ode>
               <mu><%= friction %></mu>
