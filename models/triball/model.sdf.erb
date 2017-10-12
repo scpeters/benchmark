@@ -76,6 +76,7 @@
   end
 
   friction = 0.9
+  friction_dir1 = Vector[1, 0, 0]
 %>
 <sdf version="1.5">
   <model name="triball">
@@ -116,7 +117,7 @@
             <ode>
               <mu><%= friction %></mu>
               <mu2><%= friction %></mu2>
-              <fdir1>1 0 0</fdir1>
+              <fdir1><%= a_to_s(friction_dir1) %></fdir1>
             </ode>
           </friction>
         </surface>
