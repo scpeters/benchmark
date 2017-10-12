@@ -16,6 +16,9 @@
           <iyz>0.0</iyz>
         </inertia>
       </inertial>
+      <sensor name="imu" type="imu">
+        <always_on>true</always_on>
+      </sensor>
 
       <collision name="collision_a">
         <pose>0.09999999999999999 0 0  0 0 0</pose>
@@ -29,6 +32,7 @@
             <ode>
               <mu>0.9</mu>
               <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
             </ode>
           </friction>
         </surface>
@@ -126,6 +130,7 @@
             <ode>
               <mu>0.9</mu>
               <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
             </ode>
           </friction>
         </surface>
@@ -190,6 +195,7 @@
             <ode>
               <mu>0.9</mu>
               <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
             </ode>
           </friction>
         </surface>

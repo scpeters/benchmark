@@ -93,6 +93,9 @@
           <iyz><%= link_iyz %></iyz>
         </inertia>
       </inertial>
+      <sensor name="imu" type="imu">
+        <always_on>true</always_on>
+      </sensor>
 <%
   # Place sphere collision and visual at each corner
   ball_locations.keys.each_index do |first|
@@ -113,6 +116,7 @@
             <ode>
               <mu><%= friction %></mu>
               <mu2><%= friction %></mu2>
+              <fdir1>1 0 0</fdir1>
             </ode>
           </friction>
         </surface>
