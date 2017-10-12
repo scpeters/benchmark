@@ -17,6 +17,9 @@
           <iyz>0.0</iyz>
         </inertia>
       </inertial>
+      <sensor name="imu" type="imu">
+        <always_on>true</always_on>
+      </sensor>
 
       <collision name="collision_a_to_b">
         <pose>0.20833333333333331 0.36084391824351614 0.0  -1.5707962969925737 -1.0471975511965974 1.047197525387029</pose>
