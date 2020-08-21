@@ -16,7 +16,7 @@ def match(a,b):
 
 # open data file as csv and construct dictionary of arrays
 def makeCsvDictOfArrays(filename):
-    with open(filename, 'rb') as csvfile:
+    with open(filename, 'rt') as csvfile:
         spamreader = csv.DictReader(csvfile)
         csvDict = {}
         for field in spamreader.fieldnames:
