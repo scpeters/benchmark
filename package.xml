@@ -17,8 +17,8 @@
 
     <run_depend>catkin</run_depend>
 
-  <build_depend>gazebo</build_depend>
-    <run_depend>gazebo</run_depend>
+  <build_depend>Gazebo</build_depend>
+    <run_depend>Gazebo</run_depend>
 
   <build_depend>libgazebo6-dev</build_depend>
     <run_depend>libgazebo6</run_depend>
