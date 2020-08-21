@@ -44,15 +44,15 @@ void CollideTest::Spheres(const std::string &_physicsEngine
   ASSERT_NE(world, nullptr);
 
   // Verify physics engine type
-  physics::PhysicsEnginePtr physics = world->GetPhysicsEngine();
+  physics::PhysicsEnginePtr physics = world->Physics();
   ASSERT_NE(physics, nullptr);
   ASSERT_EQ(physics->GetType(), _physicsEngine);
 
   // Disable physics updates
-  world->EnablePhysicsEngine(false);
+  world->SetPhysicsEnabled(false);
 
   // Models with 1mm and 100mm radius
-  auto models = world->GetModels();
+  auto models = world->Models();
   mapSeparatedModels mmRadius, dmRadius;
   for (const auto model : models)
   {
@@ -115,16 +115,16 @@ void CollideTest::Spheres(const std::string &_physicsEngine
   {
     auto modelA = mmPair.second.first;
     auto modelB = mmPair.second.second;
-    auto positionDiff = modelA->GetWorldPose().Ign().Pos()
-                      - modelB->GetWorldPose().Ign().Pos();
+    auto positionDiff = modelA->WorldPose().Pos()
+                      - modelB->WorldPose().Pos();
     EXPECT_DOUBLE_EQ(positionDiff.Length(), mmPair.first * 1e-3);
   }
   for (const auto dmPair : dmRadius)
   {
     auto modelA = dmPair.second.first;
     auto modelB = dmPair.second.second;
-    auto positionDiff = modelA->GetWorldPose().Ign().Pos()
-                      - modelB->GetWorldPose().Ign().Pos();
+    auto positionDiff = modelA->WorldPose().Pos()
+                      - modelB->WorldPose().Pos();
     EXPECT_DOUBLE_EQ(positionDiff.Length(), dmPair.first * 1e-1);
   }
 

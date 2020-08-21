@@ -16,6 +16,10 @@
 */
 #include <string>
 
+#include <ignition/math/Pose3.hh>
+#include <ignition/math/Quaternion.hh>
+#include <ignition/math/Vector3.hh>
+
 #include "gazebo/msgs/msgs.hh"
 #include "gazebo/physics/physics.hh"
 #include "boxes.hh"
@@ -39,16 +43,16 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   ASSERT_NE(world, nullptr);
 
   // Verify physics engine type
-  physics::PhysicsEnginePtr physics = world->GetPhysicsEngine();
+  physics::PhysicsEnginePtr physics = world->Physics();
   ASSERT_NE(physics, nullptr);
   ASSERT_EQ(physics->GetType(), _physicsEngine);
 
   // get gravity value
   if (!_complex)
   {
-    physics->SetGravity(math::Vector3::Zero);
+    world->SetGravity(ignition::math::Vector3d::Zero);
   }
-  math::Vector3 g = physics->GetGravity();
+  ignition::math::Vector3d g = world->Gravity();
 
   // Box size
   const double dx = 0.1;
@@ -59,9 +63,9 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   const double Ixx = 0.80833333;
   const double Iyy = 0.68333333;
   const double Izz = 0.14166667;
-  const math::Matrix3 I0(Ixx, 0.0, 0.0
-                       , 0.0, Iyy, 0.0
-                       , 0.0, 0.0, Izz);
+  const ignition::math::Matrix3d I0(Ixx, 0.0, 0.0
+                                  , 0.0, Iyy, 0.0
+                                  , 0.0, 0.0, Izz);
 
   // Create box with inertia based on box of uniform density
   msgs::Model msgModel;
@@ -79,10 +83,10 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   physics::LinkPtr link;
 
   // initial linear velocity in global frame
-  math::Vector3 v0;
+  ignition::math::Vector3d v0;
 
   // initial angular velocity in global frame
-  math::Vector3 w0;
+  ignition::math::Vector3d w0;
 
   // initial energy value
   double E0;
@@ -123,21 +127,21 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
     link->SetLinearVel(v0);
     link->SetAngularVel(w0);
   }
-  ASSERT_EQ(v0, link->GetWorldCoGLinearVel());
-  ASSERT_EQ(w0, link->GetWorldAngularVel());
-  ASSERT_EQ(I0, link->GetInertial()->GetMOI());
+  ASSERT_EQ(v0, link->WorldCoGLinearVel());
+  ASSERT_EQ(w0, link->WorldAngularVel());
+  ASSERT_EQ(I0, link->GetInertial()->MOI());
   ASSERT_NEAR(link->GetWorldEnergy(), E0, 1e-6);
 
   // initial time
-  common::Time t0 = world->GetSimTime();
+  common::Time t0 = world->SimTime();
 
   // initial linear position in global frame
-  math::Vector3 p0 = link->GetWorldInertialPose().pos;
+  ignition::math::Vector3d p0 = link->WorldInertialPose().Pos();
 
   // initial angular momentum in global frame
-  math::Vector3 H0 = link->GetWorldAngularMomentum();
-  ASSERT_EQ(H0, math::Vector3(Ixx, Iyy, Izz) * w0);
-  double H0mag = H0.GetLength();
+  ignition::math::Vector3d H0 = link->WorldAngularMomentum();
+  ASSERT_EQ(H0, ignition::math::Vector3d(Ixx, Iyy, Izz) * w0);
+  double H0mag = H0.Length();
 
   // change step size after setting initial conditions
   // since simbody requires a time step
@@ -146,11 +150,11 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   int steps = ceil(simDuration / _dt);
 
   // variables to compute statistics on
-  math::Vector3Stats linearPositionError;
-  math::Vector3Stats linearVelocityError;
-  math::Vector3Stats angularPositionError;
-  math::Vector3Stats angularMomentumError;
-  math::SignalStats energyError;
+  ignition::math::Vector3Stats linearPositionError;
+  ignition::math::Vector3Stats linearVelocityError;
+  ignition::math::Vector3Stats angularPositionError;
+  ignition::math::Vector3Stats angularMomentumError;
+  ignition::math::SignalStats energyError;
   {
     const std::string statNames = "maxAbs";
     EXPECT_TRUE(linearPositionError.InsertStatistics(statNames));
@@ -168,26 +172,26 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
     world->Step(1);
 
     // current time
-    double t = (world->GetSimTime() - t0).Double();
+    double t = (world->SimTime() - t0).Double();
 
     // linear velocity error
-    math::Vector3 v = link->GetWorldCoGLinearVel();
+    ignition::math::Vector3d v = link->WorldCoGLinearVel();
     linearVelocityError.InsertData(v - (v0 + g*t));
 
     // linear position error
-    math::Vector3 p = link->GetWorldInertialPose().pos;
+    ignition::math::Vector3d p = link->WorldInertialPose().Pos();
     linearPositionError.InsertData(p - (p0 + v0 * t + 0.5*g*t*t));
 
     // angular momentum error
-    math::Vector3 H = link->GetWorldAngularMomentum();
+    ignition::math::Vector3d H = link->WorldAngularMomentum();
     angularMomentumError.InsertData((H - H0) / H0mag);
 
     // angular position error
     if (!_complex)
     {
-      math::Vector3 a = link->GetWorldInertialPose().rot.GetAsEuler();
-      math::Quaternion angleTrue(w0 * t);
-      angularPositionError.InsertData(a - angleTrue.GetAsEuler());
+      ignition::math::Vector3d a = link->WorldInertialPose().Rot().Euler();
+      ignition::math::Quaterniond angleTrue(w0 * t);
+      angularPositionError.InsertData(a - angleTrue.Euler());
     }
 
     // energy error
@@ -195,7 +199,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   }
   common::Time elapsedTime = common::Time::GetWallTime() - startTime;
   this->Record("wallTime", elapsedTime.Double());
-  common::Time simTime = (world->GetSimTime() - t0).Double();
+  common::Time simTime = (world->SimTime() - t0).Double();
   ASSERT_NEAR(simTime.Double(), simDuration, _dt*1.1);
   this->Record("simTime", simTime.Double());
   this->Record("timeRatio", elapsedTime.Double() / simTime.Double());
