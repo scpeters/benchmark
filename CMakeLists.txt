@@ -5,16 +5,10 @@ enable_testing()
 include(FindBoost)
 find_package(Boost ${MIN_BOOST_VERSION} REQUIRED filesystem thread system)
 
-find_package(GAZEBO 9)
-if (NOT GAZEBO_FOUND)
-  find_package(GAZEBO 10)
-endif()
-if (NOT GAZEBO_FOUND)
-  find_package(GAZEBO 11)
-endif()
+find_package(GAZEBO 11)
 if (NOT GAZEBO_FOUND)
   message (STATUS "Looking for gazebo - not found")
-  message (FATAL_ERROR "Missing: Gazebo version 9, 10, or 11.")
+  message (FATAL_ERROR "Missing: Gazebo version 11.")
 endif()
 include_directories(${GAZEBO_INCLUDE_DIRS}
   ${PROJECT_SOURCE_DIR}/gtest/include
