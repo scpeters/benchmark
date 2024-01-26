@@ -1,12 +1,12 @@
 # Physics benchmarks using the Gazebo Simulator
 
-Documentation for physics benchmarks in the [gazebo simulator](http://gazebosim.org).
+Documentation for physics benchmarks in the [Gazebo-classic simulator](http://classic.gazebosim.org).
 This folder contains documentation for several multibody benchmark problems
 in iPython notebook format.
 These documents can be viewed online in the following locations
 or on your own machine following the instructions given below:
 
-* [Boxes: free-floating rigid bodies](http://nbviewer.ipython.org/github/scpeters/benchmark/blob/master/boxes_description.ipynb)
+* [Boxes: free-floating rigid bodies](boxes_description.ipynb)
 
 ![boxes benchmark animation: simple trajectory](img/boxes_5_simple.gif)
 ![boxes benchmark animation: complex trajectory](img/boxes_5_complex.gif)
@@ -14,7 +14,7 @@ or on your own machine following the instructions given below:
 These benchmarks can be run for the physics engines supported by gazebo:
 
 * [Open Dynamics Engine (ODE)](http://ode.org), (source code on [bitbucket](https://bitbucket.org/odedevs/ode))
-* [Bullet](http://bulletphysics.org), (source code on [github](https://github.com/bulletphysics/bullet3))
+* [Bullet](https://pybullet.org/), (source code on [github](https://github.com/bulletphysics/bullet3))
 * [Simbody](https://simtk.org/home/simbody), (source code on [github](https://github.com/simbody/simbody))
 * [Dynamic Animation and Robotics Toolkit (DART)](http://dartsim.github.io), (source code on [github](https://github.com/dartsim/dart))
 
@@ -32,7 +32,7 @@ and [Multibody 2015](https://github.com/scpeters/benchmark/blob/master/pdf/multi
 
 To run the tests,
 [build or install gazebo 6 or later
-with the optional physics engines](http://gazebosim.org/tutorials/?tut=install#OptionalPhysicsEngines),
+with the optional physics engines](https://classic.gazebosim.org/tutorials?tut=install_from_source&cat=install#OptionalPhysicsEngines),
 and then clone and build the benchmarks:
 
 ~~~
