@@ -20,7 +20,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 # Build gtest
 add_library(gtest STATIC gtest/src/gtest-all.cc)
 add_library(gtest_main STATIC gtest/src/gtest_main.cc)
-target_link_libraries(gtest_main gtest)
+target_link_libraries(gtest_main gtest tbb)
 
 include (${PROJECT_SOURCE_DIR}/tools/TestMacro.cmake)
 set(TEST_TYPE "BENCHMARK")
