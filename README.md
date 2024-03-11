@@ -45,6 +45,11 @@ make
 make test
 ~~~
 
+If `BENCHMARK_collide_spheres_dt` fails by not finding the file `/worlds/collide_spheres.world`, run:
+~~~
+export GAZEBO_RESOURCE_PATH=/path/to/benchmark
+~~~
+
 Once the tests are completed,
 they will create time-stamped csv files in the `test_results` folder of the git repository.
 
