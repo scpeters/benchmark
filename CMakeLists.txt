@@ -24,7 +24,8 @@ target_link_libraries(gtest_main gtest tbb)
 
 include (${PROJECT_SOURCE_DIR}/tools/TestMacro.cmake)
 set(TEST_TYPE "BENCHMARK")
-
+set(WORLDS_PATH "${PROJECT_SOURCE_DIR}/worlds")
+add_definitions(-DWORLDS_PATH="${WORLDS_PATH}")
 # Boxes tests
 set(BOXES_TEST_FILES
   boxes_dt.cc

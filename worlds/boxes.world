@@ -1,0 +1,4364 @@
+<?xml version="1.0" ?>
+
+
+<sdf version="1.5">
+  <world name="default">
+    <physics type="bullet">
+      <max_step_size>0.0005</max_step_size>
+      <gravity>0 0 -9.8</gravity>
+    </physics>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <model name="box_0">
+      <pose>0 0.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_0" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_1">
+      <pose>0 1.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_1" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_2">
+      <pose>0 3.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_2" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_3">
+      <pose>0 5.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_3" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_4">
+      <pose>0 7.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_4" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_5">
+      <pose>0 9.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_5" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_6">
+      <pose>0 10.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_6" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_7">
+      <pose>0 12.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_7" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_8">
+      <pose>0 14.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_8" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_9">
+      <pose>0 16.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_9" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_10">
+      <pose>0 18.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_10" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_11">
+      <pose>0 19.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_11" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_12">
+      <pose>0 21.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_12" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_13">
+      <pose>0 23.400000000000002 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_13" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_14">
+      <pose>0 25.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_14" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_15">
+      <pose>0 27.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_15" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_16">
+      <pose>0 28.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_16" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_17">
+      <pose>0 30.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_17" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_18">
+      <pose>0 32.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_18" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_19">
+      <pose>0 34.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_19" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_20">
+      <pose>0 36.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_20" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_21">
+      <pose>0 37.800000000000004 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_21" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_22">
+      <pose>0 39.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_22" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_23">
+      <pose>0 41.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_23" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_24">
+      <pose>0 43.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_24" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_25">
+      <pose>0 45.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_25" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_26">
+      <pose>0 46.800000000000004 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_26" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_27">
+      <pose>0 48.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_27" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_28">
+      <pose>0 50.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_28" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_29">
+      <pose>0 52.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_29" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_30">
+      <pose>0 54.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_30" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_31">
+      <pose>0 55.800000000000004 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_31" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_32">
+      <pose>0 57.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_32" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_33">
+      <pose>0 59.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_33" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_34">
+      <pose>0 61.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_34" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_35">
+      <pose>0 63.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_35" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_36">
+      <pose>0 64.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_36" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_37">
+      <pose>0 66.60000000000001 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_37" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_38">
+      <pose>0 68.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_38" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_39">
+      <pose>0 70.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_39" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_40">
+      <pose>0 72.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_40" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_41">
+      <pose>0 73.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_41" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_42">
+      <pose>0 75.60000000000001 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_42" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_43">
+      <pose>0 77.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_43" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_44">
+      <pose>0 79.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_44" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_45">
+      <pose>0 81.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_45" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_46">
+      <pose>0 82.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_46" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_47">
+      <pose>0 84.60000000000001 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_47" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_48">
+      <pose>0 86.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_48" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_49">
+      <pose>0 88.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_49" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_50">
+      <pose>0 90.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_50" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_51">
+      <pose>0 91.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_51" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_52">
+      <pose>0 93.60000000000001 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_52" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_53">
+      <pose>0 95.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_53" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_54">
+      <pose>0 97.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_54" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_55">
+      <pose>0 99.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_55" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_56">
+      <pose>0 100.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_56" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_57">
+      <pose>0 102.60000000000001 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_57" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_58">
+      <pose>0 104.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_58" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_59">
+      <pose>0 106.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_59" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_60">
+      <pose>0 108.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_60" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_61">
+      <pose>0 109.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_61" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_62">
+      <pose>0 111.60000000000001 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_62" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_63">
+      <pose>0 113.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_63" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_64">
+      <pose>0 115.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_64" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_65">
+      <pose>0 117.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_65" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_66">
+      <pose>0 118.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_66" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_67">
+      <pose>0 120.60000000000001 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_67" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_68">
+      <pose>0 122.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_68" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_69">
+      <pose>0 124.2 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_69" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_70">
+      <pose>0 126.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_70" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_71">
+      <pose>0 127.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_71" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_72">
+      <pose>0 129.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_72" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_73">
+      <pose>0 131.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_73" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_74">
+      <pose>0 133.20000000000002 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_74" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_75">
+      <pose>0 135.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_75" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_76">
+      <pose>0 136.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_76" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_77">
+      <pose>0 138.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_77" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_78">
+      <pose>0 140.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_78" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_79">
+      <pose>0 142.20000000000002 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_79" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_80">
+      <pose>0 144.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_80" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_81">
+      <pose>0 145.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_81" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_82">
+      <pose>0 147.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_82" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_83">
+      <pose>0 149.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_83" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_84">
+      <pose>0 151.20000000000002 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_84" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_85">
+      <pose>0 153.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_85" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_86">
+      <pose>0 154.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_86" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_87">
+      <pose>0 156.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_87" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_88">
+      <pose>0 158.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_88" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_89">
+      <pose>0 160.20000000000002 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_89" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_90">
+      <pose>0 162.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_90" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_91">
+      <pose>0 163.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_91" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_92">
+      <pose>0 165.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_92" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_93">
+      <pose>0 167.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_93" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_94">
+      <pose>0 169.20000000000002 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_94" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_95">
+      <pose>0 171.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_95" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_96">
+      <pose>0 172.8 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_96" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_97">
+      <pose>0 174.6 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_97" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_98">
+      <pose>0 176.4 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_98" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_99">
+      <pose>0 178.20000000000002 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_99" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <model name="box_100">
+      <pose>0 180.0 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+      <plugin name="box_100" filename="libInitialVelocityPlugin.so">
+        <linear>-2.0 2.0 8.0</linear>
+        <angular>0.1 5.0 0.1</angular>
+      </plugin>
+    </model>
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>8.5 5.5 0.3  0 0 3.14159</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>

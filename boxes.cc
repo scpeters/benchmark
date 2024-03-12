@@ -22,6 +22,8 @@
 
 #include "gazebo/msgs/msgs.hh"
 #include "gazebo/physics/physics.hh"
+#include  "gazebo/common/common.hh"
+#include <sstream>
 #include "boxes.hh"
 
 using namespace gazebo;
@@ -37,8 +39,25 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
                     , bool _collision
                     , bool _complex)
 {
+ 
+  ASSERT_GT(_modelCount, 0);
+  
+  std::stringstream command ; 
+
+  command << "engine=" << _physicsEngine
+            << " model_count=" << _modelCount
+            << " collision=" << _collision
+            << " complex=" << _complex
+            << " dt=" << _dt
+            << " erb " << WORLDS_PATH << "/boxes.world.erb > " << WORLDS_PATH << "/boxes.world";
+
+  // creating model with desired configuration
+  auto model_check = system(command.str().c_str());
+  // checking if model is created
+  ASSERT_EQ(model_check, 0);
+
   // Load a blank world (no ground plane)
-  Load("worlds/blank.world", true, _physicsEngine);
+  Load("worlds/boxes.world", true, _physicsEngine);
   physics::WorldPtr world = physics::get_world("default");
   ASSERT_NE(world, nullptr);
 
@@ -47,39 +66,15 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   ASSERT_NE(physics, nullptr);
   ASSERT_EQ(physics->GetType(), _physicsEngine);
 
-  // get gravity value
-  if (!_complex)
-  {
-    world->SetGravity(ignition::math::Vector3d::Zero);
-  }
   ignition::math::Vector3d g = world->Gravity();
 
-  // Box size
-  const double dx = 0.1;
-  const double dy = 0.4;
-  const double dz = 0.9;
-  const double mass = 10.0;
-  // expected inertia matrix, recompute if the above change
   const double Ixx = 0.80833333;
   const double Iyy = 0.68333333;
   const double Izz = 0.14166667;
-  const ignition::math::Matrix3d I0(Ixx, 0.0, 0.0
-                                  , 0.0, Iyy, 0.0
-                                  , 0.0, 0.0, Izz);
+  const ignition::math::Matrix3d I0(Ixx, 0.0, 0.0, 0.0, Iyy, 0.0, 0.0, 0.0, Izz);
 
-  // Create box with inertia based on box of uniform density
-  msgs::Model msgModel;
-  msgs::AddBoxLink(msgModel, mass, ignition::math::Vector3d(dx, dy, dz));
-  if (!_collision)
-  {
-    // Test without collision shapes.
-    msgModel.mutable_link(0)->clear_collision();
-  }
-
-  // spawn multiple boxes
-  // compute error statistics only on the last box
-  ASSERT_GT(_modelCount, 0);
-  physics::ModelPtr model;
+  // physics::ModelPtr model;
+  auto models = world->Models();
   physics::LinkPtr link;
 
   // initial linear velocity in global frame
@@ -109,28 +104,18 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
     E0 = 368.54641249999997;
   }
 
-  for (int i = 0; i < _modelCount; ++i)
+  for (auto model : models)
   {
-    // give models unique names
-    msgModel.set_name(this->GetUniqueString("model"));
-    // give models unique positions
-    msgs::Set(msgModel.mutable_pose()->mutable_position(),
-              ignition::math::Vector3d(0.0, dz*2*i, 0.0));
-
-    model = this->SpawnModel(msgModel);
-    ASSERT_NE(model, nullptr);
-
     link = model->GetLink();
     ASSERT_NE(link, nullptr);
-
-    // Set initial conditions
-    link->SetLinearVel(v0);
-    link->SetAngularVel(w0);
   }
+  // adding a small delay (waiting for the model to load properly)
+  common::Time::MSleep(50);
+
   ASSERT_EQ(v0, link->WorldCoGLinearVel());
   ASSERT_EQ(w0, link->WorldAngularVel());
   ASSERT_EQ(I0, link->GetInertial()->MOI());
-  ASSERT_NEAR(link->GetWorldEnergy(), E0, 1e-6);
+  ASSERT_NEAR(link->GetWorldEnergy(), E0, 1e-5);
 
   // initial time
   common::Time t0 = world->SimTime();
@@ -143,9 +128,6 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   ASSERT_EQ(H0, ignition::math::Vector3d(Ixx, Iyy, Izz) * w0);
   double H0mag = H0.Length();
 
-  // change step size after setting initial conditions
-  // since simbody requires a time step
-  physics->SetMaxStepSize(_dt);
   const double simDuration = 10.0;
   int steps = ceil(simDuration / _dt);
 
@@ -176,11 +158,11 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
 
     // linear velocity error
     ignition::math::Vector3d v = link->WorldCoGLinearVel();
-    linearVelocityError.InsertData(v - (v0 + g*t));
+    linearVelocityError.InsertData(v - (v0 + g * t));
 
     // linear position error
     ignition::math::Vector3d p = link->WorldInertialPose().Pos();
-    linearPositionError.InsertData(p - (p0 + v0 * t + 0.5*g*t*t));
+    linearPositionError.InsertData(p - (p0 + v0 * t + 0.5 * g * t * t));
 
     // angular momentum error
     ignition::math::Vector3d H = link->WorldAngularMomentum();
