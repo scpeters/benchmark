@@ -45,12 +45,12 @@ INSTANTIATE_TEST_CASE_P(BulletBoxes, BoxesTest,
 //                                            ::testing::Bool(), ::testing::Values(true)));
 // #endif
 
-// #ifdef HAVE_DART
-// INSTANTIATE_TEST_CASE_P(DartBoxes, BoxesTest,
-//                         ::testing::Combine(::testing::Values("dart"), ::testing::Values(5.0e-4),
-//                                            ::testing::Range(g_models_min, g_models_max, g_models_step),
-//                                            ::testing::Bool(), ::testing::Values(true)));
-// #endif
+#ifdef HAVE_DART
+INSTANTIATE_TEST_CASE_P(DartBoxes, BoxesTest,
+                        ::testing::Combine(::testing::Values("dart"), ::testing::Values(5.0e-4),
+                                           ::testing::Range(g_models_min, g_models_max, g_models_step),
+                                           ::testing::Bool(), ::testing::Values(true)));
+#endif
 
 /////////////////////////////////////////////////
 int main(int argc, char** argv)
