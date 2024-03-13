@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
-*/
+ */
 #include <string>
 
 #include <ignition/math/Pose3.hh>
@@ -22,7 +22,7 @@
 
 #include "gazebo/msgs/msgs.hh"
 #include "gazebo/physics/physics.hh"
-#include  "gazebo/common/common.hh"
+#include "gazebo/common/common.hh"
 #include <sstream>
 #include "boxes.hh"
 
@@ -33,23 +33,15 @@ using namespace benchmark;
 // Boxes:
 // Spawn a single box and record accuracy for momentum and enery
 // conservation
-void BoxesTest::Boxes(const std::string &_physicsEngine
-                    , double _dt
-                    , int _modelCount
-                    , bool _collision
-                    , bool _complex)
+void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelCount, bool _collision, bool _complex)
 {
- 
   ASSERT_GT(_modelCount, 0);
-  
-  std::stringstream command ; 
 
-  command << "engine=" << _physicsEngine
-            << " model_count=" << _modelCount
-            << " collision=" << _collision
-            << " complex=" << _complex
-            << " dt=" << _dt
-            << " erb " << WORLDS_PATH << "/boxes.world.erb > " << WORLDS_PATH << "/boxes.world";
+  std::stringstream command;
+
+  command << "engine=" << _physicsEngine << " model_count=" << _modelCount << " collision=" << _collision
+          << " complex=" << _complex << " dt=" << _dt << " erb " << WORLDS_PATH << "/boxes.world.erb > " << WORLDS_PATH
+          << "/boxes.world";
 
   // creating model with desired configuration
   auto model_check = system(command.str().c_str());
@@ -182,7 +174,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
   common::Time elapsedTime = common::Time::GetWallTime() - startTime;
   this->Record("wallTime", elapsedTime.Double());
   common::Time simTime = (world->SimTime() - t0).Double();
-  ASSERT_NEAR(simTime.Double(), simDuration, _dt*1.1);
+  ASSERT_NEAR(simTime.Double(), simDuration, _dt * 1.1);
   this->Record("simTime", simTime.Double());
   this->Record("timeRatio", elapsedTime.Double() / simTime.Double());
 
@@ -200,24 +192,16 @@ void BoxesTest::Boxes(const std::string &_physicsEngine
 TEST_P(BoxesTest, Boxes)
 {
   std::string physicsEngine = std::tr1::get<0>(GetParam());
-  double dt                 = std::tr1::get<1>(GetParam());
-  int modelCount            = std::tr1::get<2>(GetParam());
-  bool collision            = std::tr1::get<3>(GetParam());
-  bool isComplex            = std::tr1::get<4>(GetParam());
-  gzdbg << physicsEngine
-        << ", dt: " << dt
-        << ", modelCount: " << modelCount
-        << ", collision: " << collision
-        << ", isComplex: " << isComplex
-        << std::endl;
+  double dt = std::tr1::get<1>(GetParam());
+  int modelCount = std::tr1::get<2>(GetParam());
+  bool collision = std::tr1::get<3>(GetParam());
+  bool isComplex = std::tr1::get<4>(GetParam());
+  gzdbg << physicsEngine << ", dt: " << dt << ", modelCount: " << modelCount << ", collision: " << collision
+        << ", isComplex: " << isComplex << std::endl;
   RecordProperty("engine", physicsEngine);
   this->Record("dt", dt);
   RecordProperty("modelCount", modelCount);
   RecordProperty("collision", collision);
   RecordProperty("isComplex", isComplex);
-  Boxes(physicsEngine
-      , dt
-      , modelCount
-      , collision
-      , isComplex);
+  Boxes(physicsEngine, dt, modelCount, collision, isComplex);
 }
