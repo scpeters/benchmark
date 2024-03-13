@@ -66,6 +66,9 @@ void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelC
   const ignition::math::Matrix3d I0(Ixx, 0.0, 0.0, 0.0, Iyy, 0.0, 0.0, 0.0, Izz);
 
   // physics::ModelPtr model;
+  std::size_t model_count = world->ModelCount();
+  ASSERT_EQ(model_count, _modelCount);
+
   auto models = world->Models();
   physics::LinkPtr link;
 
