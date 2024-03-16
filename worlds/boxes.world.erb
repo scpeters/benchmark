@@ -5,37 +5,34 @@
   # SI units (length in meters)
   # model_count =1 
   # default values
-  boxes = 1 
-  complex = 0
-  dt =  0.001
-  collision = 1
-  engine = "ode"
   
-  unless (defined?(count_arg)).nil?
-    boxes = count_arg.to_i  
+  unless defined?(model_count)
+    model_count = 1  
   end
 
-  unless (defined?(collision_arg)).nil?
-    collision = collision_arg.to_i
+  unless defined?(collision)
+    collision = 1
   end
 
-  unless (defined?(dt_arg)).nil?
-    dt = dt_arg.to_f
+  unless defined?(dt)
+    dt = 0.001
   end
 
-  unless (defined?(complex_arg)).nil?
-    complex = complex_arg.to_i
+  unless defined?(complex)
+    complex = 0
   end
 
-  unless (defined?(engine_arg)).nil?
-    engine = engine_arg
+  unless defined?(engine)
+    engine = "ode"
   end
+
+  boxes = model_count.to_i
 
   dx   = 0.1
   dy   = 0.4
   dz   = 0.9
 
-  if complex == 0
+  if complex.to_i == 0
     v0 = [-0.9, 0.4, 0.1]
     w0 = [0.5, 0.0, 0.0]
     gravity = [0, 0, 0]
@@ -48,7 +45,7 @@
 <sdf version="1.5">
   <world name="default">
     <physics type="<%= engine %>">
-      <max_step_size><%= dt %></max_step_size>
+      <max_step_size><%= dt.to_f %></max_step_size>
       <gravity><%= gravity.join(" ") %></gravity>
     </physics>
     <include>
@@ -73,7 +70,7 @@
           <iyz>0</iyz>
         </inertia>
       </inertial>
-      <% if collision == 1 %>
+      <% if collision.to_i == 1 %>
         <collision name="collision">
           <geometry>
             <box>
