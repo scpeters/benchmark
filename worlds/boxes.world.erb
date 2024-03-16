@@ -3,19 +3,37 @@
 <%
   # Boxes benchmark example world
   # SI units (length in meters)
+  # model_count =1 
+  # default values
+  boxes = 1 
+  complex = 0
+  dt =  0.001
+  collision = 1
+  engine = "ode"
+  
+  unless (defined?(count_arg)).nil?
+    boxes = count_arg.to_i  
+  end
 
-  count = ENV['model_count'].to_i
-  complex = ENV['complex'].to_i
-  dt = ENV['dt'].to_f
-  engine = ENV['engine']
-  collision = ENV['collision'].to_i
+  unless (defined?(collision_arg)).nil?
+    collision = collision_arg.to_i
+  end
 
-  # Geometry
+  unless (defined?(dt_arg)).nil?
+    dt = dt_arg.to_f
+  end
+
+  unless (defined?(complex_arg)).nil?
+    complex = complex_arg.to_i
+  end
+
+  unless (defined?(engine_arg)).nil?
+    engine = engine_arg
+  end
+
   dx   = 0.1
   dy   = 0.4
   dz   = 0.9
-
-  boxes = count
 
   if complex == 0
     v0 = [-0.9, 0.4, 0.1]
@@ -78,7 +96,8 @@
         </material>
       </visual>
     </link>
-      <plugin name="<%= name %>" filename="libInitialVelocityPlugin.so">
+    
+    <plugin name="<%= name %>" filename="libInitialVelocityPlugin.so">
         <linear><%= v0.join(" ") %></linear>
         <angular><%= w0.join(" ") %></angular>
       </plugin>
