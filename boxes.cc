@@ -39,8 +39,9 @@ void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelC
 
   std::stringstream command;
 
-  command << "engine_arg=" << _physicsEngine << " count_arg=" << _modelCount << " collision_arg=" << _collision
-          << " complex_arg=" << _complex << " dt_arg =" << _dt << " erb " << WORLDS_PATH << "/boxes.world.erb > "
+  command << "erb "
+          << "engine_arg=" << _physicsEngine << " count_arg=" << _modelCount << " collision_arg=" << _collision
+          << " complex_arg=" << _complex << " dt_arg=" << _dt << " " << WORLDS_PATH << "/boxes.world.erb > "
           << WORLDS_PATH << "/boxes.world";
 
   // creating model with desired configuration
