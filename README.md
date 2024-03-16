@@ -33,7 +33,13 @@ and [Multibody 2015](https://github.com/scpeters/benchmark/blob/master/pdf/multi
 To run the tests,
 [build or install gazebo 6 or later
 with the optional physics engines](https://classic.gazebosim.org/tutorials?tut=install_from_source&cat=install#OptionalPhysicsEngines),
-and then clone and build the benchmarks:
+check and install dependency of ruby,
+
+~~~
+sudo apt install ruby
+~~~
+
+then clone and build the benchmarks:
 
 ~~~
 git clone https://github.com/scpeters/benchmark
