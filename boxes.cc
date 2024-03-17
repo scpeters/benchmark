@@ -25,6 +25,7 @@
 #include "gazebo/common/common.hh"
 #include <sstream>
 #include "boxes.hh"
+#include "PathConfig.h"
 
 using namespace gazebo;
 using namespace benchmark;
@@ -38,11 +39,10 @@ void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelC
   ASSERT_GT(_modelCount, 0);
 
   std::stringstream command;
-
   command << "erb "
           << "engine=" << _physicsEngine << " model_count=" << _modelCount << " collision=" << _collision
-          << " complex=" << _complex << " dt=" << _dt << " " << WORLDS_PATH << "/boxes.world.erb > "
-          << WORLDS_PATH << "/boxes.world";
+          << " complex=" << _complex << " dt=" << _dt << " " << WORLDS_FILE_PATH << "/boxes.world.erb > "
+          << WORLDS_FILE_PATH << "/boxes.world";
 
   // creating model with desired configuration
   auto model_check = system(command.str().c_str());

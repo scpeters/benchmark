@@ -7,8 +7,11 @@ macro (gz_build_tests)
   foreach(GTEST_SOURCE_file ${ARGN})
     string(REGEX REPLACE ".cc" "" BINARY_NAME ${GTEST_SOURCE_file})
     set(BINARY_NAME ${TEST_TYPE}_${BINARY_NAME})
+    set(WORLDS_FILE_PATH ${PROJECT_SOURCE_DIR}/worlds)
+    configure_file(${PROJECT_SOURCE_DIR}/PathConfig.h.in PathConfig.h)
     add_executable(${BINARY_NAME} ${GTEST_SOURCE_file}
                    ${GZ_BUILD_TESTS_EXTRA_EXE_SRCS})
+    target_include_directories(${BINARY_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
     target_link_libraries(${BINARY_NAME}
       gtest
