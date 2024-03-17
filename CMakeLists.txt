@@ -46,3 +46,15 @@ set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS
   collide_spheres.cc
 )
 gz_build_tests(${COLLIDE_SPHERES_TEST_FILES})
+
+#Stack boxes test
+set(BOXES_TEST_FILES_
+  stack_boxes_inertial_test.cc
+)
+
+set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS
+  stack_boxes.cc
+)
+
+gz_build_tests(${BOXES_TEST_FILES_})
+set_tests_properties(BENCHMARK_stack_boxes_inertial_test PROPERTIES TIMEOUT 500)

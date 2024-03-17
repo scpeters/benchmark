@@ -1,0 +1,13 @@
+angMomentum0,angMomentumErr_maxAbs,classname,collision,dt,engine,isComplex,linPositionErr_maxAbs,linVelocityErr_maxAbs,mass,modelCount,name,simTime,status,time,timeRatio,wallTime
+0,inf,OdeBoxes/BoxesTest,1,0.0005,ode,1,0,0,21,6,Boxes/0,10,run,4.231,0.151604,1.51604
+0,inf,OdeBoxes/BoxesTest,1,0.0005,ode,1,0,0,41,6,Boxes/1,10,run,3.646,0.163477,1.63477
+0,inf,OdeBoxes/BoxesTest,1,0.0008,ode,1,0,0,21,6,Boxes/2,10.0008,run,3.038,0.125986,1.25996
+0,inf,OdeBoxes/BoxesTest,1,0.0008,ode,1,0,0,41,6,Boxes/3,10.0008,run,3.148,0.12104,1.21049
+0,inf,BulletBoxes/BoxesTest,1,0.0005,bullet,1,0,0,21,6,Boxes/0,10,run,4.181,0.225697,2.25697
+0,inf,BulletBoxes/BoxesTest,1,0.0005,bullet,1,0,0,41,6,Boxes/1,10,run,4.141,0.217819,2.17819
+0,inf,BulletBoxes/BoxesTest,1,0.0008,bullet,1,0,0,21,6,Boxes/2,10.0008,run,3.165,0.136935,1.36946
+0,inf,BulletBoxes/BoxesTest,1,0.0008,bullet,1,0,0,41,6,Boxes/3,10.0008,run,3.419,0.139127,1.39138
+0,inf,DartBoxes/BoxesTest,1,0.0005,dart,1,0,0,21,6,Boxes/0,10,run,32.409,3.07586,30.7586
+0,inf,DartBoxes/BoxesTest,1,0.0005,dart,1,0,0,41,6,Boxes/1,10,run,33.03,3.10759,31.0759
+0,inf,DartBoxes/BoxesTest,1,0.0008,dart,1,0,0,21,6,Boxes/2,10.0008,run,20.952,1.88801,18.8816
+0,inf,DartBoxes/BoxesTest,1,0.0008,dart,1,0,0,41,6,Boxes/3,10.0008,run,20.853,1.89075,18.909
