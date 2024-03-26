@@ -7,12 +7,11 @@ macro (gz_build_tests)
   foreach(GTEST_SOURCE_file ${ARGN})
     string(REGEX REPLACE ".cc" "" BINARY_NAME ${GTEST_SOURCE_file})
     set(BINARY_NAME ${TEST_TYPE}_${BINARY_NAME})
-    set(WORLDS_FILE_PATH ${PROJECT_SOURCE_DIR}/worlds)
+    set(WORLDS_DIR_PATH "${PROJECT_SOURCE_DIR}/worlds")
     configure_file(${PROJECT_SOURCE_DIR}/PathConfig.h.in PathConfig.h)
     add_executable(${BINARY_NAME} ${GTEST_SOURCE_file}
                    ${GZ_BUILD_TESTS_EXTRA_EXE_SRCS})
     target_include_directories(${BINARY_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-
     target_link_libraries(${BINARY_NAME}
       gtest
       gtest_main
@@ -26,7 +25,7 @@ macro (gz_build_tests)
 
     set(_env_vars)
     list(APPEND _env_vars "GAZEBO_MODEL_PATH=${CMAKE_SOURCE_DIR}/models:${GAZEBO_MODEL_PATH}")
-    list(APPEND _env_vars "GAZEBO_RESOURCE_PATH=${CMAKE_SOURCE_DIR}:${GAZEBO_RESOURCE_PATH}")
+    # list(APPEND _env_vars "GAZEBO_RESOURCE_PATH=${CMAKE_SOURCE_DIR}:${GAZEBO_RESOURCE_PATH}")
     set_tests_properties(${BINARY_NAME} PROPERTIES
       TIMEOUT 240
       ENVIRONMENT "${_env_vars}"

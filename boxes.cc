@@ -20,12 +20,13 @@
 #include <ignition/math/Quaternion.hh>
 #include <ignition/math/Vector3.hh>
 
+#include "PathConfig.h"
+#include "boxes.hh"
+#include "gazebo/common/common.hh"
 #include "gazebo/msgs/msgs.hh"
 #include "gazebo/physics/physics.hh"
-#include "gazebo/common/common.hh"
+#include <boost/format.hpp>
 #include <sstream>
-#include "boxes.hh"
-#include "PathConfig.h"
 
 using namespace gazebo;
 using namespace benchmark;
@@ -34,23 +35,30 @@ using namespace benchmark;
 // Boxes:
 // Spawn a single box and record accuracy for momentum and enery
 // conservation
-void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelCount, bool _collision, bool _complex)
-{
+void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
+                      int _modelCount, bool _collision, bool _complex) {
   ASSERT_GT(_modelCount, 0);
+  std::string world_erb_path =
+      boost::str(boost::format("%1%/boxes.world.erb") % WORLDS_DIR_PATH);
 
-  std::stringstream command;
-  command << "erb "
-          << "engine=" << _physicsEngine << " model_count=" << _modelCount << " collision=" << _collision
-          << " complex=" << _complex << " dt=" << _dt << " " << WORLDS_FILE_PATH << "/boxes.world.erb > "
-          << WORLDS_FILE_PATH << "/boxes.world";
+  std::string world_path = boost::str(
+      boost::format(
+          "%1%/BENCHMARK_boxes_worlds/"
+          "boxes_collision%2%_complex%3%_dt%4$.0e_modelCount%5%.world") %
+      WORLDS_DIR_PATH % _collision % _complex % _dt % _modelCount);
+
+  std::string command = boost::str(
+      boost::format(
+          "erb collision=%1% complex=%2% dt=%3% modelCount=%4% %5% > %6%") %
+      _collision % _complex % _dt % _modelCount % world_erb_path % world_path);
 
   // creating model with desired configuration
-  auto model_check = system(command.str().c_str());
+  auto model_check = system(command.c_str());
   // checking if model is created
   ASSERT_EQ(model_check, 0);
 
   // Load a blank world (no ground plane)
-  Load("worlds/boxes.world", true, _physicsEngine);
+  Load(world_path, true, _physicsEngine);
   physics::WorldPtr world = physics::get_world("default");
   ASSERT_NE(world, nullptr);
 
@@ -64,7 +72,8 @@ void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelC
   const double Ixx = 0.80833333;
   const double Iyy = 0.68333333;
   const double Izz = 0.14166667;
-  const ignition::math::Matrix3d I0(Ixx, 0.0, 0.0, 0.0, Iyy, 0.0, 0.0, 0.0, Izz);
+  const ignition::math::Matrix3d I0(Ixx, 0.0, 0.0, 0.0, Iyy, 0.0, 0.0, 0.0,
+                                    Izz);
 
   // physics::ModelPtr model;
   std::size_t model_count = world->ModelCount();
@@ -82,16 +91,13 @@ void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelC
   // initial energy value
   double E0;
 
-  if (!_complex)
-  {
+  if (!_complex) {
     v0.Set(-0.9, 0.4, 0.1);
     // Use angular velocity with one non-zero component
     // to ensure linear angular trajectory
     w0.Set(0.5, 0, 0);
     E0 = 5.001041625;
-  }
-  else
-  {
+  } else {
     v0.Set(-2.0, 2.0, 8.0);
     // Since Ixx > Iyy > Izz,
     // angular velocity with large y component
@@ -100,8 +106,7 @@ void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelC
     E0 = 368.54641249999997;
   }
 
-  for (auto model : models)
-  {
+  for (auto model : models) {
     link = model->GetLink();
     ASSERT_NE(link, nullptr);
   }
@@ -145,8 +150,7 @@ void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelC
   // unthrottle update rate
   physics->SetRealTimeUpdateRate(0.0);
   common::Time startTime = common::Time::GetWallTime();
-  for (int i = 0; i < steps; ++i)
-  {
+  for (int i = 0; i < steps; ++i) {
     world->Step(1);
 
     // current time
@@ -165,8 +169,7 @@ void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelC
     angularMomentumError.InsertData((H - H0) / H0mag);
 
     // angular position error
-    if (!_complex)
-    {
+    if (!_complex) {
       ignition::math::Vector3d a = link->WorldInertialPose().Rot().Euler();
       ignition::math::Quaterniond angleTrue(w0 * t);
       angularPositionError.InsertData(a - angleTrue.Euler());
@@ -193,15 +196,15 @@ void BoxesTest::Boxes(const std::string& _physicsEngine, double _dt, int _modelC
 }
 
 /////////////////////////////////////////////////
-TEST_P(BoxesTest, Boxes)
-{
+TEST_P(BoxesTest, Boxes) {
   std::string physicsEngine = std::tr1::get<0>(GetParam());
   double dt = std::tr1::get<1>(GetParam());
   int modelCount = std::tr1::get<2>(GetParam());
   bool collision = std::tr1::get<3>(GetParam());
   bool isComplex = std::tr1::get<4>(GetParam());
-  gzdbg << physicsEngine << ", dt: " << dt << ", modelCount: " << modelCount << ", collision: " << collision
-        << ", isComplex: " << isComplex << std::endl;
+  gzdbg << physicsEngine << ", dt: " << dt << ", modelCount: " << modelCount
+        << ", collision: " << collision << ", isComplex: " << isComplex
+        << std::endl;
   RecordProperty("engine", physicsEngine);
   this->Record("dt", dt);
   RecordProperty("modelCount", modelCount);

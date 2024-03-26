@@ -5,8 +5,8 @@
   # SI units (length in meters)
 
   # default values
-  unless defined?(model_count)
-    model_count = 1  
+  unless defined?(modelCount)
+    modelCount = 1  
   end
 
   unless defined?(collision)
@@ -21,11 +21,7 @@
     complex = 0
   end
 
-  unless defined?(engine)
-    engine = "ode"
-  end
-
-  boxes = model_count.to_i
+  boxes = modelCount.to_i
 
   # Geometry
   dx   = 0.1
@@ -44,7 +40,7 @@
 %>
 <sdf version="1.5">
   <world name="default">
-    <physics type="<%= engine %>">
+    <physics type="ignored">
       <max_step_size><%= dt.to_f %></max_step_size>
       <gravity><%= gravity.join(" ") %></gravity>
     </physics>
