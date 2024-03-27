@@ -7,7 +7,7 @@ macro (gz_build_tests)
   foreach(GTEST_SOURCE_file ${ARGN})
     string(REGEX REPLACE ".cc" "" BINARY_NAME ${GTEST_SOURCE_file})
     set(BINARY_NAME ${TEST_TYPE}_${BINARY_NAME})
-    set(WORLDS_DIR_PATH "${PROJECT_SOURCE_DIR}/worlds")
+    
     # Check if the file exists
     if (EXISTS "${WORLDS_DIR_PATH}/${BINARY_NAME}")
           message(STATUS "${WORLDS_DIR_PATH}/${BINARY_NAME} exists!")
@@ -15,7 +15,6 @@ macro (gz_build_tests)
           execute_process(COMMAND mkdir ${WORLDS_DIR_PATH}/${BINARY_NAME})
           message(STATUS "${WORLDS_DIR_PATH}/${BINARY_NAME} created")
     endif()
-    configure_file(${PROJECT_SOURCE_DIR}/PathConfig.h.in PathConfig.h)
     add_executable(${BINARY_NAME} ${GTEST_SOURCE_file}
                    ${GZ_BUILD_TESTS_EXTRA_EXE_SRCS})
                   

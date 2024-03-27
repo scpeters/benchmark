@@ -23,7 +23,9 @@ add_library(gtest_main STATIC gtest/src/gtest_main.cc)
 target_link_libraries(gtest_main gtest tbb)
 
 include (${PROJECT_SOURCE_DIR}/tools/TestMacro.cmake)
+set(WORLDS_DIR_PATH "${PROJECT_SOURCE_DIR}/worlds")
 set(TEST_TYPE "BENCHMARK")
+configure_file(${PROJECT_SOURCE_DIR}/PathConfig.h.in PathConfig.h)
 
 # Boxes tests
 set(BOXES_TEST_FILES
