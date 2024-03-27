@@ -37,13 +37,6 @@ gz_build_tests(${BOXES_TEST_FILES})
 
 set_tests_properties(BENCHMARK_boxes_dt PROPERTIES TIMEOUT 500)
 set_tests_properties(BENCHMARK_boxes_model_count PROPERTIES TIMEOUT 3000)
-# Check if the file exists
-if (EXISTS "${WORLDS_DIR_PATH}/BENCHMARK_boxes_worlds")
-    message(STATUS "BENCHMARK_boxes_worlds exists!")
-else()
-    execute_process(COMMAND mkdir "${WORLDS_DIR_PATH}/BENCHMARK_boxes_worlds")
-    message(STATUS "BENCHMARK_boxes_worlds created.")
-endif()
 
 # Collide sphere tests
 set(COLLIDE_SPHERES_TEST_FILES

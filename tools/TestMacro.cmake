@@ -8,9 +8,17 @@ macro (gz_build_tests)
     string(REGEX REPLACE ".cc" "" BINARY_NAME ${GTEST_SOURCE_file})
     set(BINARY_NAME ${TEST_TYPE}_${BINARY_NAME})
     set(WORLDS_DIR_PATH "${PROJECT_SOURCE_DIR}/worlds")
+    # Check if the file exists
+    if (EXISTS "${WORLDS_DIR_PATH}/${BINARY_NAME}")
+          message(STATUS "${WORLDS_DIR_PATH}/${BINARY_NAME} exists!")
+    else()
+          execute_process(COMMAND mkdir ${WORLDS_DIR_PATH}/${BINARY_NAME})
+          message(STATUS "${WORLDS_DIR_PATH}/${BINARY_NAME} created")
+    endif()
     configure_file(${PROJECT_SOURCE_DIR}/PathConfig.h.in PathConfig.h)
     add_executable(${BINARY_NAME} ${GTEST_SOURCE_file}
                    ${GZ_BUILD_TESTS_EXTRA_EXE_SRCS})
+                  
     target_include_directories(${BINARY_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
     target_link_libraries(${BINARY_NAME}
       gtest
@@ -19,6 +27,7 @@ macro (gz_build_tests)
       ${GAZEBO_LIBRARIES}
       ${Boost_LIBRARIES}
     )
+    target_compile_definitions(${BINARY_NAME} PRIVATE TEST_NAME="${BINARY_NAME}")
 
     add_test(${BINARY_NAME} ${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}
 	    --gtest_output=xml:${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml)

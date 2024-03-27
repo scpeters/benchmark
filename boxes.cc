@@ -43,9 +43,9 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
 
   std::string world_path = boost::str(
       boost::format(
-          "%1%/BENCHMARK_boxes_worlds/"
-          "boxes_collision%2%_complex%3%_dt%4$.0e_modelCount%5%.world") %
-      WORLDS_DIR_PATH % _collision % _complex % _dt % _modelCount);
+          "%1%/%2%/"
+          "boxes_collision%3%_complex%4%_dt%5$.0e_modelCount%6%.world") %
+      WORLDS_DIR_PATH % TEST_NAME % _collision % _complex % _dt % _modelCount);
 
   std::string command = boost::str(
       boost::format(
