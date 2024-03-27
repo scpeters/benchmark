@@ -1,17 +1,34 @@
 <?xml version="1.0" ?>
+
 <%
   # Boxes benchmark example world
   # SI units (length in meters)
+
+  # default values
+  unless defined?(modelCount)
+    modelCount = 1  
+  end
+
+  unless defined?(collision)
+    collision = 1
+  end
+
+  unless defined?(dt)
+    dt = 0.001
+  end
+
+  unless defined?(complex)
+    complex = 0
+  end
+
+  boxes = modelCount.to_i
 
   # Geometry
   dx   = 0.1
   dy   = 0.4
   dz   = 0.9
 
-  boxes = 5
-
-  simple = true
-  if simple
+  if complex.to_i == 0
     v0 = [-0.9, 0.4, 0.1]
     w0 = [0.5, 0.0, 0.0]
     gravity = [0, 0, 0]
@@ -23,8 +40,8 @@
 %>
 <sdf version="1.5">
   <world name="default">
-    <physics type="ode">
-      <max_step_size>0.001</max_step_size>
+    <physics type="ignored">
+      <max_step_size><%= dt.to_f %></max_step_size>
       <gravity><%= gravity.join(" ") %></gravity>
     </physics>
     <include>
@@ -36,11 +53,44 @@
     y0 = dz * 2 * i
 %>
     <model name="<%= name %>">
-      <include>
-        <uri>model://box010409</uri>
-        <pose>0 <%= y0 %> 0  0 0 0</pose>
-      </include>
-      <plugin name="<%= name %>" filename="libInitialVelocityPlugin.so">
+      <pose>0 <%= y0 %> 0  0 0 0</pose>
+       <link name="link">
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.8083333333333335</ixx>
+          <iyy>0.6833333333333335</iyy>
+          <izz>0.14166666666666672</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <% if collision.to_i == 1 %>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.9</size>
+            </box>
+          </geometry>
+        </collision>
+      <% end %>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.4 0.9</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+    
+    <plugin name="<%= name %>" filename="libInitialVelocityPlugin.so">
         <linear><%= v0.join(" ") %></linear>
         <angular><%= w0.join(" ") %></angular>
       </plugin>
