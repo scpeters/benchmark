@@ -105,18 +105,17 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
     w0.Set(0.1, 5.0, 0.1);
     E0 = 368.54641249999997;
   }
+  // adding a small delay (waiting for the model to load properly)
+  common::Time::MSleep(50);
 
   for (auto model : models) {
     link = model->GetLink();
     ASSERT_NE(link, nullptr);
+    ASSERT_EQ(v0, link->WorldCoGLinearVel());
+    ASSERT_EQ(w0, link->WorldAngularVel());
+    ASSERT_EQ(I0, link->GetInertial()->MOI(link->GetInertial()->Pose()));
+    ASSERT_NEAR(link->GetWorldEnergy(), E0, 1e-5);
   }
-  // adding a small delay (waiting for the model to load properly)
-  common::Time::MSleep(50);
-
-  ASSERT_EQ(v0, link->WorldCoGLinearVel());
-  ASSERT_EQ(w0, link->WorldAngularVel());
-  ASSERT_EQ(I0, link->GetInertial()->MOI());
-  ASSERT_NEAR(link->GetWorldEnergy(), E0, 1e-5);
 
   // initial time
   common::Time t0 = world->SimTime();
