@@ -7,9 +7,18 @@ macro (gz_build_tests)
   foreach(GTEST_SOURCE_file ${ARGN})
     string(REGEX REPLACE ".cc" "" BINARY_NAME ${GTEST_SOURCE_file})
     set(BINARY_NAME ${TEST_TYPE}_${BINARY_NAME})
+    
+    # Check if the file exists
+    if (EXISTS "${WORLDS_DIR_PATH}/${BINARY_NAME}")
+          message(STATUS "${WORLDS_DIR_PATH}/${BINARY_NAME} exists!")
+    else()
+          execute_process(COMMAND mkdir ${WORLDS_DIR_PATH}/${BINARY_NAME})
+          message(STATUS "${WORLDS_DIR_PATH}/${BINARY_NAME} created")
+    endif()
     add_executable(${BINARY_NAME} ${GTEST_SOURCE_file}
                    ${GZ_BUILD_TESTS_EXTRA_EXE_SRCS})
-
+                  
+    target_include_directories(${BINARY_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
     target_link_libraries(${BINARY_NAME}
       gtest
       gtest_main
@@ -17,13 +26,14 @@ macro (gz_build_tests)
       ${GAZEBO_LIBRARIES}
       ${Boost_LIBRARIES}
     )
+    target_compile_definitions(${BINARY_NAME} PRIVATE TEST_NAME="${BINARY_NAME}")
 
     add_test(${BINARY_NAME} ${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}
 	    --gtest_output=xml:${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml)
 
     set(_env_vars)
     list(APPEND _env_vars "GAZEBO_MODEL_PATH=${CMAKE_SOURCE_DIR}/models:${GAZEBO_MODEL_PATH}")
-    #list(APPEND _env_vars "GAZEBO_RESOURCE_PATH=${CMAKE_SOURCE_DIR}:${GAZEBO_RESOURCE_PATH}")
+    # list(APPEND _env_vars "GAZEBO_RESOURCE_PATH=${CMAKE_SOURCE_DIR}:${GAZEBO_RESOURCE_PATH}")
     set_tests_properties(${BINARY_NAME} PROPERTIES
       TIMEOUT 240
       ENVIRONMENT "${_env_vars}"
