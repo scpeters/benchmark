@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package benchmark;
+
+import "foxglove/Vector3.proto";
+
+message     Pose{
+    // position in world frame
+    foxglove.Vector3 position = 1;
+
+    // orientation of boyd wrt world frame
+    foxglove.Vector3 orientation = 2;
+}
+
+message Twist{
+    // linear velocity in world frame
+    foxglove.Vector3 linear = 1;
+
+    //angular velocity in world frame 
+    foxglove.Vector3 angular = 2;
+}
+
+message Boxes_msg {
+    // name of physics engine
+    string physics_engine = 1;
+    
+    // simulator time step
+    double dt = 2;
+
+    // gravity option 
+    bool complex = 3;
+
+    //number of models 
+    int32 model_count = 4;
+
+    message Box_msg{
+    // model number 
+    int32 model_no = 1;
+
+    // simulation time
+    repeated double sim_time = 2;
+
+    // computational time
+    repeated double computation_time = 3;
+
+    // model pose in world frame
+    repeated Pose poses = 4;
+
+    // model twist in world frame
+    repeated Twist twists = 5;
+    
+    //angular momentum in world frame
+    repeated foxglove.Vector3 angular_momentum = 6;
+    // energy of box
+    repeated double energy = 7;
+}
+
+    repeated Box_msg data = 5;
+}

@@ -19,13 +19,19 @@ macro (gz_build_tests)
                    ${GZ_BUILD_TESTS_EXTRA_EXE_SRCS})
                   
     target_include_directories(${BINARY_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+  
+    include_directories(${CMAKE_SOURCE_DIR}/mcap/cpp/mcap/include)
+
     target_link_libraries(${BINARY_NAME}
       gtest
       gtest_main
       gazebo_test_fixture
       ${GAZEBO_LIBRARIES}
       ${Boost_LIBRARIES}
+      PkgConfig::zstd
+      PkgConfig::lz4
     )
+    
     target_compile_definitions(${BINARY_NAME} PRIVATE TEST_NAME="${BINARY_NAME}")
 
     add_test(${BINARY_NAME} ${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}

@@ -14,6 +14,9 @@
  * limitations under the License.
  *
  */
+#define MCAP_IMPLEMENTATION
+#include "mcap/writer.hpp"
+#include "BuildFileDescriptorSet.h"
 #include <string>
 
 #include <ignition/math/Pose3.hh>
@@ -27,6 +30,7 @@
 #include "gazebo/physics/physics.hh"
 #include <boost/format.hpp>
 #include <sstream>
+#include <proto/boxes_msg.pb.h>
 
 using namespace gazebo;
 using namespace benchmark;
@@ -40,6 +44,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   ASSERT_GT(_modelCount, 0);
   std::string world_erb_path =
       boost::str(boost::format("%1%/boxes.world.erb") % WORLDS_DIR_PATH);
+  
 
   std::string world_path = boost::str(
       boost::format(
@@ -47,10 +52,33 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
           "boxes_collision%3%_complex%4%_dt%5$.0e_modelCount%6%.world") %
       WORLDS_DIR_PATH % TEST_NAME % _collision % _complex % _dt % _modelCount);
 
+  std::string result_path = boost::str(
+    boost::format("test_results/%1%/boxes_collision
+            %2%_complex%3%_dt%4$.0e_modelCount%5%_physicEngine%6%.mcap") % 
+      TEST_NAME % _collision % _complex % _dt % _modelCount % _physicsEngine);
+
   std::string command = boost::str(
       boost::format(
           "erb collision=%1% complex=%2% dt=%3% modelCount=%4% %5% > %6%") %
       _collision % _complex % _dt % _modelCount % world_erb_path % world_path);
+
+  // mcap writer 
+  mcap::McapWriter writer;
+  mcap::McapWriterOptions opts("protobuf");
+  auto s = writer.open(result_path);
+  mcap::ChannelId channelId;
+
+  {
+    mcap::Schema schema(
+      "benchmark.boxes_msg", "protobuf",
+      foxglove::BuildFileDescriptorSet(benchmark::boxes_msg::descriptor()).SerializeAsString());
+    writer.addSchema(schema);
+
+    // choose an arbitrary topic name.
+    mcap::Channel channel("BENCHMARK_boxes", "protobuf", schema.id);
+    writer.addChannel(channel);
+    channelId = channel.id;
+  }
 
   // creating model with desired configuration
   auto model_check = system(command.c_str());
@@ -74,6 +102,14 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   const double Izz = 0.14166667;
   const ignition::math::Matrix3d I0(Ixx, 0.0, 0.0, 0.0, Iyy, 0.0, 0.0, 0.0,
                                     Izz);
+
+  benchmark::Boxes_msg boxes_msg;
+
+  boxes_msg.set_physics_engine(_physicsEngine);
+  boxes_msg.set_dt(_dt);
+  boxes_msg.set_complex(_complex);
+  boxes_msg.set_model_count(_modelCount);
+  boxes_msg.add_data()->set_model_no(1);
 
   // physics::ModelPtr model;
   std::size_t model_count = world->ModelCount();
@@ -131,67 +167,65 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   const double simDuration = 10.0;
   int steps = ceil(simDuration / _dt);
 
-  // variables to compute statistics on
-  ignition::math::Vector3Stats linearPositionError;
-  ignition::math::Vector3Stats linearVelocityError;
-  ignition::math::Vector3Stats angularPositionError;
-  ignition::math::Vector3Stats angularMomentumError;
-  ignition::math::SignalStats energyError;
-  {
-    const std::string statNames = "maxAbs";
-    EXPECT_TRUE(linearPositionError.InsertStatistics(statNames));
-    EXPECT_TRUE(linearVelocityError.InsertStatistics(statNames));
-    EXPECT_TRUE(angularPositionError.InsertStatistics(statNames));
-    EXPECT_TRUE(angularMomentumError.InsertStatistics(statNames));
-    EXPECT_TRUE(energyError.InsertStatistics(statNames));
-  }
-
   // unthrottle update rate
   physics->SetRealTimeUpdateRate(0.0);
   common::Time startTime = common::Time::GetWallTime();
+  comman::Time loop_time = 0;
   for (int i = 0; i < steps; ++i) {
     world->Step(1);
-
+    // current wall time
+    common::Time elapsedTime = common::Time::GetWallTime() - startTime - loop_time;
+    boxes_msg.mutable_data(0)->add_computation_time(elapsedTime.double())
+    comman::Time loop_start_time = common::Time::GetWallTime();
     // current time
     double t = (world->SimTime() - t0).Double();
+    boxes_msg.mutable_data(0)->add_sim_time(t)
 
-    // linear velocity error
+    // linear velocity 
     ignition::math::Vector3d v = link->WorldCoGLinearVel();
-    linearVelocityError.InsertData(v - (v0 + g * t));
+    // angular velocity
+    ignition::math::Vector3d o = link->WorldAngularVel();
+    auto twist = box_msg.mutable_data(0)->add_twist();
+    twist->mutable_linear()->set_x(v.X());
+    twist->mutable_linear())->set_y(v.Y());
+    twist->mutable_linear())->set_z(v.Z());
+    twist->mutable_angular()->set_x(o.X());
+    twist->mutable_angular())->set_y(o.Y());
+    twist->mutable_angular())->set_z(o.Z());
 
-    // linear position error
+    // linear position 
     ignition::math::Vector3d p = link->WorldInertialPose().Pos();
-    linearPositionError.InsertData(p - (p0 + v0 * t + 0.5 * g * t * t));
-
-    // angular momentum error
-    ignition::math::Vector3d H = link->WorldAngularMomentum();
-    angularMomentumError.InsertData((H - H0) / H0mag);
-
-    // angular position error
-    if (!_complex) {
-      ignition::math::Vector3d a = link->WorldInertialPose().Rot().Euler();
-      ignition::math::Quaterniond angleTrue(w0 * t);
-      angularPositionError.InsertData(a - angleTrue.Euler());
+    // angular position
+    ignition::math::Vector3d a = link->WorldInertialPose().Rot().Euler();
+    auto pose = box_msg.mutable_data(0)->add_pose();
+    pose->mutable_position()->set_x(p.X());
+    pose->mutable_position()->set_y(p.Y());
+    pose->mutable_position()->set_z(p.Z());
+    pose->mutable_orientation()->set_x(a.X());
+    pose->mutable_orientation()->set_y(a.Y());
+    pose->mutable_orientation()->set_z(a.Z());
+    comman::Time loop_time += common::Time::GetWallTime() - loop_start_time;
     }
+  
 
-    // energy error
-    energyError.InsertData((link->GetWorldEnergy() - E0) / E0);
-  }
-  common::Time elapsedTime = common::Time::GetWallTime() - startTime;
-  this->Record("wallTime", elapsedTime.Double());
   common::Time simTime = (world->SimTime() - t0).Double();
   ASSERT_NEAR(simTime.Double(), simDuration, _dt * 1.1);
-  this->Record("simTime", simTime.Double());
-  this->Record("timeRatio", elapsedTime.Double() / simTime.Double());
 
-  // Record statistics on pitch and yaw angles
-  this->Record("energy0", E0);
-  this->Record("energyError_", energyError);
-  this->Record("angMomentum0", H0mag);
-  this->Record("angMomentumErr_", angularMomentumError.Mag());
-  this->Record("angPositionErr", angularPositionError);
-  this->Record("linPositionErr_", linearPositionError.Mag());
-  this->Record("linVelocityErr_", linearVelocityError.Mag());
+  std::string serialized = boxes_msg.SerializeAsString();
+  mcap::Message msg;
+  msg.channelId = channelId;
+  msg.data = reinterpret_cast<const std::byte*>(serialized.data());
+  msg.dataSize = serialized.size();
+  const auto res = writer.write(msg);
+  if (!res.ok()) {
+    std::cerr << "Failed to write message: " << res.message << "\n";
+    writer.terminate();
+    writer.close();
+    std::ignore = std::remove(outputFilename);
+    return 1;
+  }
+  
+  writer.close();
 }
 
 /////////////////////////////////////////////////
@@ -204,10 +238,5 @@ TEST_P(BoxesTest, Boxes) {
   gzdbg << physicsEngine << ", dt: " << dt << ", modelCount: " << modelCount
         << ", collision: " << collision << ", isComplex: " << isComplex
         << std::endl;
-  RecordProperty("engine", physicsEngine);
-  this->Record("dt", dt);
-  RecordProperty("modelCount", modelCount);
-  RecordProperty("collision", collision);
-  RecordProperty("isComplex", isComplex);
   Boxes(physicsEngine, dt, modelCount, collision, isComplex);
 }

@@ -3,7 +3,12 @@ project(benchmark_gazebo)
 enable_testing()
 
 include(FindBoost)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(zstd REQUIRED IMPORTED_TARGET libzstd)
+pkg_check_modules(lz4 REQUIRED IMPORTED_TARGET liblz4)
+
 find_package(Boost ${MIN_BOOST_VERSION} REQUIRED filesystem thread system)
+
 
 find_package(GAZEBO 11)
 if (NOT GAZEBO_FOUND)
@@ -22,11 +27,10 @@ add_library(gtest STATIC gtest/src/gtest-all.cc)
 add_library(gtest_main STATIC gtest/src/gtest_main.cc)
 target_link_libraries(gtest_main gtest tbb)
 
-include (${PROJECT_SOURCE_DIR}/tools/TestMacro.cmake)
+include(${PROJECT_SOURCE_DIR}/tools/TestMacro.cmake)
 set(WORLDS_DIR_PATH "${PROJECT_SOURCE_DIR}/worlds")
 set(TEST_TYPE "BENCHMARK")
 configure_file(${PROJECT_SOURCE_DIR}/PathConfig.h.in PathConfig.h)
-
 # Boxes tests
 set(BOXES_TEST_FILES
   boxes_dt.cc
