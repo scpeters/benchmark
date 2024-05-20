@@ -75,8 +75,6 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
       "benchmark_proto.Boxes_msg", "protobuf",
       foxglove::BuildFileDescriptorSet(benchmark_proto::Boxes_msg::descriptor()).SerializeAsString());
     writer.addSchema(schema);
-
-    // choose an arbitrary topic name.
     mcap::Channel channel("boxes_states", "protobuf", schema.id);
     writer.addChannel(channel);
     channelId = channel.id;
