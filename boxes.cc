@@ -66,9 +66,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   mcap::McapWriter writer;
   auto options = mcap::McapWriterOptions("");
   const auto s = writer.open(result_name.c_str(), options);
-  if (!s.ok()) {
-      std::cerr << "Failed to open " << result_name << " for writing: " << s.message
-                << std::endl;}
+  ASSET_EQ(s.ok(), true)
 
   mcap::ChannelId channelId;
 
