@@ -16,7 +16,7 @@
  */
 #define MCAP_IMPLEMENTATION
 #include "mcap/writer.hpp"
-#include "BuildFileDescriptorSet.h"
+#include "protobuf/BuildFileDescriptorSet.h"
 #include <string>
 
 #include <ignition/math/Pose3.hh>
@@ -30,7 +30,7 @@
 #include "gazebo/physics/physics.hh"
 #include <boost/format.hpp>
 #include <sstream>
-#include <proto/boxes_msg.pb.h>
+#include <boxes_msg.pb.h>
 
 using namespace gazebo;
 using namespace benchmark;
@@ -52,9 +52,9 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
           "boxes_collision%3%_complex%4%_dt%5$.0e_modelCount%6%.world") %
       WORLDS_DIR_PATH % TEST_NAME % _collision % _complex % _dt % _modelCount);
 
-  std::string result_path = boost::str(
-    boost::format("test_results/%1%/boxes_collision
-            %2%_complex%3%_dt%4$.0e_modelCount%5%_physicEngine%6%.mcap") % 
+  std::string result_name = boost::str(
+    boost::format("%1%/%2%/boxes_collision"
+            "%3%_complex%4%_dt%5$.0e_modelCount%6%_%7%.mcap") % RESULT_DIR_PATH %
       TEST_NAME % _collision % _complex % _dt % _modelCount % _physicsEngine);
 
   std::string command = boost::str(
@@ -64,18 +64,22 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
 
   // mcap writer 
   mcap::McapWriter writer;
-  mcap::McapWriterOptions opts("protobuf");
-  auto s = writer.open(result_path);
+  auto options = mcap::McapWriterOptions("");
+  const auto s = writer.open(result_name.c_str(), options);
+  if (!s.ok()) {
+      std::cerr << "Failed to open " << result_name << " for writing: " << s.message
+                << std::endl;}
+
   mcap::ChannelId channelId;
 
   {
     mcap::Schema schema(
-      "benchmark.boxes_msg", "protobuf",
-      foxglove::BuildFileDescriptorSet(benchmark::boxes_msg::descriptor()).SerializeAsString());
+      "benchmark_proto.Boxes_msg", "protobuf",
+      foxglove::BuildFileDescriptorSet(benchmark_proto::Boxes_msg::descriptor()).SerializeAsString());
     writer.addSchema(schema);
 
     // choose an arbitrary topic name.
-    mcap::Channel channel("BENCHMARK_boxes", "protobuf", schema.id);
+    mcap::Channel channel("boxes_states", "protobuf", schema.id);
     writer.addChannel(channel);
     channelId = channel.id;
   }
@@ -103,7 +107,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   const ignition::math::Matrix3d I0(Ixx, 0.0, 0.0, 0.0, Iyy, 0.0, 0.0, 0.0,
                                     Izz);
 
-  benchmark::Boxes_msg boxes_msg;
+  benchmark_proto::Boxes_msg boxes_msg;
 
   boxes_msg.set_physics_engine(_physicsEngine);
   boxes_msg.set_dt(_dt);
@@ -162,7 +166,6 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   // initial angular momentum in global frame
   ignition::math::Vector3d H0 = link->WorldAngularMomentum();
   ASSERT_EQ(H0, ignition::math::Vector3d(Ixx, Iyy, Izz) * w0);
-  double H0mag = H0.Length();
 
   const double simDuration = 10.0;
   int steps = ceil(simDuration / _dt);
@@ -170,41 +173,39 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   // unthrottle update rate
   physics->SetRealTimeUpdateRate(0.0);
   common::Time startTime = common::Time::GetWallTime();
-  comman::Time loop_time = 0;
   for (int i = 0; i < steps; ++i) {
     world->Step(1);
     // current wall time
-    common::Time elapsedTime = common::Time::GetWallTime() - startTime - loop_time;
-    boxes_msg.mutable_data(0)->add_computation_time(elapsedTime.double())
-    comman::Time loop_start_time = common::Time::GetWallTime();
+    common::Time elapsedTime = common::Time::GetWallTime() - startTime;
+    boxes_msg.mutable_data(0)->add_computation_time(elapsedTime.Double());
+    common::Time loop_start_time = common::Time::GetWallTime();
     // current time
     double t = (world->SimTime() - t0).Double();
-    boxes_msg.mutable_data(0)->add_sim_time(t)
+    boxes_msg.mutable_data(0)->add_sim_time(t);
 
     // linear velocity 
     ignition::math::Vector3d v = link->WorldCoGLinearVel();
     // angular velocity
     ignition::math::Vector3d o = link->WorldAngularVel();
-    auto twist = box_msg.mutable_data(0)->add_twist();
+    auto twist = boxes_msg.mutable_data(0)->add_twists();
     twist->mutable_linear()->set_x(v.X());
-    twist->mutable_linear())->set_y(v.Y());
-    twist->mutable_linear())->set_z(v.Z());
+    twist->mutable_linear()->set_y(v.Y());
+    twist->mutable_linear()->set_z(v.Z());
     twist->mutable_angular()->set_x(o.X());
-    twist->mutable_angular())->set_y(o.Y());
-    twist->mutable_angular())->set_z(o.Z());
+    twist->mutable_angular()->set_y(o.Y());
+    twist->mutable_angular()->set_z(o.Z());
 
     // linear position 
     ignition::math::Vector3d p = link->WorldInertialPose().Pos();
     // angular position
     ignition::math::Vector3d a = link->WorldInertialPose().Rot().Euler();
-    auto pose = box_msg.mutable_data(0)->add_pose();
+    auto pose = boxes_msg.mutable_data(0)->add_poses();
     pose->mutable_position()->set_x(p.X());
     pose->mutable_position()->set_y(p.Y());
     pose->mutable_position()->set_z(p.Z());
     pose->mutable_orientation()->set_x(a.X());
     pose->mutable_orientation()->set_y(a.Y());
     pose->mutable_orientation()->set_z(a.Z());
-    comman::Time loop_time += common::Time::GetWallTime() - loop_start_time;
     }
   
 
@@ -221,8 +222,6 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
     std::cerr << "Failed to write message: " << res.message << "\n";
     writer.terminate();
     writer.close();
-    std::ignore = std::remove(outputFilename);
-    return 1;
   }
   
   writer.close();

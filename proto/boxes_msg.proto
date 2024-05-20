@@ -1,24 +1,32 @@
 syntax = "proto3";
 
-package benchmark;
-
-import "foxglove/Vector3.proto";
-
-message     Pose{
+package benchmark_proto;
+message  Pose{
     // position in world frame
-    foxglove.Vector3 position = 1;
+    Vector3 position = 1;
 
     // orientation of boyd wrt world frame
-    foxglove.Vector3 orientation = 2;
+    Vector3 orientation = 2;
 }
 
 message Twist{
     // linear velocity in world frame
-    foxglove.Vector3 linear = 1;
+    Vector3 linear = 1;
 
     //angular velocity in world frame 
-    foxglove.Vector3 angular = 2;
+    Vector3 angular = 2;
 }
+
+message Vector3 {
+    // x coordinate length
+    double x = 1;
+  
+    // y coordinate length
+    double y = 2;
+  
+    // z coordinate length
+    double z = 3;
+  }
 
 message Boxes_msg {
     // name of physics engine
@@ -48,11 +56,6 @@ message Boxes_msg {
 
     // model twist in world frame
     repeated Twist twists = 5;
-    
-    //angular momentum in world frame
-    repeated foxglove.Vector3 angular_momentum = 6;
-    // energy of box
-    repeated double energy = 7;
 }
 
     repeated Box_msg data = 5;

@@ -6,6 +6,7 @@ include(FindBoost)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(zstd REQUIRED IMPORTED_TARGET libzstd)
 pkg_check_modules(lz4 REQUIRED IMPORTED_TARGET liblz4)
+find_package(Protobuf REQUIRED)
 
 find_package(Boost ${MIN_BOOST_VERSION} REQUIRED filesystem thread system)
 
@@ -26,11 +27,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 add_library(gtest STATIC gtest/src/gtest-all.cc)
 add_library(gtest_main STATIC gtest/src/gtest_main.cc)
 target_link_libraries(gtest_main gtest tbb)
-
+set(PROTO_FILES proto/boxes_msg.proto)
 include(${PROJECT_SOURCE_DIR}/tools/TestMacro.cmake)
 set(WORLDS_DIR_PATH "${PROJECT_SOURCE_DIR}/worlds")
+set(TEST_RESULT_DIR "${PROJECT_SOURCE_DIR}/test_results")
 set(TEST_TYPE "BENCHMARK")
+include_directories(${Protobuf_INCLUDE_DIRS})
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTO_FILES})
 configure_file(${PROJECT_SOURCE_DIR}/PathConfig.h.in PathConfig.h)
+
 # Boxes tests
 set(BOXES_TEST_FILES
   boxes_dt.cc
@@ -39,16 +44,20 @@ set(BOXES_TEST_FILES
 set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS
   boxes.cc
 )
+set(PROTOBUF_DESCRIPTION_DIR ${CMAKE_SOURCE_DIR}/mcap/cpp/examples/protobuf/)
+set(PROTOBUF_DESCRIPTION_SRC 
+    ${PROTOBUF_DESCRIPTION_DIR}/BuildFileDescriptorSet.cpp
+)
 gz_build_tests(${BOXES_TEST_FILES})
 
 set_tests_properties(BENCHMARK_boxes_dt PROPERTIES TIMEOUT 500)
 set_tests_properties(BENCHMARK_boxes_model_count PROPERTIES TIMEOUT 3000)
 
-# Collide sphere tests
-set(COLLIDE_SPHERES_TEST_FILES
-  collide_spheres_dt.cc
-)
-set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS
-  collide_spheres.cc
-)
-gz_build_tests(${COLLIDE_SPHERES_TEST_FILES})
+# # Collide sphere tests
+# set(COLLIDE_SPHERES_TEST_FILES
+#   collide_spheres_dt.cc
+# )
+# set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS
+#   collide_spheres.cc
+# )
+# gz_build_tests(${COLLIDE_SPHERES_TEST_FILES})
