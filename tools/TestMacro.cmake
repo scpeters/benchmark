@@ -17,10 +17,10 @@ macro (gz_build_tests)
     endif()
 
     if (EXISTS "${TEST_RESULT_DIR}/${BINARY_NAME}")
-          message(STATUS "${TEST_RESULT_DIR}/${BINARY_NAME} exists!")
+          message(STATUS "${TEST_RESULT_DIR}/${BINARY_NAME}/MCAP exists!")
     else()
           execute_process(COMMAND mkdir ${TEST_RESULT_DIR}/${BINARY_NAME})
-          message(STATUS "${TEST_RESULT_DIR}/${BINARY_NAME} created")
+          message(STATUS "${TEST_RESULT_DIR}/${BINARY_NAME}/MCAP created")
     endif()
   
     add_executable(${BINARY_NAME} ${GTEST_SOURCE_file}

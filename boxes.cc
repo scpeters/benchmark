@@ -53,7 +53,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
       WORLDS_DIR_PATH % TEST_NAME % _collision % _complex % _dt % _modelCount);
 
   std::string result_name = boost::str(
-    boost::format("%1%/%2%/boxes_collision"
+    boost::format("%1%/%2%/boxes_collision/MCAP"
             "%3%_complex%4%_dt%5$.0e_modelCount%6%_%7%.mcap") % RESULT_DIR_PATH %
       TEST_NAME % _collision % _complex % _dt % _modelCount % _physicsEngine);
 
