@@ -53,7 +53,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
       WORLDS_DIR_PATH % TEST_NAME % _collision % _complex % _dt % _modelCount);
 
   std::string result_name = boost::str(
-    boost::format("%1%/%2%/boxes_collision/MCAP"
+    boost::format("%1%/%2%/MCAP/boxes_collision"
             "%3%_complex%4%_dt%5$.0e_modelCount%6%_%7%.mcap") % RESULT_DIR_PATH %
       TEST_NAME % _collision % _complex % _dt % _modelCount % _physicsEngine);
 
@@ -66,7 +66,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   mcap::McapWriter writer;
   auto options = mcap::McapWriterOptions("");
   const auto s = writer.open(result_name.c_str(), options);
-  ASSET_EQ(s.ok(), true)
+  ASSERT_EQ(s.ok(), true);
 
   mcap::ChannelId channelId;
 
@@ -215,9 +215,9 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   msg.dataSize = serialized.size();
   const auto res = writer.write(msg);
   if (!res.ok()) {
-    std::cerr << "Failed to write message: " << res.message << "\n";
     writer.terminate();
     writer.close();
+    ASSERT_EQ(res.ok(), true);
   }
   
   writer.close();

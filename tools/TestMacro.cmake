@@ -20,6 +20,8 @@ macro (gz_build_tests)
           message(STATUS "${TEST_RESULT_DIR}/${BINARY_NAME}/MCAP exists!")
     else()
           execute_process(COMMAND mkdir ${TEST_RESULT_DIR}/${BINARY_NAME})
+          execute_process(COMMAND mkdir ${TEST_RESULT_DIR}/${BINARY_NAME}/MCAP)
+
           message(STATUS "${TEST_RESULT_DIR}/${BINARY_NAME}/MCAP created")
     endif()
   
@@ -39,8 +41,7 @@ macro (gz_build_tests)
       ${GAZEBO_LIBRARIES}
       ${Boost_LIBRARIES}
       ${Protobuf_LIBRARIES}
-      PkgConfig::zstd
-      PkgConfig::lz4
+      ${MCAP_DEPENDENCIES}
     )
     
     target_compile_definitions(${BINARY_NAME} PRIVATE TEST_NAME="${BINARY_NAME}")
@@ -61,12 +62,9 @@ macro (gz_build_tests)
 	  #   ${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml)
 
     # Convert junit file to csv and place in test_results in source folder.
-    # add_test(NAME csv_${BINARY_NAME}
-    #   COMMAND
-    #   ${PROJECT_SOURCE_DIR}/tools/junit_to_csv.rb
-	  #   ${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml
-    #   ${CMAKE_CURRENT_SOURCE_DIR}/test_results/${BINARY_NAME}
-    #)
+    add_test(NAME csv_${BINARY_NAME}
+      COMMAND python3 ${PROJECT_SOURCE_DIR}/tools/mcap_to_csv.py ${BINARY_NAME}
+    )
 
     install(TARGETS ${BINARY_NAME}
       RUNTIME DESTINATION bin

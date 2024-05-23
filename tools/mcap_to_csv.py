@@ -1,9 +1,10 @@
 import os
+import sys
 from mcap_protobuf.decoder import DecoderFactory
 from mcap.reader import make_reader
 import csv
 
-DIRECTORY_NAMES = ["BENCHMARK_boxes_dt", "BENCHMARK_boxes_model_count"]
+DIRECTORY_NAME = sys.argv[1]
 
 FEILD_NAMES = [
     "sim_time",
@@ -27,16 +28,20 @@ FEILD_NAMES = [
 def get_file_names(result_folder):
 
     current_dir = os.getcwd()
-    result_dir = os.path.join(current_dir, "test_results", result_folder)
+    parent_dir = os.path.dirname(current_dir)
+    result_dir = os.path.join(parent_dir, "test_results", result_folder)
     mcap_dir = os.path.join(result_dir, "MCAP")
     file_names = os.listdir(mcap_dir)
-
+    csv_dir = os.path.join(result_dir,"CSV")
+    os.mkdir(csv_dir)
+    
     return result_dir, file_names
 
 
 def MCAP_to_CSV(result_dir, file_name):
 
     csv_filename = file_name.split('.')[0] + '.csv'
+    
     csv_filepath = os.path.join(result_dir,"CSV",csv_filename)
     mcap_filepath = os.path.join(result_dir,"MCAP",file_name)
 
@@ -68,11 +73,9 @@ def MCAP_to_CSV(result_dir, file_name):
 
 print("Stared converting files from MCAP to CSV")
 
-for folder in DIRECTORY_NAMES:
-    result_dir,file_names = get_file_names(folder)
+result_dir,file_names = get_file_names(DIRECTORY_NAME)
+for file_name in file_names:
+    MCAP_to_CSV(result_dir, file_name)
 
-    for file_name in file_names:
-        MCAP_to_CSV(result_dir, file_name)
-        
 print("Successfully !! converted all files from MCAP to CSV")
 
