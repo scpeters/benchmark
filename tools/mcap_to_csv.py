@@ -71,7 +71,7 @@ def MCAP_to_CSV(result_dir, file_name):
     
             
 
-print("Stared converting files from MCAP to CSV")
+print("Started converting files from MCAP to CSV")
 
 result_dir,file_names = get_file_names(DIRECTORY_NAME)
 for file_name in file_names:
