@@ -6,7 +6,7 @@ message  Pose{
     Vector3 position = 1;
 
     // orientation of boyd wrt world frame
-    Vector3 orientation = 2;
+    Quaternion orientation = 2;
 }
 
 message Twist{
@@ -27,6 +27,20 @@ message Vector3 {
     // z coordinate length
     double z = 3;
   }
+message Quaternion {
+    // x value
+    double x = 1;
+  
+    // y value
+    double y = 2;
+  
+    // z value
+    double z = 3;
+  
+    // w value
+    double w = 4;
+  }
+  
 
 message Boxes_msg {
     // name of physics engine

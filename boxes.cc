@@ -182,26 +182,27 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
     // linear velocity 
     ignition::math::Vector3d v = link->WorldCoGLinearVel();
     // angular velocity
-    ignition::math::Vector3d o = link->WorldAngularVel();
+    ignition::math::Vector3d a = link->WorldAngularVel();
     auto twist = boxes_msg.mutable_data(0)->add_twists();
     twist->mutable_linear()->set_x(v.X());
     twist->mutable_linear()->set_y(v.Y());
     twist->mutable_linear()->set_z(v.Z());
-    twist->mutable_angular()->set_x(o.X());
-    twist->mutable_angular()->set_y(o.Y());
-    twist->mutable_angular()->set_z(o.Z());
+    twist->mutable_angular()->set_x(a.X());
+    twist->mutable_angular()->set_y(a.Y());
+    twist->mutable_angular()->set_z(a.Z());
 
     // linear position 
     ignition::math::Vector3d p = link->WorldInertialPose().Pos();
     // angular position
-    ignition::math::Vector3d a = link->WorldInertialPose().Rot().Euler();
+    ignition::math::Quaterniond o = link->WorldInertialPose().Rot();
     auto pose = boxes_msg.mutable_data(0)->add_poses();
     pose->mutable_position()->set_x(p.X());
     pose->mutable_position()->set_y(p.Y());
     pose->mutable_position()->set_z(p.Z());
-    pose->mutable_orientation()->set_x(a.X());
-    pose->mutable_orientation()->set_y(a.Y());
-    pose->mutable_orientation()->set_z(a.Z());
+    pose->mutable_orientation()->set_w(o.W());
+    pose->mutable_orientation()->set_x(o.X());
+    pose->mutable_orientation()->set_y(o.Y());
+    pose->mutable_orientation()->set_z(o.Z());
     }
   
 

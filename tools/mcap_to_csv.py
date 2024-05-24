@@ -18,9 +18,10 @@ FEILD_NAMES = [
     "position_x",
     "position_y",
     "position_z",
-    "roll",
-    "pitch",
-    "yaw",
+    "quaternion_w",
+    "quaternion_x",
+    "quaternion_y",
+    "quaternion_z",
 ]
 
 
@@ -62,8 +63,9 @@ def MCAP_to_CSV(result_dir, file_name):
                           msg.twists[i].linear.z,msg.twists[i].angular.x,
                           msg.twists[i].angular.y,msg.twists[i].angular.z,
                           msg.poses[i].position.x,msg.poses[i].position.y,
-                          msg.poses[i].position.z,msg.poses[i].orientation.x,
-                          msg.poses[i].orientation.y,msg.poses[i].orientation.z]
+                          msg.poses[i].position.z,msg.poses[i].orientation.w,
+                          msg.poses[i].orientation.x,msg.poses[i].orientation.y,
+                          msg.poses[i].orientation.z]
                 
                 csv_writer.writerow(data)
 
