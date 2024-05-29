@@ -6,7 +6,7 @@ import csv
 
 DIRECTORY_NAME = sys.argv[1]
 
-FEILD_NAMES = [
+STATES_NAMES = [
     "sim_time",
     "wall_time",
     "linear_velocity_x",
@@ -23,6 +23,7 @@ FEILD_NAMES = [
     "quaternion_y",
     "quaternion_z",
 ]
+CONFIGURATION  = ["physics_engine", "time_step", "complex", "collisiion"]
 
 
 
@@ -48,14 +49,18 @@ def MCAP_to_CSV(result_dir, file_name):
 
     csv_file = open(csv_filepath, mode='w', newline='')
     csv_writer = csv.writer(csv_file)
-    csv_writer.writerow(FEILD_NAMES)
+    csv_writer.writerow(CONFIGURATION)
+    
 
     with open(mcap_filepath, "rb") as f:
         reader = make_reader(f, decoder_factories=[DecoderFactory()])
-
+    
         for schema, channel, message, proto_msg in reader.iter_decoded_messages():
             msg = proto_msg.data[0]
             n = len(msg.sim_time)
+            csv_writer.writerow([proto_msg.physics_engine, proto_msg.dt, proto_msg.complex, proto_msg.collision])
+
+            csv_writer.writerow(STATES_NAMES)
 
             for i in range(n):
                 data = [msg.sim_time[i],msg.computation_time[i],
