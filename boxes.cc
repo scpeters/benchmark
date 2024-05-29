@@ -108,6 +108,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   boxes_msg.set_physics_engine(_physicsEngine);
   boxes_msg.set_dt(_dt);
   boxes_msg.set_complex(_complex);
+  boxes_msg.set_collision(_collision);
   boxes_msg.set_model_count(_modelCount);
   boxes_msg.add_data()->set_model_no(1);
 

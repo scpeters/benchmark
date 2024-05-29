@@ -52,8 +52,11 @@ message Boxes_msg {
     // gravity option 
     bool complex = 3;
 
-    //number of models 
-    int32 model_count = 4;
+    // collision check
+    bool collision = 4;
+
+    //  number of models 
+    int32 model_count = 5;
 
     message Box_msg{
     // model number 
@@ -72,5 +75,5 @@ message Boxes_msg {
     repeated Twist twists = 5;
 }
 
-    repeated Box_msg data = 5;
+    repeated Box_msg data = 6;
 }
