@@ -23,7 +23,7 @@ STATES_NAMES = [
     "quaternion_y",
     "quaternion_z",
 ]
-CONFIGURATION  = ["physics_engine", "time_step", "complex", "collisiion"]
+CONFIGURATION  = ["physics_engine", "time_step", "complex", "collisiion", "model_count"]
 
 
 
@@ -54,23 +54,24 @@ def MCAP_to_CSV(result_dir, file_name):
 
     with open(mcap_filepath, "rb") as f:
         reader = make_reader(f, decoder_factories=[DecoderFactory()])
-    
+            
         for schema, channel, message, proto_msg in reader.iter_decoded_messages():
-            msg = proto_msg.data[0]
-            n = len(msg.sim_time)
-            csv_writer.writerow([proto_msg.physics_engine, proto_msg.dt, proto_msg.complex, proto_msg.collision])
+            time_steps = proto_msg.sim_time
+            physics_engine = proto_msg.physics_engine
+            dt = proto_msg.dt
+            complex = proto_msg.complex
+            collision = proto_msg.collision
+            model_count = proto_msg.model_count
+            csv_writer.writerow([physics_engine, dt, complex, collision, model_count])
 
             csv_writer.writerow(STATES_NAMES)
-
-            for i in range(n):
-                data = [msg.sim_time[i],msg.computation_time[i],
-                          msg.twists[i].linear.x,msg.twists[i].linear.y,
-                          msg.twists[i].linear.z,msg.twists[i].angular.x,
-                          msg.twists[i].angular.y,msg.twists[i].angular.z,
-                          msg.poses[i].position.x,msg.poses[i].position.y,
-                          msg.poses[i].position.z,msg.poses[i].orientation.w,
-                          msg.poses[i].orientation.x,msg.poses[i].orientation.y,
-                          msg.poses[i].orientation.z]
+            for data in range(proto_msg.data):
+                for t in range(time_steps):
+                    data = [ data.twists[t].linear.x, data.twists[t].linear.y, data.twists[t].linear.z,
+                             data.twists[t].angular.x, data.twists[t].angular.y, data.twists[t].angular.z,
+                             data.poses[t].position.x, data.poses[t].position.y, data.poses[t].position.z,
+                             data.poses[t].orientation.w, data.poses[t].orientation.x, data.poses[t].orientation.y,
+                             data.poses[t].orientation.z]
                 
                 csv_writer.writerow(data)
 

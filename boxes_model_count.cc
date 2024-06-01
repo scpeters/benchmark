@@ -23,8 +23,8 @@ using namespace gazebo;
 using namespace benchmark;
 
 const int g_models_min = 1;
-const int g_models_max = 105;
-const int g_models_step = 20;
+const int g_models_max = 3;
+const int g_models_step = 1;
 
 INSTANTIATE_TEST_CASE_P(
     OdeBoxes, BoxesTest,

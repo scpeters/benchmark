@@ -45,6 +45,7 @@ macro (gz_build_tests)
     )
     
     target_compile_definitions(${BINARY_NAME} PRIVATE TEST_NAME="${BINARY_NAME}")
+    # target_compile_definitions(${BINARY_NAME} PRIVATE LOG_ALL= 1)
 
     add_test(${BINARY_NAME} ${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME})
 
