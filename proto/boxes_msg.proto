@@ -61,19 +61,17 @@ message Boxes_msg {
     message Box_msg{
     // model number 
     int32 model_no = 1;
-
-    // simulation time
-    repeated double sim_time = 2;
-
-    // computational time
-    repeated double computation_time = 3;
-
     // model pose in world frame
     repeated Pose poses = 4;
 
     // model twist in world frame
     repeated Twist twists = 5;
-}
+    }
+    // simulation time
+    repeated double sim_time = 6;
 
-    repeated Box_msg data = 6;
+    // computational time
+    repeated double computation_time = 7;
+    // array of box msg
+    repeated Box_msg data = 8;
 }

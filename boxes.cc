@@ -61,8 +61,8 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
       boost::format(
           "erb collision=%1% complex=%2% dt=%3% modelCount=%4% %5% > %6%") %
       _collision % _complex % _dt % _modelCount % world_erb_path % world_path);
-  
-  bool log_all = true;
+  // for logging all the model in boxes_model_count test case 
+  bool log_all = false;
   // mcap writer 
   mcap::McapWriter writer;
   auto options = mcap::McapWriterOptions("");
@@ -146,13 +146,15 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   // adding a small delay (waiting for the model to load properly)
   common::Time::MSleep(50);
 
-
+  int log_no;
   if(log_all){
+    log_no = _modelCount;
     for(int model_no =1; model_no<=_modelCount; model_no++){
       boxes_msg.add_data()->set_model_no(model_no);
     }
   }
   else{
+    log_no = 1;
       boxes_msg.add_data()->set_model_no(1);
   }
 
@@ -185,59 +187,22 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   for (int i = 0; i < steps; ++i) {
     world->Step(1);
     // current wall time
-    if (log_all){
-      for(auto model : models){
+    common::Time elapsedTime = common::Time::GetWallTime() - startTime;
+    boxes_msg.add_computation_time(elapsedTime.Double());
+    common::Time loop_start_time = common::Time::GetWallTime();
+    // current sim time
+    double t = (world->SimTime() - t0).Double();
+    boxes_msg.add_sim_time(t);
 
-        link = model->GetLink();
-        common::Time elapsedTime = common::Time::GetWallTime() - startTime;
-        boxes_msg.mutable_data(model_no - 1)->add_computation_time(elapsedTime.Double());
-        common::Time loop_start_time = common::Time::GetWallTime();
-        // current time
-        double t = (world->SimTime() - t0).Double();
-        boxes_msg.mutable_data(model_no - 1)->add_sim_time(t);
-    
-        // linear velocity 
-        ignition::math::Vector3d v = link->WorldCoGLinearVel();
-        // angular velocity
-        ignition::math::Vector3d a = link->WorldAngularVel();
-        auto twist = boxes_msg.mutable_data(model_no - 1)->add_twists();
-        twist->mutable_linear()->set_x(v.X());
-        twist->mutable_linear()->set_y(v.Y());
-        twist->mutable_linear()->set_z(v.Z());
-        twist->mutable_angular()->set_x(a.X());
-        twist->mutable_angular()->set_y(a.Y());
-        twist->mutable_angular()->set_z(a.Z());
-    
-        // linear position 
-        ignition::math::Vector3d p = link->WorldInertialPose().Pos();
-        // angular position
-        ignition::math::Quaterniond o = link->WorldInertialPose().Rot();
-        auto pose = boxes_msg.mutable_data(model_no - 1)->add_poses();
-        pose->mutable_position()->set_x(p.X());
-        pose->mutable_position()->set_y(p.Y());
-        pose->mutable_position()->set_z(p.Z());
-        pose->mutable_orientation()->set_w(o.W());
-        pose->mutable_orientation()->set_x(o.X());
-        pose->mutable_orientation()->set_y(o.Y());
-        pose->mutable_orientation()->set_z(o.Z());
-        model_no++;
-      }
-      model_no = 1;
-      }
-    else{
-
-      common::Time elapsedTime = common::Time::GetWallTime() - startTime;
-      boxes_msg.mutable_data(0)->add_computation_time(elapsedTime.Double());
-      common::Time loop_start_time = common::Time::GetWallTime();
-      // current time
-      double t = (world->SimTime() - t0).Double();
-      boxes_msg.mutable_data(0)->add_sim_time(t);
-  
+    // current wall time
+    for(int model_no = 0; model_no < log_no ; model_no++){
+      auto model = models[model_no];
+      link = model->GetLink();
       // linear velocity 
       ignition::math::Vector3d v = link->WorldCoGLinearVel();
       // angular velocity
       ignition::math::Vector3d a = link->WorldAngularVel();
-      auto twist = boxes_msg.mutable_data(0)->add_twists();
+      auto twist = boxes_msg.mutable_data(model_no)->add_twists();
       twist->mutable_linear()->set_x(v.X());
       twist->mutable_linear()->set_y(v.Y());
       twist->mutable_linear()->set_z(v.Z());
@@ -249,7 +214,7 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
       ignition::math::Vector3d p = link->WorldInertialPose().Pos();
       // angular position
       ignition::math::Quaterniond o = link->WorldInertialPose().Rot();
-      auto pose = boxes_msg.mutable_data(0)->add_poses();
+      auto pose = boxes_msg.mutable_data(model_no)->add_poses();
       pose->mutable_position()->set_x(p.X());
       pose->mutable_position()->set_y(p.Y());
       pose->mutable_position()->set_z(p.Z());
