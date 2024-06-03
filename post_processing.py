@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 
 DIRECTORY_NAMES = ["BENCHMARK_boxes_model_count", "BENCHMARK_boxes_dt"]
 
-metrics = ["position","ang_position","velocity","angular_momentum","energy"]
 class PostProcessing:
        def __init__(self):
            self.m = 10
@@ -106,7 +105,8 @@ class PostProcessing:
                     angle_error[i] = np.array([error.x(), error.y(), error.z()])
 
             # calculating computional time for simulation
-            self.computional_time = np.divide(wall_time,sim_time)
+            self.time_ratio = np.divide(wall_time,sim_time)
+            print(f"  Time ratio: {self.time_ratio[-1]} \n")
 
        def get_maxabs_error(self):
            '''Method for calculation of maximum absolute error'''
