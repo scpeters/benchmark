@@ -6,7 +6,14 @@ include(FindBoost)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(zstd REQUIRED IMPORTED_TARGET libzstd)
 pkg_check_modules(lz4 REQUIRED IMPORTED_TARGET liblz4)
-find_package(Protobuf REQUIRED)
+find_package(Protobuf CONFIG)
+if(NOT Protobuf_FOUND)
+  find_package(Protobuf REQUIRED)
+endif()
+if(NOT protobuf_PROTOC_EXE)
+  set(protobuf_PROTOC_EXE "protobuf::protoc")
+endif()
+
 
 find_package(Boost ${MIN_BOOST_VERSION} REQUIRED filesystem thread system)
 
