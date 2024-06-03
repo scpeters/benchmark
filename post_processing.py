@@ -73,11 +73,7 @@ class PostProcessing:
             pos = states[:, 9:12]
             rot = states[:, 12:]
             
-            # calculation of velocity and postion error and their magnitude
-            v_error = (v - self.v_a)
-            self.v_error_mag = np.array([np.linalg.norm(x) for x in v_error])
-            pos_error = (pos - self.pos_a)
-            self.pos_error_mag = np.array([np.linalg.norm(p) for p in pos_error])
+            
 
             # calculation of energy and angular momentum error
             E = np.zeros(self.N)
@@ -88,8 +84,15 @@ class PostProcessing:
                 V = - self.m*self.gravity.dot(pos[i])
                 E[i] = tran_E + rot_E + V
                 L[i] = self.I.dot(omega[i])
+            
+            # calculation of velocity and postion error and their magnitude
+            v_error = (v - self.v_a)
+            self.v_error_mag = np.array([np.linalg.norm(x) for x in v_error])
+            pos_error = (pos - self.pos_a)
+            self.pos_error_mag = np.array([np.linalg.norm(p) for p in pos_error])
  
             self.energy_error = (E - self.E0)/self.E0_mag
+            self.energy_error_mag = np.array([np.linalg.norm(e) for e in self.energy_error])
             angmomentum_error = (L - self.L0)/self.L0_mag
             self.angmomentum_error_mag = np.array([np.linalg.norm(l) for l in angmomentum_error])
             
@@ -113,7 +116,7 @@ class PostProcessing:
 
            v_maxabs_error = np.max(self.v_error_mag)
            p_maxabs_error = np.max(self.pos_error_mag)
-           E_maxabs_error = np.max(self.energy_error)
+           E_maxabs_error = np.max(self.energy_error_mag)
            L_maxabs_error = np.max(self.angmomentum_error_mag)
 
            print("  -> Max absolute error")
@@ -127,7 +130,7 @@ class PostProcessing:
 
            v_avgabs_error = np.sum(self.v_error_mag)/self.N
            p_avgabs_error = np.sum(self.pos_error_mag)/self.N
-           E_avgabs_error = np.sum(self.energy_error)/self.N
+           E_avgabs_error = np.sum(self.energy_error_mag)/self.N
            L_avgabs_error = np.sum(self.angmomentum_error_mag)/self.N
 
            print("  -> Average absolute error")
