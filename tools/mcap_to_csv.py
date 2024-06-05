@@ -1,7 +1,10 @@
 import os
 import sys
-from mcap_protobuf.decoder import DecoderFactory
+benchmark_dir = os.path.dirname(os.getcwd())
+sys.path.append(os.path.join(benchmark_dir,"mcap/python/mcap"))
+sys.path.append(os.path.join(benchmark_dir, "mcap/python/mcap-protobuf-support"))
 from mcap.reader import make_reader
+from mcap_protobuf.decoder import DecoderFactory
 import csv
 
 DIRECTORY_NAME = sys.argv[1]
