@@ -11,6 +11,14 @@
 %>
 <sdf version="1.5">
   <world name="default">
+    <physics type="ode">
+      <ode>
+        <solver>
+          <friction_model>cone_model</friction_model>
+        </solver>
+      </ode>
+    </physics>
+
     <include>
       <uri>model://ground_plane</uri>
     </include>
