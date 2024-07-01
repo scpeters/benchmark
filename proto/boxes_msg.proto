@@ -42,7 +42,7 @@ message Quaternion {
   }
   
 
-message Boxes_msg {
+message BoxesMsg {
     // name of physics engine
     string physics_engine = 1;
     
@@ -58,7 +58,10 @@ message Boxes_msg {
     //  number of models 
     int32 model_count = 5;
 
-    message Box_msg{
+    // all model recorded 
+    bool log_multiple = 6;
+
+    message BoxMsg{
     // model number 
     int32 model_no = 1;
     // model pose in world frame
@@ -68,10 +71,10 @@ message Boxes_msg {
     repeated Twist twists = 5;
     }
     // simulation time
-    repeated double sim_time = 6;
+    repeated double sim_time = 7;
 
     // computational time
-    repeated double computation_time = 7;
+    double computation_time = 8;
     // array of box msg
-    repeated Box_msg data = 8;
+    repeated BoxMsg data = 9;
 }

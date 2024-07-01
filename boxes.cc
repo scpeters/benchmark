@@ -14,9 +14,6 @@
  * limitations under the License.
  *
  */
-#define MCAP_IMPLEMENTATION
-#include "mcap/writer.hpp"
-#include "protobuf/BuildFileDescriptorSet.h"
 #include <string>
 
 #include <ignition/math/Pose3.hh>
@@ -30,7 +27,7 @@
 #include "gazebo/physics/physics.hh"
 #include <boost/format.hpp>
 #include <sstream>
-#include <boxes_msg.pb.h>
+#include "log.hh"
 
 using namespace gazebo;
 using namespace benchmark;
@@ -41,10 +38,24 @@ using namespace benchmark;
 // conservation
 void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
                       int _modelCount, bool _collision, bool _complex) {
-  ASSERT_GT(_modelCount, 0);
+   ASSERT_GT(_modelCount, 0);
+
+  // Initialize MCAP logging
+  std::string result_name = boost::str(
+    boost::format("%1%/%2%/MCAP/boxes_collision"
+            "%3%_complex%4%_dt%5$.0e_modelCount%6%_%7%.mcap") % RESULT_DIR_PATH %
+      TEST_NAME % _collision % _complex % _dt % _modelCount % _physicsEngine);
+  
+  Log<benchmark_proto::BoxesMsg> log(result_name);
+  bool logMultiple = false;
+
+  // benchmark parameter 
+  log.setBoxMsg(_physicsEngine, _dt,  _complex, _collision, _modelCount, logMultiple);
+
+
+  // Generate world file
   std::string world_erb_path =
       boost::str(boost::format("%1%/boxes.world.erb") % WORLDS_DIR_PATH);
-  
 
   std::string world_path = boost::str(
       boost::format(
@@ -52,41 +63,17 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
           "boxes_collision%3%_complex%4%_dt%5$.0e_modelCount%6%.world") %
       WORLDS_DIR_PATH % TEST_NAME % _collision % _complex % _dt % _modelCount);
 
-  std::string result_name = boost::str(
-    boost::format("%1%/%2%/MCAP/boxes_collision"
-            "%3%_complex%4%_dt%5$.0e_modelCount%6%_%7%.mcap") % RESULT_DIR_PATH %
-      TEST_NAME % _collision % _complex % _dt % _modelCount % _physicsEngine);
-
   std::string command = boost::str(
       boost::format(
           "erb collision=%1% complex=%2% dt=%3% modelCount=%4% %5% > %6%") %
       _collision % _complex % _dt % _modelCount % world_erb_path % world_path);
-  // for logging all the model in boxes_model_count test case 
-  bool log_all = false;
-  // mcap writer 
-  mcap::McapWriter writer;
-  auto options = mcap::McapWriterOptions("");
-  const auto s = writer.open(result_name.c_str(), options);
-  ASSERT_EQ(s.ok(), true);
-
-  mcap::ChannelId channelId;
-
-  {
-    mcap::Schema schema(
-      "benchmark_proto.Boxes_msg", "protobuf",
-      foxglove::BuildFileDescriptorSet(benchmark_proto::Boxes_msg::descriptor()).SerializeAsString());
-    writer.addSchema(schema);
-    mcap::Channel channel("boxes_states", "protobuf", schema.id);
-    writer.addChannel(channel);
-    channelId = channel.id;
-  }
 
   // creating model with desired configuration
-  auto model_check = system(command.c_str());
-  // checking if model is created
-  ASSERT_EQ(model_check, 0);
+  auto command_check = system(command.c_str());
+  // checking if world is created
+  ASSERT_EQ(command_check, 0);
 
-  // Load a blank world (no ground plane)
+  // Load the generated world file
   Load(world_path, true, _physicsEngine);
   physics::WorldPtr world = physics::get_world("default");
   ASSERT_NE(world, nullptr);
@@ -103,15 +90,6 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   const double Izz = 0.14166667;
   const ignition::math::Matrix3d I0(Ixx, 0.0, 0.0, 0.0, Iyy, 0.0, 0.0, 0.0,
                                     Izz);
-
-  benchmark_proto::Boxes_msg boxes_msg;
-
-  boxes_msg.set_physics_engine(_physicsEngine);
-  boxes_msg.set_dt(_dt);
-  boxes_msg.set_complex(_complex);
-  boxes_msg.set_collision(_collision);
-  boxes_msg.set_model_count(_modelCount);
-  
 
   // physics::ModelPtr model;
   std::size_t model_count = world->ModelCount();
@@ -146,18 +124,6 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
   // adding a small delay (waiting for the model to load properly)
   common::Time::MSleep(50);
 
-  int log_no;
-  if(log_all){
-    log_no = _modelCount;
-    for(int model_no =1; model_no<=_modelCount; model_no++){
-      boxes_msg.add_data()->set_model_no(model_no);
-    }
-  }
-  else{
-    log_no = 1;
-      boxes_msg.add_data()->set_model_no(1);
-  }
-
   for (auto model : models) {
     link = model->GetLink();
     ASSERT_NE(link, nullptr);
@@ -175,73 +141,57 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
 
   // initial angular momentum in global frame
   ignition::math::Vector3d H0 = link->WorldAngularMomentum();
+
   ASSERT_EQ(H0, ignition::math::Vector3d(Ixx, Iyy, Izz) * w0);
 
   const double simDuration = 10.0;
   int steps = ceil(simDuration / _dt);
 
+  int log_no;
+  if(logMultiple)
+  {
+   log_no = _modelCount; 
+  } 
+  else
+  {
+    log_no = 1;
+  }
+
   // unthrottle update rate
   physics->SetRealTimeUpdateRate(0.0);
+
   common::Time startTime = common::Time::GetWallTime();
-  int model_no = 1;
+
   for (int i = 0; i < steps; ++i) {
     world->Step(1);
-    // current wall time
-    common::Time elapsedTime = common::Time::GetWallTime() - startTime;
-    boxes_msg.add_computation_time(elapsedTime.Double());
-    common::Time loop_start_time = common::Time::GetWallTime();
     // current sim time
     double t = (world->SimTime() - t0).Double();
-    boxes_msg.add_sim_time(t);
+    log.recordSimTime(t);
 
     // current wall time
     for(int model_no = 0; model_no < log_no ; model_no++){
+
       auto model = models[model_no];
       link = model->GetLink();
       // linear velocity 
       ignition::math::Vector3d v = link->WorldCoGLinearVel();
       // angular velocity
       ignition::math::Vector3d a = link->WorldAngularVel();
-      auto twist = boxes_msg.mutable_data(model_no)->add_twists();
-      twist->mutable_linear()->set_x(v.X());
-      twist->mutable_linear()->set_y(v.Y());
-      twist->mutable_linear()->set_z(v.Z());
-      twist->mutable_angular()->set_x(a.X());
-      twist->mutable_angular()->set_y(a.Y());
-      twist->mutable_angular()->set_z(a.Z());
+      log.recordTwist(model_no, v, a);
   
       // linear position 
-      ignition::math::Vector3d p = link->WorldInertialPose().Pos();
-      // angular position
-      ignition::math::Quaterniond o = link->WorldInertialPose().Rot();
-      auto pose = boxes_msg.mutable_data(model_no)->add_poses();
-      pose->mutable_position()->set_x(p.X());
-      pose->mutable_position()->set_y(p.Y());
-      pose->mutable_position()->set_z(p.Z());
-      pose->mutable_orientation()->set_w(o.W());
-      pose->mutable_orientation()->set_x(o.X());
-      pose->mutable_orientation()->set_y(o.Y());
-      pose->mutable_orientation()->set_z(o.Z());
+      ignition::math::Pose3d pose = link->WorldInertialPose();
+      log.recordPose(model_no, pose);
     }
     }
-  
+
+  double elapsedTime = (common::Time::GetWallTime() - startTime).Double();
+  log.recordComputationTime(elapsedTime);
 
   common::Time simTime = (world->SimTime() - t0).Double();
   ASSERT_NEAR(simTime.Double(), simDuration, _dt * 1.1);
 
-  std::string serialized = boxes_msg.SerializeAsString();
-  mcap::Message msg;
-  msg.channelId = channelId;
-  msg.data = reinterpret_cast<const std::byte*>(serialized.data());
-  msg.dataSize = serialized.size();
-  const auto res = writer.write(msg);
-  if (!res.ok()) {
-    writer.terminate();
-    writer.close();
-    ASSERT_EQ(res.ok(), true);
-  }
-  
-  writer.close();
+  log.stop();
 }
 
 /////////////////////////////////////////////////
