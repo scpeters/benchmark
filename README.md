@@ -37,8 +37,8 @@ and then clone and build the benchmarks:
 
 ~~~
 git clone https://github.com/scpeters/benchmark
-git submodule update --init --recursive
 cd benchmark
+git submodule update --init --recursive
 mkdir build
 cd build
 cmake ..
