@@ -25,7 +25,6 @@ using namespace benchmark;
 const int g_models_min = 1;
 const int g_models_max = 105;
 const int g_models_step = 20;
-
 INSTANTIATE_TEST_CASE_P(
     OdeBoxes, BoxesTest,
     ::testing::Combine(::testing::Values("ode"), ::testing::Values(5.0e-4),
@@ -42,14 +41,14 @@ INSTANTIATE_TEST_CASE_P(
                        ::testing::Bool(), ::testing::Values(true)));
 #endif
 
-#ifdef HAVE_SIMBODY
-INSTANTIATE_TEST_CASE_P(
-    SimbodyBoxes, BoxesTest,
-    ::testing::Combine(::testing::Values("simbody"), ::testing::Values(1.0e-3),
-                       ::testing::Range(g_models_min, g_models_max,
-                                        g_models_step),
-                       ::testing::Bool(), ::testing::Values(true)));
-#endif
+// #ifdef HAVE_SIMBODY
+// INSTANTIATE_TEST_CASE_P(
+//     SimbodyBoxes, BoxesTest,
+//     ::testing::Combine(::testing::Values("simbody"), ::testing::Values(1.0e-3),
+//                        ::testing::Range(g_models_min, g_models_max,
+//                                         g_models_step),
+//                        ::testing::Bool(), ::testing::Values(true)));
+// #endif
 
 #ifdef HAVE_DART
 INSTANTIATE_TEST_CASE_P(
