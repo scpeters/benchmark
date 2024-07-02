@@ -245,5 +245,5 @@ if __name__ == "__main__":
         post_processing.csv_file.close()
 
         data = pd.read_csv(post_processing.metrics_path)
-        storted_data = data.sort_values(by='modelCount')
+        storted_data = data.sort_values(by='dt')
         storted_data.to_csv(post_processing.metrics_path, index=False)
