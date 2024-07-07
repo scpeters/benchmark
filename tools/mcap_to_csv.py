@@ -33,7 +33,7 @@ CONFIGURATION  = ["physics_engine", "time_step", "complex",
 
 
 def get_file_names(result_folder):
-    result_dir = os.path.join("~", "benchmark","test_results", result_folder)
+    result_dir = os.path.join(benchmark_dir,"test_results", result_folder)
     result_dir = os.path.expanduser(result_dir)
     mcap_dir = os.path.join(result_dir, "MCAP")
     file_names = os.listdir(mcap_dir)
