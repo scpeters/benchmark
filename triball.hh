@@ -45,15 +45,13 @@ namespace gazebo
       /// \param[in] _Configuration Number of boxes to spawn.
       /// \param[in] _surfaceSlope Flag for collision shape on / off.
       /// \param[in] _frictionCoefficient Flag for complex trajectory on / off.
-      /// \param[in] _linearVelocity Flag for complex trajectory on / off.
-      /// \param[in] _angularVelocity Flag for complex trajectory on / off.
+      /// \param[in] _velocityEnable Flag for complex trajectory on / off.
       public: void Triball(const std::string &_physicsEngine
-                       , const std::str _frictionModel
-                       , int _Configuration
+                       , const std::string _frictionModel
+                       , bool _Configuration
                        , int _surfaceSlope
                        , float _frictionCoefficient
-                       , float _linearVelocity
-                       , float _angularVelocity);
+                       , bool _velocityEnable);
     };
   }
 }
