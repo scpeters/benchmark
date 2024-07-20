@@ -48,10 +48,9 @@ namespace gazebo
       /// \param[in] _velocityEnable Flag for complex trajectory on / off.
       public: void Triball(const std::string &_physicsEngine
                        , const std::string _frictionModel
-                       , bool _Configuration
+                       , bool _fixedConfiguration
                        , int _surfaceSlope
-                       , float _frictionCoefficient
-                       , bool _velocityEnable);
+                       , float _frictionCoefficient);
     };
   }
 }
