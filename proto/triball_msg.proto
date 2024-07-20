@@ -76,10 +76,11 @@ message TriballMsg {
 
     // fixed configuration 
     bool fixed_configuration = 6;
-
+    
+    // friction model pyramid or cone
     string friction_model = 7;
 
-    message BoxMsg{
+    message TriballMsg{
     // model number 
     int32 model_no = 1;
     // model pose in world frame
