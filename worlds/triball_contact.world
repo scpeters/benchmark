@@ -4,7 +4,7 @@
 
 <sdf version="1.6">
   <world name="default">
-    <gravity>0 0 -9.8</gravity>
+    <gravity>-0.0 0 -9.8</gravity>
 
     <include>
       <uri>model://ground_plane</uri>
@@ -14,10 +14,448 @@
       <uri>model://sun</uri>
     </include>
 
+ 
+    
+
+    <model name="triball_30">
+     <link name="link">
+      <pose>0 0 0.02  0 0 0</pose>
+      <inertial>
+          <pose>0.0022414159556670668 0 0 0 0 0</pose>
+          <mass>0.078742493606727915</mass>
+          <inertia>
+            <ixx>8.4732487219449371e-05</ixx>
+            <ixy>-1.3552527156068805e-20</ixy>
+            <ixz>2.5214795814616026e-21</ixz>
+            <iyy>0.00035705300836722431</iyy>
+            <iyz>4.4766275773390029e-22</iyz>
+            <izz>0.00043190422402162329</izz>
+          </inertia>
+      </inertial>
+
+      <sensor name="imu" type="imu">
+        <always_on>true</always_on>
+      </sensor>
+    
+      <collision name="collision_a">
+        <pose>0.09999999999999999 0 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a">
+        <pose>0.09999999999999999 0 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    
+      <collision name="collision_a_to_b">
+        <pose>0.024999999999999998 0.0200961894323342 0.0  -1.5707963267948961 -1.3089969389957472 1.3089969389957468</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.15529142706151244</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu> 0.9 </mu>
+              <mu2> 0.9 </mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a_to_b">
+        <pose>0.024999999999999998 0.0200961894323342 0.0  -1.5707963267948961 -1.3089969389957472 1.3089969389957468</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.15529142706151244</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    
+      <collision name="collision_a_to_c">
+        <pose>0.024999999999999998 -0.0200961894323342 0.0  1.5707963267948961 -1.3089969389957472 -1.3089969389957468</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.15529142706151244</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a_to_c">
+        <pose>0.024999999999999998 -0.0200961894323342 0.0  1.5707963267948961 -1.3089969389957472 -1.3089969389957468</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.15529142706151244</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    
+      <collision name="collision_b">
+        <pose>-0.049999999999999996 0.0401923788646684 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_b">
+        <pose>-0.049999999999999996 0.0401923788646684 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    
+      <collision name="collision_b_to_c">
+        <pose>-0.049999999999999996 0.0 0.0  1.5707963267948963 -0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.0803847577293368</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_b_to_c">
+        <pose>-0.049999999999999996 0.0 0.0  1.5707963267948963 -0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.0803847577293368</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    
+      <collision name="collision_c">
+        <pose>-0.049999999999999996 -0.0401923788646684 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_c">
+        <pose>-0.049999999999999996 -0.0401923788646684 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+    
+     </link>
+    </model>
 
     <model name="triball_45">
      <link name="link">
-      <pose>0 0 0.02  0 0 0</pose>
+      <pose>0 1 0.02  0 0 0</pose>
+      <inertial>
+          <pose>0.0011016530914522173 0 0 0 0 0</pose>
+          <mass>0.081476344460819278</mass>
+          <inertia>
+            <ixx>0.00019232606045470671</ixx>
+            <ixy>1.3552527156068805e-20</ixy>
+            <ixz>1.2627017167609311e-20</ixz>
+            <iyy>0.00036422223881746503</iyy>
+            <iyz>1.6650309163384415e-21</iyz>
+            <izz>0.0005466328545714452</izz>
+          </inertia>
+      </inertial>
+
+      <sensor name="imu" type="imu">
+        <always_on>true</always_on>
+      </sensor>
+
+      <collision name="collision_a">
+        <pose>0.09999999999999999 0 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a">
+        <pose>0.09999999999999999 0 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_a_to_b">
+        <pose>0.024999999999999998 0.031066017177982127 0.0  -1.5707963267948961 -1.1780972450961724 1.1780972450961718</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.1623588300438591</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a_to_b">
+        <pose>0.024999999999999998 0.031066017177982127 0.0  -1.5707963267948961 -1.1780972450961724 1.1780972450961718</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.1623588300438591</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_a_to_c">
+        <pose>0.024999999999999998 -0.031066017177982127 0.0  1.5707963267948961 -1.1780972450961724 -1.1780972450961718</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.1623588300438591</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a_to_c">
+        <pose>0.024999999999999998 -0.031066017177982127 0.0  1.5707963267948961 -1.1780972450961724 -1.1780972450961718</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.1623588300438591</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_b">
+        <pose>-0.049999999999999996 0.062132034355964254 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_b">
+        <pose>-0.049999999999999996 0.062132034355964254 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_b_to_c">
+        <pose>-0.049999999999999996 0.0 0.0  1.5707963267948963 -0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.12426406871192851</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_b_to_c">
+        <pose>-0.049999999999999996 0.0 0.0  1.5707963267948963 -0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.12426406871192851</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_c">
+        <pose>-0.049999999999999996 -0.062132034355964254 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_c">
+        <pose>-0.049999999999999996 -0.062132034355964254 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+     </link>
+    </model>
+    
+    <model name="triball_60">
+     <link name="link">
+      <pose>0 2 0.02  0 0 0</pose>
       <inertial>
         <pose>0.0 0.0 0  0 0 0</pose>
         <mass>0.060318578948924034</mass>
@@ -232,17 +670,447 @@
      </link>
     </model>
 
+    <model name="triball_75">
+     <link name="link">
+      <pose>0 3 0.02  0 0 0</pose>
+      <inertial>
+          <pose>-0.0010889786320120855 0 0 0 0 0</pose>
+          <mass>0.088985917618018107</mass>
+          <inertia>
+            <ixx>0.00066921849216050014</ixx>
+            <ixy>2.7105054312137611e-20</ixy>
+            <ixz>-3.3685125287159029e-21</ixz>
+            <iyy>0.00038309493110161302</iyy>
+            <iyz>1.0621606046267175e-20</iyz>
+            <izz>0.0010423041088969216</izz>
+          </inertia>
+      </inertial>
+      <sensor name="imu" type="imu">
+        <always_on>true</always_on>
+      </sensor>
+
+      <collision name="collision_a">
+        <pose>0.09999999999999999 0 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a">
+        <pose>0.09999999999999999 0 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_a_to_b">
+        <pose>0.024999999999999998 0.057549524098422025 0.0  -1.5707963267948963 -0.9162978572970228 0.9162978572970227</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.18907086210153967</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a_to_b">
+        <pose>0.024999999999999998 0.057549524098422025 0.0  -1.5707963267948963 -0.9162978572970228 0.9162978572970227</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.18907086210153967</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_a_to_c">
+        <pose>0.024999999999999998 -0.057549524098422025 0.0  1.5707963267948963 -0.9162978572970228 -0.9162978572970227</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.18907086210153967</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a_to_c">
+        <pose>0.024999999999999998 -0.057549524098422025 0.0  1.5707963267948963 -0.9162978572970228 -0.9162978572970227</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.18907086210153967</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_b">
+        <pose>-0.049999999999999996 0.11509904819684405 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_b">
+        <pose>-0.049999999999999996 0.11509904819684405 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_b_to_c">
+        <pose>-0.049999999999999996 0.0 0.0  1.5707963267948963 -0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.2301980963936881</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_b_to_c">
+        <pose>-0.049999999999999996 0.0 0.0  1.5707963267948963 -0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.2301980963936881</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_c">
+        <pose>-0.049999999999999996 -0.11509904819684405 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_c">
+        <pose>-0.049999999999999996 -0.11509904819684405 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+     </link>
+    </model>
+
+    <model name="triball_90">
+     <link name="link">
+      <pose>0 4 0.02  0 0 0</pose>
+      <inertial>
+          <pose>-0.0021920256670695452 0 0 0 0 0</pose>
+          <mass>0.094448719111790758</mass>
+          <inertia>
+            <ixx>0.0011706814995045239</ixx>
+            <ixy>2.7105054312137611e-20</ixy>
+            <ixz>-3.3881317890172014e-21</ixz>
+            <iyy>0.00039647954261617555</iyy>
+            <iyz>2.3523493101256951e-20</iyz>
+            <izz>0.0015570834427368358</izz>
+          </inertia>
+      </inertial>
+
+      <sensor name="imu" type="imu">
+        <always_on>true</always_on>
+      </sensor>
+
+      <collision name="collision_a">
+        <pose>0.09999999999999999 0 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a">
+        <pose>0.09999999999999999 0 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_a_to_b">
+        <pose>0.024999999999999998 0.07499999999999998 0.0  -1.5707963267948963 -0.7853981633974484 0.7853981633974483</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.21213203435596423</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a_to_b">
+        <pose>0.024999999999999998 0.07499999999999998 0.0  -1.5707963267948963 -0.7853981633974484 0.7853981633974483</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.21213203435596423</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_a_to_c">
+        <pose>0.024999999999999998 -0.07499999999999998 0.0  1.5707963267948963 -0.7853981633974484 -0.7853981633974483</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.21213203435596423</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_a_to_c">
+        <pose>0.024999999999999998 -0.07499999999999998 0.0  1.5707963267948963 -0.7853981633974484 -0.7853981633974483</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.21213203435596423</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_b">
+        <pose>-0.049999999999999996 0.14999999999999997 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_b">
+        <pose>-0.049999999999999996 0.14999999999999997 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_b_to_c">
+        <pose>-0.049999999999999996 0.0 0.0  1.5707963267948963 -0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.29999999999999993</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_b_to_c">
+        <pose>-0.049999999999999996 0.0 0.0  1.5707963267948963 -0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.005</radius>
+            <length>0.29999999999999993</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="collision_c">
+        <pose>-0.049999999999999996 -0.14999999999999997 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.9</mu>
+              <mu2>0.9</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual_c">
+        <pose>-0.049999999999999996 -0.14999999999999997 0  0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+
+     </link>
+    </model>
 
 
-   
-
-  
-
-    <gui fullscreen='0'>
-      <camera name='user_camera'>
-        <pose>1.5 -4 2.5  0 0.5 1.6</pose>
-        <view_controller>orbit</view_controller>
-      </camera>
-    </gui>
+   <gui fullscreen='0'>
+     <camera name='user_camera'>
+       <pose>1.5 -4 2.5  0 0.5 1.6</pose>
+       <view_controller>orbit</view_controller>
+     </camera>
+   </gui>
   </world>
 </sdf>
