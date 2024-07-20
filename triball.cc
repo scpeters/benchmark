@@ -3,7 +3,7 @@
 using namespace benchmark;
 using namespace gazebo;
 
-void TriballTest::triball(const std::string &_physicsEngine, const std::str _frictionModel, 
+void TriballTest::triball(const std::string &_physicsEngine, const std::string _frictionModel, 
                           int _Configuration, int _surfaceSlop, float _frictionCoefficient)
 {
   Load(worldPath, true, _physicsEngie);

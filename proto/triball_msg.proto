@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package benchmark_proto;
+message  Pose{
+    // position in world frame
+    Vector3 position = 1;
+
+    // orientation of boyd wrt world frame
+    Quaternion orientation = 2;
+}
+
+message Twist{
+    // linear velocity in world frame
+    Vector3 linear = 1;
+
+    // angular velocity in world frame 
+    Vector3 angular = 2;
+}
+
+message Accel{
+    // linear acceleration in world frame 
+    Vector3 linear = 1; 
+
+    // angular acceleration in world frame
+    Vector3 angular = 2;
+}
+
+message Wrench{
+    // forces in worlf frame
+    Vector3 forces = 1;
+
+    // torques in world frame
+    Vector3 torques = 2;
+}
+
+message Vector3 {
+    // x coordinate length
+    double x = 1;
+  
+    // y coordinate length
+    double y = 2;
+  
+    // z coordinate length
+    double z = 3;
+  }
+message Quaternion {
+    // x value
+    double x = 1;
+  
+    // y value
+    double y = 2;
+  
+    // z value
+    double z = 3;
+  
+    // w value
+    double w = 4;
+  }
+  
+
+message TriballMsg {
+    // name of physics engine
+    string physics_engine = 1;
+    
+    // simulator time step
+    double dt = 2;
+
+    // gravity option 
+    double slope = 3;
+
+    // collision check
+    bool friction_coefficient = 4;
+
+    //  number of models 
+    int32 model_count = 5;
+
+    // fixed configuration 
+    bool fixed_configuration = 6;
+
+    string friction_model = 7;
+
+    message BoxMsg{
+    // model number 
+    int32 model_no = 1;
+    // model pose in world frame
+    repeated Pose poses = 4;
+
+    // model twist in world frame
+    repeated Twist twists = 5;
+
+    // model acceleration 
+    repeated Accel acceleration = 6;
+
+    // model contact position
+    repeated Vector3 contact_position = 7;
+
+    // model contact normal 
+    repeated Vector3 contact_normal = 8;
+
+    // model Wrench 
+    repeated Wrench contact_wrench = 9; 
+    }
+    // simulation time
+    repeated double sim_time = 8;
+
+    // computational time
+    double computation_time = 9;
+    // array of box msg
+    repeated BoxMsg data = 10;
+}
