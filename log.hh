@@ -167,8 +167,8 @@ class Log
       accel->mutable_angular()->set_z(_angAccel[3]); 
     }
 
-    public: void recordAccel(int &_modelIdx, const std::vector<double> &_linAccel,
-                             const std::vector<double> &_angAccel)
+    public: void recordAccel(int &_modelIdx, const ignition::math::Vector3d &_linAccel,
+                             const ignition::math::Vector3d &_angAccel)
     {
       auto accel = msg.mutable_data(_modelIdx)->add_acceleration();
 
@@ -184,6 +184,31 @@ class Log
     public: void recordContactInfo(int &_modelIdx, const std::vector<double> &_position,
                              const std::vector<double> &_normal, const std::vector<double> &_
                              force, const std::vector<double> &_torque)
+    {
+      auto contact_pos = msg.mutable_data(_modelIdx)->add_contact_position();
+      auto contact_normal = msg.mutable_data(_modelIdx)->add_contact_normal(); 
+      auto contact_wrench = msg.mutable_date(_modelIdx)->add_contact_wrench();
+
+      contact_pos->set_x(_position[0]);
+      contact_pos->set_y(_position[1]);
+      contact_pos->set_z(_position[2]);
+    
+      contact_normal->set_x(_normal[0]);
+      contact_normal->set_y(_normal[1]);
+      contact_normal->set_z(_normal[2]); 
+
+      contact_wrench->mutale_forces()->set_x(_force[0]);
+      contact_wrench->mutale_forces()->set_y(_force[1]);
+      contact_wrench->mutale_forces()->set_z(_force[2]);
+
+      contact_wrench->mutale_torques()->set_x(_torque[0]);
+      contact_wrench->mutale_torques()->set_y(_torque[2]);
+      contact_wrench->mutale_torques()->set_z(_torque[3]);
+    }
+
+    public: void recordContactInfo(int &_modelIdx, const ignition::math::Vector3d&_position,
+                             const ignition::math::Vector3d &_normal, const ignition::math::Vector3d &_
+                             force, const ignition::math::Vector3d &_torque)
     {
       auto contact_pos = msg.mutable_data(_modelIdx)->add_contact_position();
       auto contact_normal = msg.mutable_data(_modelIdx)->add_contact_normal(); 
