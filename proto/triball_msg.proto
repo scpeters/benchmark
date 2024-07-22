@@ -58,7 +58,7 @@ message Quaternion {
   }
   
 
-message TriballMsg {
+message TriballsMsg {
     // name of physics engine
     string physics_engine = 1;
     

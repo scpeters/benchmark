@@ -51,6 +51,28 @@ class Log
         msg.add_data()->set_model_no(1);
     }
 
+    public: void setTriballMsg(const std::string &_physicsEngine, 
+               double &_dt, double &_slope, double &_frictionCoefficient,
+               int &_modelCount, bool &_fixedConfiguration, 
+               const std::string &_frictionModel)
+    {
+      mcap::Schema schema("benchmark_proto.Triballs_Msg", "protobuf",
+                         foxglove::BuildFileDescriptorSet(benchmark_proto::TriballsMsg::descriptor()).SerializeAsString());
+    
+      writer.addSchema(schema);
+      mcap::Channel channel("model_states", "protobuf", schema.id);
+      writer.addChannel(channel);
+      channelId = channel.id;
+      msg.set_physics_engine(_physicsEngine);
+      msg.set_dt(_dt);
+      msg.set_slope(_slope);
+      msg.set_friction_coefficient(_frictionCoefficient);
+      msg.set_model_count(_modelCount);
+      msg.set_fixed_configuration(_fixedConfiguration);
+      msg.set_friction_model(_frictionModel);
+    
+    }
+
     public: void stop()
     {
       std::string serialized = msg.SerializeAsString();
@@ -131,7 +153,65 @@ class Log
       twist->mutable_angular()->set_z(_angVelocity.Z());           
     }
 
+    public: void recordAccel(int &_modelIdx, const std::vector<double> &_linVelocity,
+                             const std::vector<double> &_angVelocity)
+    {
+      auto accel = msg.mutable_data(_modelIdx)->add_acceleration();
+
+      accel->mutable_linear()->set_x(_linAccel[0]);
+      accel->mutable_linear()->set_y(_linAccel[1]);
+      accel->mutable_linear()->set_z(_linAccel[3]);
+    
+      accel->mutable_angular()->set_x(_angAccel[0]);
+      accel->mutable_angular()->set_y(_angAccel[1]);
+      accel->mutable_angular()->set_z(_angAccel[3]); 
+    }
+
+    public: void recordAccel(int &_modelIdx, const std::vector<double> &_linAccel,
+                             const std::vector<double> &_angAccel)
+    {
+      auto accel = msg.mutable_data(_modelIdx)->add_acceleration();
+
+      accel->mutable_linear()->set_x(_linAccel.X());
+      accel->mutable_linear()->set_y(_linAccel.Y());
+      accel->mutable_linear()->set_z(_linAccel.Z());
+    
+      accel->mutable_angular()->set_x(_angAccel.X());
+      accel->mutable_angular()->set_y(_angAccel.Y());
+      accel->mutable_angular()->set_z(_angAccel.Z()); 
+    }
+
+    public: void recordContactInfo(int &_modelIdx, const std::vector<double> &_position,
+                             const std::vector<double> &_normal, const std::vector<double> &_
+                             force, const std::vector<double> &_torque)
+    {
+      auto contact_pos = msg.mutable_data(_modelIdx)->add_contact_position();
+      auto contact_normal = msg.mutable_data(_modelIdx)->add_contact_normal(); 
+      auto contact_wrench = msg.mutable_date(_modelIdx)->add_contact_wrench();
+
+      contact_pos->set_x(_position.X());
+      contact_pos->set_y(_position.Y());
+      contact_pos->set_z(_position.Z());
+    
+      contact_normal->set_x(_normal.X());
+      contact_normal->set_y(_normal.Y());
+      contact_normal->set_z(_normal.Z()); 
+
+      contact_wrench->mutale_forces()->set_x(_force.X());
+      contact_wrench->mutale_forces()->set_y(_force.Y());
+      contact_wrench->mutale_forces()->set_z(_force.Z());
+
+      contact_wrench->mutale_torques()->set_x(_torque.X());
+      contact_wrench->mutale_torques()->set_y(_torque.Y());
+      contact_wrench->mutale_torques()->set_z(_torque.Z());
+    }
+
+    
+
     private: mcap::McapWriter writer;
     private: mcap::ChannelId channelId;
     private: T msg;
+
+  
+                        
 };
