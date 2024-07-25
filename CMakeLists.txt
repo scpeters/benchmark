@@ -35,7 +35,7 @@ add_library(gtest STATIC gtest/src/gtest-all.cc)
 add_library(gtest_main STATIC gtest/src/gtest_main.cc)
 target_link_libraries(gtest_main gtest tbb)
 
-set(PROTO_FILES proto/boxes_msg.proto proto/triiball_msg.proto)
+set(PROTO_FILES proto/boxes_msg.proto proto/triball_msg.proto)
 include(${PROJECT_SOURCE_DIR}/tools/TestMacro.cmake)
 set(MCAP_DEPENDENCIES PkgConfig::lz4 PkgConfig::zstd)
 set(WORLDS_DIR_PATH "${PROJECT_SOURCE_DIR}/worlds")
