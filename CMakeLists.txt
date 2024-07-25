@@ -34,7 +34,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 add_library(gtest STATIC gtest/src/gtest-all.cc)
 add_library(gtest_main STATIC gtest/src/gtest_main.cc)
 target_link_libraries(gtest_main gtest tbb)
-set(PROTO_FILES proto/boxes_msg.proto)
+
+set(PROTO_FILES proto/boxes_msg.proto proto/triiball_msg.proto)
 include(${PROJECT_SOURCE_DIR}/tools/TestMacro.cmake)
 set(MCAP_DEPENDENCIES PkgConfig::lz4 PkgConfig::zstd)
 set(WORLDS_DIR_PATH "${PROJECT_SOURCE_DIR}/worlds")
@@ -44,6 +45,11 @@ include_directories(${Protobuf_INCLUDE_DIRS})
 protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTO_FILES})
 configure_file(${PROJECT_SOURCE_DIR}/PathConfig.h.in PathConfig.h)
 
+set(PROTOBUF_DESCRIPTION_DIR ${CMAKE_SOURCE_DIR}/mcap/cpp/examples/protobuf/)
+set(PROTOBUF_DESCRIPTION_SRC 
+    ${PROTOBUF_DESCRIPTION_DIR}/BuildFileDescriptorSet.cpp
+)
+
 # Boxes tests
 set(BOXES_TEST_FILES
   boxes_dt.cc
@@ -52,10 +58,7 @@ set(BOXES_TEST_FILES
 set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS
   boxes.cc
 )
-set(PROTOBUF_DESCRIPTION_DIR ${CMAKE_SOURCE_DIR}/mcap/cpp/examples/protobuf/)
-set(PROTOBUF_DESCRIPTION_SRC 
-    ${PROTOBUF_DESCRIPTION_DIR}/BuildFileDescriptorSet.cpp
-)
+
 gz_build_tests(${BOXES_TEST_FILES})
 
 set_tests_properties(BENCHMARK_boxes_dt PROPERTIES TIMEOUT 500)
