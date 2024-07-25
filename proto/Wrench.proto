@@ -1,0 +1,12 @@
+syntax = "proto3";
+import "benchmark_proto/Vector3.proto";
+
+package benchmark_proto;
+
+message Wrench{
+    // forces in world frame
+    benchmark_proto.Vector3 forces = 1;
+
+    // torques in world frame
+    benchmark_proto.Vector3 torques = 2;
+}

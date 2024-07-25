@@ -1,62 +1,12 @@
 syntax = "proto3";
 
+import "benchmark_proto/Pose.proto";
+import "benchmark_proto/Vector3.proto";
+import "benchmark_proto/Wrench.proto";
+import "benchmark_proto/Twist.proto";
+import "benchmark_proto/Accel.proto";
+
 package benchmark_proto;
-message  Pose{
-    // position in world frame
-    Vector3 position = 1;
-
-    // orientation of boyd wrt world frame
-    Quaternion orientation = 2;
-}
-
-message Twist{
-    // linear velocity in world frame
-    Vector3 linear = 1;
-
-    // angular velocity in world frame 
-    Vector3 angular = 2;
-}
-
-message Accel{
-    // linear acceleration in world frame 
-    Vector3 linear = 1; 
-
-    // angular acceleration in world frame
-    Vector3 angular = 2;
-}
-
-message Wrench{
-    // forces in world frame
-    Vector3 forces = 1;
-
-    // torques in world frame
-    Vector3 torques = 2;
-}
-
-message Vector3 {
-    // x coordinate length
-    double x = 1;
-  
-    // y coordinate length
-    double y = 2;
-  
-    // z coordinate length
-    double z = 3;
-  }
-message Quaternion {
-    // x value
-    double x = 1;
-  
-    // y value
-    double y = 2;
-  
-    // z value
-    double z = 3;
-  
-    // w value
-    double w = 4;
-  }
-  
 
 message TriballsMsg {
     // name of physics engine
@@ -78,22 +28,22 @@ message TriballsMsg {
     // model number 
     int32 model_no = 1;
     // model pose in world frame
-    repeated Pose poses = 4;
+    repeated benchmark_proto.Pose poses = 4;
 
     // model twist in world frame
-    repeated Twist twists = 5;
+    repeated benchmark_proto.Twist twists = 5;
 
     // model acceleration 
-    repeated Accel acceleration = 6;
+    repeated benchmark_proto.Accel acceleration = 6;
 
     // model contact position
-    repeated Vector3 contact_position = 7;
+    repeated benchmark_proto.Vector3 contact_position = 7;
 
     // model contact normal 
-    repeated Vector3 contact_normal = 8;
+    repeated benchmark_proto.Vector3 contact_normal = 8;
 
     // model Wrench 
-    repeated Wrench contact_wrench = 9; 
+    repeated benchmark_proto.Wrench contact_wrench = 9; 
     }
     // simulation time
     repeated double sim_time = 6;
