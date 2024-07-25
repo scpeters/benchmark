@@ -2,6 +2,7 @@
 #include "mcap/writer.hpp"
 #include "protobuf/BuildFileDescriptorSet.h"
 #include <boxes_msg.pb.h>
+#include <triball_msg.pb.h>
 #include <iostream>
 #include <ignition/math/Pose3.hh>
 #include <ignition/math/Vector3.hh>
@@ -55,7 +56,7 @@ class Log
                      double &_slope, float &_frictionCoefficient,
                      bool &_complex, const std::string &_frictionModel)
     {
-      mcap::Schema schema("benchmark_proto.Triballs_Msg", "protobuf",
+      mcap::Schema schema("benchmark_proto.TriballsMsg", "protobuf",
                          foxglove::BuildFileDescriptorSet(benchmark_proto::TriballsMsg::descriptor()).SerializeAsString());
     
       writer.addSchema(schema);

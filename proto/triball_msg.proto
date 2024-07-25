@@ -26,7 +26,7 @@ message Accel{
 }
 
 message Wrench{
-    // forces in worlf frame
+    // forces in world frame
     Vector3 forces = 1;
 
     // torques in world frame
