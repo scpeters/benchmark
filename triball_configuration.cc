@@ -17,7 +17,7 @@ const double slope_step = GZ_PI/12;
 INSTANTIATE_TEST_CASE_P(
     OdeBoxes, BoxesTest,
     ::testing::Combine(::testing::Values("ode"), ::testing::Values(friction_model),
-                       ::testing::Values(true), ::testing::Range(slope_min, slope_max,slope_step),
+                       ::testing::Values(false), ::testing::Range(slope_min, slope_max,slope_step),
                        , ::testing::Values(0.9)));
 
 /////////////////////////////////////////////////

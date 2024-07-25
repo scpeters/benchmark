@@ -61,24 +61,18 @@ message Quaternion {
 message TriballsMsg {
     // name of physics engine
     string physics_engine = 1;
-    
-    // simulator time step
-    double dt = 2;
 
     // gravity option 
-    double slope = 3;
+    double slope = 2;
 
     // collision check
-    bool friction_coefficient = 4;
-
-    //  number of models 
-    int32 model_count = 5;
+    double friction_coefficient = 3;
 
     // fixed configuration 
-    bool fixed_configuration = 6;
+    bool complex = 4;
     
     // friction model pyramid or cone
-    string friction_model = 7;
+    string friction_model = 5;
 
     message TriballMsg{
     // model number 
@@ -102,10 +96,10 @@ message TriballsMsg {
     repeated Wrench contact_wrench = 9; 
     }
     // simulation time
-    repeated double sim_time = 8;
+    repeated double sim_time = 6;
 
     // computational time
-    double computation_time = 9;
+    double computation_time = 7;
     // array of box msg
-    repeated BoxMsg data = 10;
+    repeated TriballMsg data = 8;
 }

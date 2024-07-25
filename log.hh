@@ -52,9 +52,8 @@ class Log
     }
 
     public: void setTriballMsg(const std::string &_physicsEngine, 
-               double &_dt, double &_slope, double &_frictionCoefficient,
-               int &_modelCount, bool &_fixedConfiguration, 
-               const std::string &_frictionModel)
+                     double &_slope, float &_frictionCoefficient,
+                     bool &_complex, const std::string &_frictionModel)
     {
       mcap::Schema schema("benchmark_proto.Triballs_Msg", "protobuf",
                          foxglove::BuildFileDescriptorSet(benchmark_proto::TriballsMsg::descriptor()).SerializeAsString());
@@ -64,12 +63,25 @@ class Log
       writer.addChannel(channel);
       channelId = channel.id;
       msg.set_physics_engine(_physicsEngine);
-      msg.set_dt(_dt);
       msg.set_slope(_slope);
       msg.set_friction_coefficient(_frictionCoefficient);
-      msg.set_model_count(_modelCount);
-      msg.set_fixed_configuration(_fixedConfiguration);
+      msg.set_complex(_complex);
       msg.set_friction_model(_frictionModel);
+
+      int modelCount;
+      if(complex)
+      {
+       modelCount = 32;
+      }
+      else
+      {
+       modelCount = 5;
+      }
+     
+      for(int i = 0; i < modelCount; i++)
+      {
+        msg.add_date()->set_model_no(i)
+      }
     
     }
 
@@ -235,8 +247,5 @@ class Log
 
     private: mcap::McapWriter writer;
     private: mcap::ChannelId channelId;
-    private: T msg;
-
-  
-                        
+    private: T msg;                   
 };
