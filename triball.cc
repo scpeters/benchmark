@@ -148,7 +148,6 @@ void TriballTest::triball(const std::string &_physicsEngine, const std::string _
       log.recordContactInfo(model_no, contactPosition, contactnormal,
                             contactForce, contactTorque);
     }
-
    }
   }
 

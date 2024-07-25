@@ -69,7 +69,7 @@ class Log
       msg.set_friction_model(_frictionModel);
 
       int modelCount;
-      if(complex)
+      if(_complex)
       {
        modelCount = 32;
       }
@@ -80,7 +80,7 @@ class Log
      
       for(int i = 0; i < modelCount; i++)
       {
-        msg.add_date()->set_model_no(i)
+        msg.add_date()->set_model_no(i);
       }
     
     }
@@ -165,8 +165,8 @@ class Log
       twist->mutable_angular()->set_z(_angVelocity.Z());           
     }
 
-    public: void recordAccel(int &_modelIdx, const std::vector<double> &_linVelocity,
-                             const std::vector<double> &_angVelocity)
+    public: void recordAccel(int &_modelIdx, const std::vector<double> &_linAccel,
+                             const std::vector<double> &_angAccel)
     {
       auto accel = msg.mutable_data(_modelIdx)->add_acceleration();
 
@@ -194,8 +194,8 @@ class Log
     }
 
     public: void recordContactInfo(int &_modelIdx, const std::vector<double> &_position,
-                             const std::vector<double> &_normal, const std::vector<double> &_
-                             force, const std::vector<double> &_torque)
+                             const std::vector<double> &_normal, const std::vector<double> 
+                             &_force, const std::vector<double> &_torque)
     {
       auto contact_pos = msg.mutable_data(_modelIdx)->add_contact_position();
       auto contact_normal = msg.mutable_data(_modelIdx)->add_contact_normal(); 
@@ -219,8 +219,8 @@ class Log
     }
 
     public: void recordContactInfo(int &_modelIdx, const ignition::math::Vector3d&_position,
-                             const ignition::math::Vector3d &_normal, const ignition::math::Vector3d &_
-                             force, const ignition::math::Vector3d &_torque)
+                             const ignition::math::Vector3d &_normal, const ignition::math::Vector3d 
+                             &_force, const ignition::math::Vector3d &_torque)
     {
       auto contact_pos = msg.mutable_data(_modelIdx)->add_contact_position();
       auto contact_normal = msg.mutable_data(_modelIdx)->add_contact_normal(); 
