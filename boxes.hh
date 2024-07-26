@@ -36,6 +36,7 @@ namespace gazebo
                             , bool
                             , bool
                             > char1double1int1bool2;
+                            
     class BoxesTest : public ServerFixture,
                       public testing::WithParamInterface<char1double1int1bool2>
     {

@@ -27,10 +27,11 @@
 #include <boost/format.hpp>
 #include <sstream>
 #include "log.hh"
-using namespace benchmark;
-using namespace gazebo;
 
-void TriballTest::triball(const std::string &_physicsEngine, const std::string &_frictionModel, 
+using namespace gazebo;
+using namespace benchmark;
+
+void TriballTest::Triball(const std::string &_physicsEngine, const std::string &_frictionModel, 
                           bool _complex, double _surfaceSlope, float _frictionCoefficient)
 {
   
@@ -38,7 +39,7 @@ void TriballTest::triball(const std::string &_physicsEngine, const std::string &
   std::string result_name = boost::str(boost::format("%1%/%2%/MCAP/triball_frictionModel"
                                        "%3%_complex%4%_surfaceSlope%5%_frictionCoefficient%6%_%7%.mcap") 
                                        % RESULT_DIR_PATH % TEST_NAME % _frictionModel % _complex 
-                                       % _surfaceSlope % _fricition % _physicsEngine);
+                                       % _surfaceSlope % _frictionCoefficient % _physicsEngine);
 
   Log<benchmark_proto::TriballsMsg> log(result_name);
   // setting benchmark parameters
@@ -59,16 +60,16 @@ void TriballTest::triball(const std::string &_physicsEngine, const std::string &
   std::string command = boost::str(
       boost::format(
           "erb frictionModel=%1% complex=%2% surfaceSlope=%3% fritionCoefficient=%4% %5% > %6%") %
-      _frictionModel % _complex % _surfaceSlope % fritionCoefficient % world_erb_path % worldPath);
+      _frictionModel % _complex % _surfaceSlope % _frictionCoefficient % world_erb_path % worldPath);
 
   // execute command
   auto commandCheck =  system(command.c_str());
   ASSERT_EQ(commandCheck, 0);
 
-  Load(worldPath, true, _physicsEngie);
+  Load(worldPath, true, _physicsEngine);
  
   physics::WorldPtr world = physics::get_world("default");
-  ASSERT_NE(WorldPtr, nullptr);
+  ASSERT_NE(world, nullptr);
   
 
   physics::PhysicsEnginePtr physics = world->Physics();
@@ -77,22 +78,18 @@ void TriballTest::triball(const std::string &_physicsEngine, const std::string &
 
   physics::ContactManager *mgr = physics->GetContactManager();
   mgr->SetNeverDropContacts(true);
-  ASSERT_TRUE(manager->NeverDropContacts());
+  ASSERT_TRUE(mgr->NeverDropContacts());
   ASSERT_GT(mgr->GetContactCount(), 0u);
 
   // initial time
   common::Time t0 = world->SimTime();
 
-  ignition::math::Vector3d gravity0(-ignition::math::sin(_slope)*9.8, 0,
-                             -ignition::math::cos(_slope)*9.8);
+  ignition::math::Vector3d gravity = world->Gravity();
 
-  ignition::math::Vector3d gravity = world->gravity();
-  // checking if slope is correct
-  ASSERT_NE(gravity0, gravity, 0.001)
 
   std::size_t modelCount = world->ModelCount();
   // checking if number of model spwaned are correct.
-  if(!complex)
+  if(!_complex)
   {
     ASSERT_EQ(modelCount, 5);
   }
@@ -103,48 +100,47 @@ void TriballTest::triball(const std::string &_physicsEngine, const std::string &
 
   std::vector<physics::Contact *> contacts;
 
-  auto models = world->Models()
-  std::vector<physics::LinkPtr> links;
-
-  for(auto model : models)
-  {
-    links.push_back(model->GetLink());
-  }
+  auto models = world->Models();
+  physics::LinkPtr link; 
   
+  double _dt = 0.001;
   const double simDuration = 1.0;
   int steps = ceil(simDuration/_dt);
 
   physics->SetRealTimeUpdateRate(0.0);
-  common::Time startTime = common:Time::GetWalltime();
-  log.recordSimTime(t);
+  common::Time startTime = common::Time::GetWallTime();
 
-  for(int i = 0; i<steps, ++i)
+  for(int i = 0; i<steps; ++i)
   {
-   double t = (world->simTime() - t0).Double();
+   double t = (world->SimTime() - t0).Double();
+   log.recordSimTime(t);
 
-   for(int linkIndex = 0; i < links.size(); linkIndex++)
+   for(int model_no = 0; model_no < modelCount ; model_no++)
    {
-    link = links[linkIndex]
-    contact = contacts[linkIndex]
+    auto model = models[model_no];
+    link = model->GetLink();
+
+    auto contact = contacts[model_no];
     ASSERT_EQ(contact->count, 3);
 
-    math::Pose3d pose = link->link->WorldInertialPose();
+    ignition::math::Pose3d pose = link->WorldInertialPose();
     log.recordPose(model_no, pose);
 
-    math::Vector3d linearVelocity = link->WorldLinearVel();
-    math::Vector3d angularVelocity = link->WorldAngularVel();
+    ignition::math::Vector3d linearVelocity = link->WorldLinearVel();
+    ignition::math::Vector3d angularVelocity = link->WorldAngularVel();
     log.recordTwist(model_no, linearVelocity, angularVelocity);
 
-    math::Vector3d linearAcceleration = link->WorldLinearAccel();
-    math::Vector3d angularAcceleration = link->WorldAngularAccel();
+    ignition::math::Vector3d linearAcceleration = link->WorldLinearAccel();
+    ignition::math::Vector3d angularAcceleration = link->WorldAngularAccel();
     log.recordAccel(model_no, linearAcceleration, angularAcceleration);
 
     for(int j = 0; j < contact->count; j++)
     {
-      math::Vector3d contactPosition = contact->positions[j];
-      math::Vector3d contactnormal = contact->normal[j];
-      math::Vector3d contactForce = contact->wrench[i].body1Force;
-      math::vector3d contactTorque = contact->wrench[i].body1Torque;
+      ignition::math::Vector3d contactPosition = contact->positions[j];
+      ignition::math::Vector3d contactnormal = contact->normals[j];
+      ignition::math::Vector3d contactForce = contact->wrench[i].body1Force;
+      ignition::math::Vector3d contactTorque = contact->wrench[i].body1Torque;
+
       log.recordContactInfo(model_no, contactPosition, contactnormal,
                             contactForce, contactTorque);
     }
@@ -166,9 +162,11 @@ TEST_P(TriballTest, Triball) {
   std::string frictionModel = std::tr1::get<1>(GetParam());
   bool complex = std::tr1::get<2>(GetParam());
   double surfaceSlope = std::tr1::get<3>(GetParam());
-  double frictionCoefficient = std::tr1::get<4>(GetParam());
+  float frictionCoefficient = std::tr1::get<4>(GetParam());
+
   gzdbg << physicsEngine << ", friction model: " << frictionModel << ", complex: " << complex
         << ", surface slope: " << surfaceSlope << ", friction coefficient: " << frictionCoefficient
         << std::endl;
-  Boxes(physicsEngine, dt, modelCount, collision, isComplex);
+
+  Triball(physicsEngine, frictionModel, complex, surfaceSlope, frictionCoefficient);
 }

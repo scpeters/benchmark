@@ -36,6 +36,7 @@ namespace gazebo
                             , double
                             , float
                             > char1double1int1bool2;
+
     class TriballTest : public ServerFixture,
                       public testing::WithParamInterface<char1double1int1bool2>
     {

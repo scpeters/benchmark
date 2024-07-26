@@ -81,7 +81,7 @@ class Log
      
       for(int i = 0; i < modelCount; i++)
       {
-        msg.add_date()->set_model_no(i);
+        msg.add_data()->set_model_no(i);
       }
     
     }
@@ -225,7 +225,7 @@ class Log
     {
       auto contact_pos = msg.mutable_data(_modelIdx)->add_contact_position();
       auto contact_normal = msg.mutable_data(_modelIdx)->add_contact_normal(); 
-      auto contact_wrench = msg.mutable_date(_modelIdx)->add_contact_wrench();
+      auto contact_wrench = msg.mutable_data(_modelIdx)->add_contact_wrench();
 
       contact_pos->set_x(_position.X());
       contact_pos->set_y(_position.Y());
@@ -235,13 +235,13 @@ class Log
       contact_normal->set_y(_normal.Y());
       contact_normal->set_z(_normal.Z()); 
 
-      contact_wrench->mutale_forces()->set_x(_force.X());
-      contact_wrench->mutale_forces()->set_y(_force.Y());
-      contact_wrench->mutale_forces()->set_z(_force.Z());
+      contact_wrench->mutable_forces()->set_x(_force.X());
+      contact_wrench->mutable_forces()->set_y(_force.Y());
+      contact_wrench->mutable_forces()->set_z(_force.Z());
 
-      contact_wrench->mutale_torques()->set_x(_torque.X());
-      contact_wrench->mutale_torques()->set_y(_torque.Y());
-      contact_wrench->mutale_torques()->set_z(_torque.Z());
+      contact_wrench->mutable_torques()->set_x(_torque.X());
+      contact_wrench->mutable_torques()->set_y(_torque.Y());
+      contact_wrench->mutable_torques()->set_z(_torque.Z());
     }
 
     
