@@ -30,7 +30,7 @@
 using namespace benchmark;
 using namespace gazebo;
 
-void TriballTest::triball(const std::string &_physicsEngine, const std::string _frictionModel, 
+void TriballTest::triball(const std::string &_physicsEngine, const std::string &_frictionModel, 
                           bool _complex, double _surfaceSlope, float _frictionCoefficient)
 {
   
@@ -161,7 +161,7 @@ void TriballTest::triball(const std::string &_physicsEngine, const std::string _
 }
 
 /////////////////////////////////////////////////
-TEST_P(BoxesTest, Boxes) {
+TEST_P(TriballTest, Triball) {
   std::string physicsEngine = std::tr1::get<0>(GetParam());
   std::string frictionModel = std::tr1::get<1>(GetParam());
   bool complex = std::tr1::get<2>(GetParam());

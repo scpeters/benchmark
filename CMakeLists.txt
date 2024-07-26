@@ -48,7 +48,10 @@ include(${PROJECT_SOURCE_DIR}/tools/TestMacro.cmake)
 
 set(MCAP_DEPENDENCIES PkgConfig::lz4 PkgConfig::zstd)
 
-set(PROTO_FILES proto/boxes_msg.proto proto/triball_msg.proto)
+set(PROTO_FILES proto/boxes_msg.proto proto/triball_msg.proto
+    proto/Accel.proto proto/Pose.proto proto/Quaternion.proto
+    proto/Twist.proto proto/Vector3.proto proto/Wrench.proto)
+    
 include_directories(${Protobuf_INCLUDE_DIRS})
 
 protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTO_FILES})

@@ -31,10 +31,10 @@ namespace gazebo
     // collision shape on / off
     // complex trajectory on / off
     typedef std::tr1::tuple < const char *
+                            , const char *
+                            , bool
                             , double
-                            , int
-                            , bool
-                            , bool
+                            , float
                             > char1double1int1bool2;
     class TriballTest : public ServerFixture,
                       public testing::WithParamInterface<char1double1int1bool2>
@@ -42,12 +42,11 @@ namespace gazebo
       /// \brief Test accuracy of unconstrained rigid body motion.
       /// \param[in] _physicsEngine Physics engine to use.
       /// \param[in] _frictionModel Max time step size.
-      /// \param[in] _Configuration Number of boxes to spawn.
+      /// \param[in] _complex Number of boxes to spawn.
       /// \param[in] _surfaceSlope Flag for collision shape on / off.
       /// \param[in] _frictionCoefficient Flag for complex trajectory on / off.
-      /// \param[in] _velocityEnable Flag for complex trajectory on / off.
       public: void Triball(const std::string &_physicsEngine
-                       , const std::string _frictionModel
+                       , const std::string &_frictionModel
                        , bool _complex
                        , double _surfaceSlope
                        , float _frictionCoefficient);

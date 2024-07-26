@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-import "benchmark_proto/Pose.proto";
-import "benchmark_proto/Vector3.proto";
-import "benchmark_proto/Wrench.proto";
-import "benchmark_proto/Twist.proto";
-import "benchmark_proto/Accel.proto";
+import "Pose.proto";
+import "Vector3.proto";
+import "Wrench.proto";
+import "Twist.proto";
+import "Accel.proto";
 
 package benchmark_proto;
 

@@ -1,5 +1,5 @@
 syntax = "proto3";
-import "benchmark_proto/Vector3.proto";
+import "Vector3.proto";
 
 package benchmark_proto;
 

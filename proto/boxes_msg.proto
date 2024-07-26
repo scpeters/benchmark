@@ -1,6 +1,6 @@
 syntax = "proto3";
-import "benchmark_proto/Pose.proto";
-import "benchmark_proto/Twist.proto";
+import "Pose.proto";
+import "Twist.proto";
 
 package benchmark_proto;
   
