@@ -204,9 +204,9 @@ class Log
                              const std::vector<double> &_normal, const std::vector<double> 
                              &_force, const std::vector<double> &_torque)
     {
-      auto contact_pos = msg.mutable_data(_modelIdx)->add_contact_position();
-      auto contact_normal = msg.mutable_data(_modelIdx)->add_contact_normal(); 
-      auto contact_wrench = msg.mutable_date(_modelIdx)->add_contact_wrench();
+      auto contact_pos = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_position();
+      auto contact_normal = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_normal(); 
+      auto contact_wrench = msg.mutable_date(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_wrench();
 
       contact_pos->set_x(_position[0]);
       contact_pos->set_y(_position[1]);

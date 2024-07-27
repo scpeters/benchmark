@@ -142,6 +142,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
     ignition::math::Vector3d linearAcceleration = link->WorldLinearAccel();
     ignition::math::Vector3d angularAcceleration = link->WorldAngularAccel();
     log.recordAccel(modelIdx, linearAcceleration, angularAcceleration);
+    
     int contactIndex = 0;
     for(auto contact : contacts)
     {
