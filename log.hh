@@ -82,6 +82,12 @@ class Log
       for(int i = 0; i < modelCount; i++)
       {
         msg.add_data()->set_model_no(i);
+
+        for(int j = 0; j < 3; j++)
+        {
+         msg.mutable_data(i)->add_contact_info(); 
+        }
+        
       }
     
     }
@@ -219,13 +225,13 @@ class Log
       contact_wrench->mutale_torques()->set_z(_torque[3]);
     }
 
-    public: void recordContactInfo(int &_modelIdx, const ignition::math::Vector3d&_position,
-                             const ignition::math::Vector3d &_normal, const ignition::math::Vector3d 
-                             &_force, const ignition::math::Vector3d &_torque)
+    public: void recordContactInfo(int &_modelIdx, int &_contactIdx, const ignition::math::Vector3d &_position,
+                             const ignition::math::Vector3d &_normal, const ignition::math::Vector3d &_force, 
+                             const ignition::math::Vector3d &_torque)
     {
-      auto contact_pos = msg.mutable_data(_modelIdx)->add_contact_position();
-      auto contact_normal = msg.mutable_data(_modelIdx)->add_contact_normal(); 
-      auto contact_wrench = msg.mutable_data(_modelIdx)->add_contact_wrench();
+      auto contact_pos = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_position();
+      auto contact_normal = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_normal(); 
+      auto contact_wrench = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_wrench();
 
       contact_pos->set_x(_position.X());
       contact_pos->set_y(_position.Y());

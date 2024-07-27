@@ -8,6 +8,18 @@ import "Accel.proto";
 
 package benchmark_proto;
 
+message ContactInfo{
+
+    // model contact position
+    repeated benchmark_proto.Vector3 contact_position = 1;
+
+    // model contact normal 
+    repeated benchmark_proto.Vector3 contact_normal = 2;
+
+    // model Wrench 
+    repeated benchmark_proto.Wrench contact_wrench = 3; 
+}
+
 message TriballsMsg {
     // name of physics engine
     string physics_engine = 1;
@@ -28,22 +40,16 @@ message TriballsMsg {
     // model number 
     int32 model_no = 1;
     // model pose in world frame
-    repeated benchmark_proto.Pose poses = 4;
+    repeated benchmark_proto.Pose poses = 2;
 
     // model twist in world frame
-    repeated benchmark_proto.Twist twists = 5;
+    repeated benchmark_proto.Twist twists = 3;
 
     // model acceleration 
-    repeated benchmark_proto.Accel acceleration = 6;
-
-    // model contact position
-    repeated benchmark_proto.Vector3 contact_position = 7;
-
-    // model contact normal 
-    repeated benchmark_proto.Vector3 contact_normal = 8;
-
-    // model Wrench 
-    repeated benchmark_proto.Wrench contact_wrench = 9; 
+    repeated benchmark_proto.Accel acceleration = 4;
+    
+    // model contact information
+    repeated ContactInfo contact_info = 5;
     }
     // simulation time
     repeated double sim_time = 6;
