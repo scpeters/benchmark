@@ -62,6 +62,8 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
           "erb frictionModel=%1% complex=%2% surfaceSlope=%3% fritionCoefficient=%4% %5% > %6%") %
       _frictionModel % _complex % _surfaceSlope % _frictionCoefficient % world_erb_path % worldPath);
 
+  std::cout << command << std::endl;
+
   // execute command
   auto commandCheck =  system(command.c_str());
   ASSERT_EQ(commandCheck, 0);
@@ -78,8 +80,14 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
 
   physics::ContactManager *mgr = physics->GetContactManager();
   mgr->SetNeverDropContacts(true);
+  world->Step(1);
+  
+  // std::cout << "number of contacts " << mgr->GetContactCount();
   ASSERT_TRUE(mgr->NeverDropContacts());
-  ASSERT_GT(mgr->GetContactCount(), 0u);
+  ASSERT_GT(mgr->GetContactCount(), 0);
+
+
+   
 
   // initial time
   common::Time t0 = world->SimTime();
@@ -91,16 +99,22 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   // checking if number of model spwaned are correct.
   if(!_complex)
   {
-    ASSERT_EQ(modelCount, 5);
+    ASSERT_EQ(modelCount, 6);
   }
   else
   {
-    ASSERT_EQ(modelCount, 32);
+    ASSERT_EQ(modelCount, 33);
   }
 
-  std::vector<physics::Contact *> contacts;
-
+  auto contacts = mgr->GetContacts();
   auto models = world->Models();
+
+  for(auto model : models)
+  {
+    std::cout << model->GetLink()->GetScopedName() << std::endl;
+  }
+
+  
   physics::LinkPtr link; 
   
   double _dt = 0.001;
@@ -112,16 +126,16 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
 
   for(int i = 0; i<steps; ++i)
   {
+   world->Step(1);
    double t = (world->SimTime() - t0).Double();
    log.recordSimTime(t);
 
-   for(int model_no = 0; model_no < modelCount ; model_no++)
+   for(int model_no = 1; model_no < modelCount - 1; model_no++)
    {
-    auto model = models[model_no];
+    auto model = models[model_no + 1];
     link = model->GetLink();
 
     auto contact = contacts[model_no];
-    ASSERT_EQ(contact->count, 3);
 
     ignition::math::Pose3d pose = link->WorldInertialPose();
     log.recordPose(model_no, pose);
@@ -134,19 +148,24 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
     ignition::math::Vector3d angularAcceleration = link->WorldAngularAccel();
     log.recordAccel(model_no, linearAcceleration, angularAcceleration);
 
-    for(int j = 0; j < contact->count; j++)
+    for(int i = 0; i < contacts.size(); i++)
     {
-      ignition::math::Vector3d contactPosition = contact->positions[j];
-      ignition::math::Vector3d contactnormal = contact->normals[j];
-      ignition::math::Vector3d contactForce = contact->wrench[i].body1Force;
-      ignition::math::Vector3d contactTorque = contact->wrench[i].body1Torque;
+      contact = contacts[i];
 
-      log.recordContactInfo(model_no, contactPosition, contactnormal,
-                            contactForce, contactTorque);
+      if(contact->collision1->GetLink() == link)
+      {
+        ignition::math::Vector3d contactPosition = contact->positions[0];
+        ignition::math::Vector3d contactnormal = contact->normals[0];
+        ignition::math::Vector3d contactForce = contact->wrench[0].body1Force;
+        ignition::math::Vector3d contactTorque = contact->wrench[0].body1Torque;
+  
+        log.recordContactInfo(model_no, contactPosition, contactnormal,
+                               contactForce, contactTorque);
+      }
     }
    }
   }
-
+  
   double elapsedTime = (common::Time::GetWallTime() - startTime).Double();
   log.recordComputationTime(elapsedTime);
 

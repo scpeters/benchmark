@@ -11,7 +11,7 @@
   end
 
   unless defined?(surfaceSlope)
-    surfaceSlope = Math::PI/6
+    surfaceSlope = 0
   end
 
   unless defined?(frictionCoefficient)
@@ -25,12 +25,13 @@
   w0max = 150.0
   w0mags = w0max * Vector.elements((-N..N).to_a) / N.to_f
 
-  gravity = [-9.8*Math::sin(surfaceSlope), 0, -9.8*Math::cos(surfaceSlope)]
+  gravity = [-9.8*Math::sin(surfaceSlope.to_f), 0, -9.8*Math::cos(surfaceSlope.to_f)]
  
 %>
 
 <sdf version="1.6">
   <world name="default">
+    
     <gravity><%= gravity.join(" ") %></gravity>
 
     <include>
@@ -42,7 +43,7 @@
     </include>
 
 <% 
-  if fixed_configuration == 0
+  if complex.to_i == 0
 %> 
     
 
