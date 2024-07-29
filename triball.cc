@@ -79,7 +79,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
 
   physics::ContactManager *mgr = physics->GetContactManager();
   mgr->SetNeverDropContacts(true);
-  world->Step(50);
+  world->Step(1);
   
   // std::cout << "number of contacts " << mgr->GetContactCount();
   ASSERT_TRUE(mgr->NeverDropContacts());
