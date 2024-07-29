@@ -21,6 +21,12 @@ INSTANTIATE_TEST_CASE_P(
                        ::testing::Values(false), ::testing::Range(slope_min, slope_max, slope_step),
                        ::testing::Values(friction_coefficient)));
 
+INSTANTIATE_TEST_CASE_P(
+    BulletTriball, TriballTest,
+    ::testing::Combine(::testing::Values("bullet"), ::testing::Values("pyramid"),
+                       ::testing::Values(false), ::testing::Range(slope_min, slope_max, slope_step),
+                       ::testing::Values(friction_coefficient)));
+
 /////////////////////////////////////////////////
 int main(int argc, char **argv)
 {

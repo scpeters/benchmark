@@ -75,10 +75,11 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   physics::PhysicsEnginePtr physics = world->Physics();
   ASSERT_NE(physics, nullptr);
   ASSERT_EQ(physics->GetType(), _physicsEngine);
+  physics->SetRealTimeUpdateRate(0.0);
 
   physics::ContactManager *mgr = physics->GetContactManager();
   mgr->SetNeverDropContacts(true);
-  world->Step(1);
+  world->Step(50);
   
   // std::cout << "number of contacts " << mgr->GetContactCount();
   ASSERT_TRUE(mgr->NeverDropContacts());
@@ -116,7 +117,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   const double simDuration = 1.0;
   int steps = ceil(simDuration/_dt);
 
-  physics->SetRealTimeUpdateRate(0.0);
+  
   common::Time startTime = common::Time::GetWallTime();
 
   for(int i = 0; i<steps; ++i)

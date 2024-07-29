@@ -4,7 +4,7 @@
 
 <sdf version="1.6">
   <world name="default">
-    <gravity>-4.8999999999999995 0 -8.4870489570875</gravity>
+    <gravity>0 0 -9.80</gravity>
 
     <include>
       <uri>model://ground_plane</uri>
@@ -13,9 +13,8 @@
     <include>
       <uri>model://sun</uri>
     </include>
-
- 
-    
+    <physics type="dart">
+    </physics>
 
     <model name="triball_30">
      <link name="link">
