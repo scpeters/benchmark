@@ -3,13 +3,14 @@ import os
 import pandas as pd
 import time
 import numpy as np
-from gz.math7 import Quaterniond
+from gz.math7 import Quaterniond, Vector3d
 import matplotlib.pyplot as plt
 import csv
 import time
 
+SOURCE_FOLDER = sys.argv[1]
 
-DIRECTORY_NAMES = ["BENCHMARK_boxes_dt"]
+BENCHMARK_NAME = sys.argv[2]
 
 class PostProcessing:
        
@@ -26,9 +27,9 @@ class PostProcessing:
            self.sim_duration = 10
            
            timestr = time.strftime("%Y%m%d-%H%M%S")
-           metrics_filename = test_name + timestr + ".csv"
-           metrics_path = os.path.join("~", "benchmark", "test_results", metrics_filename)
-           self.metrics_path = os.path.expanduser(metrics_path)
+           metrics_filename = test_name + "_" + timestr + ".csv"
+           self.metrics_path = os.path.join(SOURCE_FOLDER, "test_results", metrics_filename)
+           print(f"metrics path is {self.metrics_path}")
 
            self.csv_file = open(self.metrics_path, mode='w', newline='')
            self.csv_writer = csv.writer(self.csv_file)
@@ -48,8 +49,7 @@ class PostProcessing:
     
        def get_file_names(self, result_folder: str):
            '''Method to obtain the file names and file paths of benchmark result'''
-           result_dir = os.path.join("~", "benchmark", "test_results", result_folder, "CSV")
-           result_dir = os.path.expanduser(result_dir)
+           result_dir = os.path.join(SOURCE_FOLDER, "test_results", BENCHMARK_NAME, "CSV")
            file_names = os.listdir(result_dir) 
            return result_dir, file_names
        
@@ -110,15 +110,21 @@ class PostProcessing:
             E_a = np.zeros(self.N)
             L = np.zeros((self.N,3))
             for i in range(self.N):
+                # translation energy + rotational energy + potential energy
                 tran_E = 0.5*self.m*v[i].dot(v[i])
                 rot_E = 0.5*omega[i].dot(self.I.dot(omega[i]))
-                tran_E_a = 0.5*self.m*self.v_a[i].dot(self.v_a[i])
-                rot_E_a = 0.5*self.w0.dot(self.I.dot(self.w0))
                 V = - self.m*self.gravity.dot(pos[i])
-                V_a = - self.m*self.gravity.dot(self.pos_a[i])
                 E[i] = tran_E + rot_E + V
-                E_a[i] = tran_E_a + rot_E_a + V_a
-                L[i] = self.I.dot(omega[i])
+
+                # angular momentum in body frame 
+                l_b = self.I.dot(omega[i]).tolist()
+                quat = rot[i].tolist()
+                quat = Quaterniond(quat[0], quat[1], quat[2], quat[3])
+
+                # angular momentum in world frame
+                l_vector =  Vector3d(l_b[0], l_b[1],l_b[2])
+                l_w = quat.rotate_vector(l_vector)
+                L[i] = np.array([l_w[0], l_w[1], l_w[2]])
 
             # calculation of velocity and postion error and their magnitude
             v_error = (v - self.v_a)
@@ -202,48 +208,47 @@ class PostProcessing:
 
        
 if __name__ == "__main__":
-    for dir in DIRECTORY_NAMES:
-        print(f"BENCHMARK: {dir}")
+    dir = BENCHMARK_NAME
+    print(f"BENCHMARK: {dir}")
 
-        post_processing = PostProcessing(dir)
-        result_dir , file_names = post_processing.get_file_names(dir)
-        file_names = sorted(file_names, reverse=True)
+    post_processing = PostProcessing(dir)
+    result_dir , file_names = post_processing.get_file_names(dir)
+    file_names = sorted(file_names, reverse=True)
 
-        for file in file_names:
-            print(f"TEST: {file}")
-            file_path = os.path.join(result_dir,file)
-            config, states = post_processing.read_file(file_path)
-
-            physic_engine = config[0,0]
-            dt = config[0,1]
-            complex = bool(config[0,2])
-            collision = bool(config[0,3])
-            modelCount = config[0,4]
-            computation_time = config[0,5]
-            log_multiple = bool(config[0,6])
-            class_name = config[0,7]
+    for file in file_names:
+        print(f"TEST: {file}")
+        file_path = os.path.join(result_dir,file)
+        config, states = post_processing.read_file(file_path)
+        physic_engine = config[0,0]
+        dt = config[0,1]
+        complex = bool(config[0,2])
+        collision = bool(config[0,3])
+        modelCount = config[0,4]
+        computation_time = config[0,5]
+        log_multiple = bool(config[0,6])
+        class_name = config[0,7]
             
-            print(f" Physics engines: {physic_engine} \n Timestep: {dt} \n Complex: {complex} \n Number of models: {modelCount}")
-            post_processing.set_test_parameters(physic_engine, dt, complex, collision, modelCount, computation_time, class_name)
+        print(f" Physics engines: {physic_engine} \n Timestep: {dt} \n Complex: {complex} \n Number of models: {modelCount}")
+        post_processing.set_test_parameters(physic_engine, dt, complex, collision, modelCount, computation_time, class_name)
 
-            if log_multiple:
-                no_of_models = modelCount
-            else:
-                no_of_models = 1 
+        if log_multiple:
+            no_of_models = modelCount
+        else:
+            no_of_models = 1 
+        states_per_model = int(len(states[:,0])/no_of_models)
+        states = states.reshape(no_of_models, states_per_model,-1)
 
-            states_per_model = int(len(states[:,0])/no_of_models)
-            states = states.reshape(no_of_models, states_per_model,-1)
+        for i in range(no_of_models):
+            print(f" => Model number: {i+1}")
+            model_states = states[i]
+            sim_time = model_states[:,0]
 
-            for i in range(no_of_models):
-                print(f" => Model number: {i+1}")
-                model_states = states[i]
-                sim_time = model_states[:,0]
-                post_processing.get_analytical_sol(sim_time, i)
-                post_processing.cal_metrics(model_states)
-                post_processing.save_metrics()
-        
-        post_processing.csv_file.close()
-
-        data = pd.read_csv(post_processing.metrics_path)
-        storted_data = data.sort_values(by='dt')
-        storted_data.to_csv(post_processing.metrics_path, index=False)
+            post_processing.get_analytical_sol(sim_time, i)
+            post_processing.cal_metrics(model_states)
+            post_processing.save_metrics()
+    
+    post_processing.csv_file.close()
+    print(f"final metrics path {post_processing.metrics_path}")
+    data = pd.read_csv(post_processing.metrics_path)
+    storted_data = data.sort_values(by='dt')
+    storted_data.to_csv(post_processing.metrics_path, index=False)
