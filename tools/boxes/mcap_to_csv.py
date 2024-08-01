@@ -1,15 +1,16 @@
 
 import os
 import sys
-benchmark_dir = sys.argv[1]
-print(benchmark_dir)
+tools_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+benchmark_dir = os.path.dirname(tools_dir)
+print(f"the path is {benchmark_dir}")
 sys.path.append(os.path.join(benchmark_dir,"mcap/python/mcap"))
 sys.path.append(os.path.join(benchmark_dir, "mcap/python/mcap-protobuf-support"))
 from mcap_protobuf.decoder import DecoderFactory
 from mcap.reader import make_reader
 import csv
 
-BENCHMARK_NAME = sys.argv[2]
+BENCHMARK_NAME = sys.argv[1]
 
 STATES_NAMES = ["sim_time",
                 "model_no",
@@ -34,7 +35,7 @@ CONFIGURATION  = ["physics_engine", "time_step", "complex",
 
 
 def get_file_names(result_folder):
-    result_dir = os.path.join(benchmark_dir,"test_results", BENCHMARK_NAME)
+    result_dir = os.path.join(benchmark_dir,"test_results", result_folder)
     mcap_dir = os.path.join(result_dir, "MCAP")
     file_names = os.listdir(mcap_dir)
     csv_dir = os.path.join(result_dir,"CSV")

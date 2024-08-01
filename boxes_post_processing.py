@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 import csv
 import time
 
-SOURCE_FOLDER = sys.argv[1]
+SOURCE_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
-BENCHMARK_NAME = sys.argv[2]
+BENCHMARK_NAME = sys.argv[1]
 
 class PostProcessing:
        
