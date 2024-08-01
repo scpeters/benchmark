@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package benchmark_proto;
+message  Pose{
+    // position in world frame
+    Vector3 position = 1;
+
+    // orientation of boyd wrt world frame
+    Quaternion orientation = 2;
+}
+
+message Twist{
+    // linear velocity in world frame
+    Vector3 linear = 1;
+
+    //angular velocity in world frame 
+    Vector3 angular = 2;
+}
+
+message Vector3 {
+    // x coordinate length
+    double x = 1;
+  
+    // y coordinate length
+    double y = 2;
+  
+    // z coordinate length
+    double z = 3;
+  }
+message Quaternion {
+    // x value
+    double x = 1;
+  
+    // y value
+    double y = 2;
+  
+    // z value
+    double z = 3;
+  
+    // w value
+    double w = 4;
+  }
+  
+
+message BoxesMsg {
+    // name of physics engine
+    string physics_engine = 1;
+    
+    // simulator time step
+    double dt = 2;
+
+    // gravity option 
+    bool complex = 3;
+
+    // collision check
+    bool collision = 4;
+
+    //  number of models 
+    int32 model_count = 5;
+
+    // all model recorded 
+    bool log_multiple = 6;
+
+    message BoxMsg{
+    // model number 
+    int32 model_no = 1;
+    // model pose in world frame
+    repeated Pose poses = 4;
+
+    // model twist in world frame
+    repeated Twist twists = 5;
+    }
+    // simulation time
+    repeated double sim_time = 7;
+
+    // computational time
+    double computation_time = 8;
+    // array of box msg
+    repeated BoxMsg data = 9;
+}

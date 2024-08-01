@@ -27,6 +27,7 @@
 #include "gazebo/physics/physics.hh"
 #include <boost/format.hpp>
 #include <sstream>
+#include "log.hh"
 
 using namespace gazebo;
 using namespace benchmark;
@@ -37,7 +38,22 @@ using namespace benchmark;
 // conservation
 void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
                       int _modelCount, bool _collision, bool _complex) {
-  ASSERT_GT(_modelCount, 0);
+   ASSERT_GT(_modelCount, 0);
+
+  // Initialize MCAP logging
+  std::string result_name = boost::str(
+    boost::format("%1%/%2%/MCAP/boxes_collision"
+            "%3%_complex%4%_dt%5$.0e_modelCount%6%_%7%.mcap") % RESULT_DIR_PATH %
+      TEST_NAME % _collision % _complex % _dt % _modelCount % _physicsEngine);
+  
+  Log<benchmark_proto::BoxesMsg> log(result_name);
+  bool logMultiple = false;
+
+  // benchmark parameter 
+  log.setBoxMsg(_physicsEngine, _dt,  _complex, _collision, _modelCount, logMultiple);
+
+
+  // Generate world file
   std::string world_erb_path =
       boost::str(boost::format("%1%/boxes.world.erb") % WORLDS_DIR_PATH);
 
@@ -53,11 +69,11 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
       _collision % _complex % _dt % _modelCount % world_erb_path % world_path);
 
   // creating model with desired configuration
-  auto model_check = system(command.c_str());
-  // checking if model is created
-  ASSERT_EQ(model_check, 0);
+  auto command_check = system(command.c_str());
+  // checking if world is created
+  ASSERT_EQ(command_check, 0);
 
-  // Load a blank world (no ground plane)
+  // Load the generated world file
   Load(world_path, true, _physicsEngine);
   physics::WorldPtr world = physics::get_world("default");
   ASSERT_NE(world, nullptr);
@@ -125,73 +141,57 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
 
   // initial angular momentum in global frame
   ignition::math::Vector3d H0 = link->WorldAngularMomentum();
+
   ASSERT_EQ(H0, ignition::math::Vector3d(Ixx, Iyy, Izz) * w0);
-  double H0mag = H0.Length();
 
   const double simDuration = 10.0;
   int steps = ceil(simDuration / _dt);
 
-  // variables to compute statistics on
-  ignition::math::Vector3Stats linearPositionError;
-  ignition::math::Vector3Stats linearVelocityError;
-  ignition::math::Vector3Stats angularPositionError;
-  ignition::math::Vector3Stats angularMomentumError;
-  ignition::math::SignalStats energyError;
+  int log_no;
+  if(logMultiple)
   {
-    const std::string statNames = "maxAbs";
-    EXPECT_TRUE(linearPositionError.InsertStatistics(statNames));
-    EXPECT_TRUE(linearVelocityError.InsertStatistics(statNames));
-    EXPECT_TRUE(angularPositionError.InsertStatistics(statNames));
-    EXPECT_TRUE(angularMomentumError.InsertStatistics(statNames));
-    EXPECT_TRUE(energyError.InsertStatistics(statNames));
+   log_no = _modelCount; 
+  } 
+  else
+  {
+    log_no = 1;
   }
 
   // unthrottle update rate
   physics->SetRealTimeUpdateRate(0.0);
+
   common::Time startTime = common::Time::GetWallTime();
+
   for (int i = 0; i < steps; ++i) {
     world->Step(1);
-
-    // current time
+    // current sim time
     double t = (world->SimTime() - t0).Double();
+    log.recordSimTime(t);
 
-    // linear velocity error
-    ignition::math::Vector3d v = link->WorldCoGLinearVel();
-    linearVelocityError.InsertData(v - (v0 + g * t));
+    // current wall time
+    for(int model_no = 0; model_no < log_no ; model_no++){
 
-    // linear position error
-    ignition::math::Vector3d p = link->WorldInertialPose().Pos();
-    linearPositionError.InsertData(p - (p0 + v0 * t + 0.5 * g * t * t));
-
-    // angular momentum error
-    ignition::math::Vector3d H = link->WorldAngularMomentum();
-    angularMomentumError.InsertData((H - H0) / H0mag);
-
-    // angular position error
-    if (!_complex) {
-      ignition::math::Vector3d a = link->WorldInertialPose().Rot().Euler();
-      ignition::math::Quaterniond angleTrue(w0 * t);
-      angularPositionError.InsertData(a - angleTrue.Euler());
+      auto model = models[model_no];
+      link = model->GetLink();
+      // linear velocity 
+      ignition::math::Vector3d v = link->WorldCoGLinearVel();
+      // angular velocity
+      ignition::math::Vector3d a = link->WorldAngularVel();
+      log.recordTwist(model_no, v, a);
+  
+      // linear position 
+      ignition::math::Pose3d pose = link->WorldInertialPose();
+      log.recordPose(model_no, pose);
+    }
     }
 
-    // energy error
-    energyError.InsertData((link->GetWorldEnergy() - E0) / E0);
-  }
-  common::Time elapsedTime = common::Time::GetWallTime() - startTime;
-  this->Record("wallTime", elapsedTime.Double());
+  double elapsedTime = (common::Time::GetWallTime() - startTime).Double();
+  log.recordComputationTime(elapsedTime);
+
   common::Time simTime = (world->SimTime() - t0).Double();
   ASSERT_NEAR(simTime.Double(), simDuration, _dt * 1.1);
-  this->Record("simTime", simTime.Double());
-  this->Record("timeRatio", elapsedTime.Double() / simTime.Double());
 
-  // Record statistics on pitch and yaw angles
-  this->Record("energy0", E0);
-  this->Record("energyError_", energyError);
-  this->Record("angMomentum0", H0mag);
-  this->Record("angMomentumErr_", angularMomentumError.Mag());
-  this->Record("angPositionErr", angularPositionError);
-  this->Record("linPositionErr_", linearPositionError.Mag());
-  this->Record("linVelocityErr_", linearVelocityError.Mag());
+  log.stop();
 }
 
 /////////////////////////////////////////////////
@@ -204,10 +204,5 @@ TEST_P(BoxesTest, Boxes) {
   gzdbg << physicsEngine << ", dt: " << dt << ", modelCount: " << modelCount
         << ", collision: " << collision << ", isComplex: " << isComplex
         << std::endl;
-  RecordProperty("engine", physicsEngine);
-  this->Record("dt", dt);
-  RecordProperty("modelCount", modelCount);
-  RecordProperty("collision", collision);
-  RecordProperty("isComplex", isComplex);
   Boxes(physicsEngine, dt, modelCount, collision, isComplex);
 }
