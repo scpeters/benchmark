@@ -176,9 +176,9 @@ void BoxesTest::Boxes(const std::string &_physicsEngine, double _dt,
       // linear velocity in world frame
       ignition::math::Vector3d v = link->WorldCoGLinearVel();
       // angular velocity in body frame
-      ignition::math::Vector3d a = link->RelativeAngularVel();
+      ignition::math::Vector3d a = link->WorldAngularVel();
       log.recordTwist(model_no, v, a);
-  
+
       // linear position in world frame
       ignition::math::Pose3d pose = link->WorldInertialPose();
       log.recordPose(model_no, pose);

@@ -107,19 +107,24 @@ class PostProcessing:
 
             # calculation of energy and angular momentum error
             E = np.zeros(self.N)
-            E_a = np.zeros(self.N)
             L = np.zeros((self.N,3))
             for i in range(self.N):
+                # angular velocity in bpdy frame
+                omega_w = omega[i].tolist()
+                quat = rot[i].tolist()
+                quat = Quaterniond(quat[0], quat[1], quat[2], quat[3])
+                omega_b = quat.rotate_vector_reverse(Vector3d(omega_w[0], omega_w[1], omega_w[2]))
+                omega_b = np.array([omega_b[0], omega_b[1], omega_b[2]])
+                print(omega_b)
+
                 # translation energy + rotational energy + potential energy
                 tran_E = 0.5*self.m*v[i].dot(v[i])
-                rot_E = 0.5*omega[i].dot(self.I.dot(omega[i]))
+                rot_E = 0.5*omega_b.dot(self.I.dot(omega_b))
                 V = - self.m*self.gravity.dot(pos[i])
                 E[i] = tran_E + rot_E + V
 
                 # angular momentum in body frame 
-                l_b = self.I.dot(omega[i]).tolist()
-                quat = rot[i].tolist()
-                quat = Quaterniond(quat[0], quat[1], quat[2], quat[3])
+                l_b = self.I.dot(omega_b).tolist()
 
                 # angular momentum in world frame
                 l_vector =  Vector3d(l_b[0], l_b[1],l_b[2])
