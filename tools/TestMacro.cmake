@@ -57,7 +57,6 @@ macro (gz_build_tests)
       ENVIRONMENT "${_env_vars}"
     )
 
-<<<<<<< HEAD
     # Check that the test produced a result and create a failure if it didn't.
     # Guards against crashed and timed out tests.
     # add_test(check_${BINARY_NAME} python3 ${PROJECT_SOURCE_DIR}/tools/check_test_ran.py
@@ -72,11 +71,6 @@ macro (gz_build_tests)
     add_test(NAME post_processing_${BINARY_NAME}
       COMMAND python3 ${PROJECT_SOURCE_DIR}/boxes_post_processing.py 
       ${BINARY_NAME}
-=======
-    # Convert mcap file to csv and place in test_results in source folder.
-    add_test(NAME csv_${BINARY_NAME}
-      COMMAND python3 ${PROJECT_SOURCE_DIR}/tools/mcap_to_csv.py ${BINARY_NAME}
->>>>>>> d7cfae6 (changes to cmake file)
     )
 
     install(TARGETS ${BINARY_NAME}
