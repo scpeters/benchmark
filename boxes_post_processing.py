@@ -115,7 +115,6 @@ class PostProcessing:
                 quat = Quaterniond(quat[0], quat[1], quat[2], quat[3])
                 omega_b = quat.rotate_vector_reverse(Vector3d(omega_w[0], omega_w[1], omega_w[2]))
                 omega_b = np.array([omega_b[0], omega_b[1], omega_b[2]])
-                print(omega_b)
 
                 # translation energy + rotational energy + potential energy
                 tran_E = 0.5*self.m*v[i].dot(v[i])
