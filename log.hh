@@ -54,7 +54,8 @@ class Log
 
     public: void setTriballMsg(const std::string &_physicsEngine, 
                      double &_slope, float &_frictionCoefficient,
-                     bool &_complex, const std::string &_frictionModel)
+                     bool &_complex, const std::string &_frictionModel,
+                     double _cogH)
     {
       mcap::Schema schema("benchmark_proto.TriballsMsg", "protobuf",
                          foxglove::BuildFileDescriptorSet(benchmark_proto::TriballsMsg::descriptor()).SerializeAsString());
@@ -68,6 +69,7 @@ class Log
       msg.set_friction_coefficient(_frictionCoefficient);
       msg.set_complex(_complex);
       msg.set_friction_model(_frictionModel);
+      msg.set_cog_h(_cogH);
 
       int modelCount;
       if(_complex)

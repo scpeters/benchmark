@@ -4,7 +4,8 @@
 
 <sdf version="1.6">
   <world name="default">
-    <gravity>0 0 -9.80</gravity>
+    
+    <gravity>-0.0 0 -9.8</gravity>
 
     <include>
       <uri>model://ground_plane</uri>
@@ -13,14 +14,19 @@
     <include>
       <uri>model://sun</uri>
     </include>
-    <physics type="dart">
+
+    <physics type="ode">
     </physics>
 
+ 
+    
+
     <model name="triball_30">
+     <pose> 0 0 0 0 0 0 </pose>
      <link name="link">
       <pose>0 0 0.02  0 0 0</pose>
       <inertial>
-          <pose>0.0022414159556670668 0 0 0 0 0</pose>
+          <pose>0.0022414159556670668 0 0.01 0 0 0</pose>
           <mass>0.078742493606727915</mass>
           <inertia>
             <ixx>8.4732487219449371e-05</ixx>
@@ -235,10 +241,11 @@
     </model>
 
     <model name="triball_45">
+     <pose> 0 1 0 0 0 0 </pose>
      <link name="link">
-      <pose>0 1 0.02  0 0 0</pose>
+      <pose>0 0 0.02  0 0 0</pose>
       <inertial>
-          <pose>0.0011016530914522173 0 0 0 0 0</pose>
+          <pose>0.0011016530914522173 0 0.01 0 0 0</pose>
           <mass>0.081476344460819278</mass>
           <inertia>
             <ixx>0.00019232606045470671</ixx>
@@ -456,7 +463,7 @@
      <link name="link">
       <pose>0 2 0.02  0 0 0</pose>
       <inertial>
-        <pose>0.0 0.0 0  0 0 0</pose>
+        <pose>0.0 0.0 0.01  0 0 0</pose>
         <mass>0.060318578948924034</mass>
         <inertia>
           <ixx>0.000311243867376448</ixx>
@@ -670,10 +677,11 @@
     </model>
 
     <model name="triball_75">
+     <pose> 0 3 0 0 0 0 </pose>
      <link name="link">
-      <pose>0 3 0.02  0 0 0</pose>
+      <pose>0 0 0.02  0 0 0</pose>
       <inertial>
-          <pose>-0.0010889786320120855 0 0 0 0 0</pose>
+          <pose>-0.0010889786320120855 0 0.01 0 0 0</pose>
           <mass>0.088985917618018107</mass>
           <inertia>
             <ixx>0.00066921849216050014</ixx>
@@ -887,10 +895,11 @@
     </model>
 
     <model name="triball_90">
+     <pose> 0 4 0 0 0 0 </pose>
      <link name="link">
-      <pose>0 4 0.02  0 0 0</pose>
+      <pose>0 0 0.02  0 0 0</pose>
       <inertial>
-          <pose>-0.0021920256670695452 0 0 0 0 0</pose>
+          <pose>-0.0021920256670695452 0 0.01 0 0 0</pose>
           <mass>0.094448719111790758</mass>
           <inertia>
             <ixx>0.0011706814995045239</ixx>

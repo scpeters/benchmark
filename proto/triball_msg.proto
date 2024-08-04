@@ -36,6 +36,9 @@ message TriballsMsg {
     // friction model pyramid or cone
     string friction_model = 5;
 
+    // centre of gravity height
+    double cog_h = 6;
+
     message TriballMsg{
     // model number 
     int32 model_no = 1;
@@ -52,10 +55,10 @@ message TriballsMsg {
     repeated ContactInfo contact_info = 5;
     }
     // simulation time
-    repeated double sim_time = 6;
+    repeated double sim_time = 7;
 
     // computational time
-    double computation_time = 7;
+    double computation_time = 8;
     // array of box msg
-    repeated TriballMsg data = 8;
+    repeated TriballMsg data = 9;
 }
