@@ -63,6 +63,7 @@ set(PROTOBUF_DESCRIPTION_SRC
     ${PROTOBUF_DESCRIPTION_DIR}/BuildFileDescriptorSet.cpp
 )
 
+set(TEST_NAME boxes)
 # Boxes tests
 set(BOXES_TEST_FILES
   boxes_dt.cc
@@ -77,6 +78,7 @@ gz_build_tests(${BOXES_TEST_FILES})
 set_tests_properties(BENCHMARK_boxes_dt PROPERTIES TIMEOUT 500)
 set_tests_properties(BENCHMARK_boxes_model_count PROPERTIES TIMEOUT 3000)
 
+set(TEST_NAME triball)
 set(TRIBALL_TEST_FILES
   triball_configuration.cc
 )

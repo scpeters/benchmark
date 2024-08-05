@@ -63,7 +63,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
       boost::format(
           "erb frictionModel=%1% complex=%2% surfaceSlope=%3% fritionCoefficient=%4% cogH=%5% %6% > %7%") %
       _frictionModel % _complex % _surfaceSlope % _frictionCoefficient % _cogH % world_erb_path % worldPath);
-
+  
   // execute command
   auto commandCheck =  system(command.c_str());
   ASSERT_EQ(commandCheck, 0);
@@ -120,6 +120,9 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   int steps = ceil(simDuration/_dt);
 
   
+  std::vector<std::string> collisionNames{"collision_a", "collision_b", "collision_c"};
+  collisionNames.reserve(3);
+  
   common::Time startTime = common::Time::GetWallTime();
 
   for(int i = 0; i<steps; ++i)
@@ -127,7 +130,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
    world->Step(1);
    double t = (world->SimTime() - t0).Double();
    log.recordSimTime(t);
-   ASSERT_EQ(mgr->GetContactCount(), contactCount*(modelCount - 1));
+   EXPECT_EQ(mgr->GetContactCount(), contactCount*(modelCount - 1));
 
    for(int model_no = 1; model_no < modelCount; model_no++)
    {
@@ -145,21 +148,34 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
     ignition::math::Vector3d linearAcceleration = link->WorldLinearAccel();
     ignition::math::Vector3d angularAcceleration = link->WorldAngularAccel();
     log.recordAccel(modelIdx, linearAcceleration, angularAcceleration);
-    
-    int contactIndex = 0;
-    for(auto contact : contacts)
+
+    for(int contactIdx = 0; contactIdx < collisionNames.size(); contactIdx++)
     {
-      if(contact->collision1->GetLink() == link)
+      for(auto contact : contacts)
       { 
-        ignition::math::Vector3d contactPosition = contact->positions[0];
-        ignition::math::Vector3d contactnormal = contact->normals[0];
-        ignition::math::Vector3d contactForce = contact->wrench[0].body1Force;
-        ignition::math::Vector3d contactTorque = contact->wrench[0].body1Torque;
-  
-        log.recordContactInfo(modelIdx, contactIndex, contactPosition, contactnormal,
-                               contactForce, contactTorque);
-        contactIndex++;
+        std::string scopedName(contact->collision1->GetScopedName());
+        std::string collisionName(scopedName.substr(scopedName.rfind("::") +2));
+        
+        bool contactStatus = false;
+        ignition::math::Vector3d contactPosition;
+        ignition::math::Vector3d contactnormal;
+        ignition::math::Vector3d contactForce;
+        ignition::math::Vector3d contactTorque;
+
+        if(collisionName == collisionNames[contactIdx] && 
+           contact->collision1->GetLink() == link)
+        { 
+          contactStatus = true;
+          contactPosition = contact->positions[0];
+          contactnormal = contact->normals[0];
+          contactForce = contact->wrench[0].body1Force;
+          contactTorque = contact->wrench[0].body1Torque;
+        }
+
+        log.recordContactInfo(modelIdx, contactIdx, contactStatus, contactPosition, 
+                              contactnormal, contactForce, contactTorque);
       }
+
     }
    }
   }

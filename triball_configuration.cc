@@ -10,7 +10,7 @@ using namespace benchmark;
 
 
 const double slope_min = 0; 
-const double slope_max = IGN_PI/4;
+const double slope_max = IGN_PI/6;
 const double slope_step = IGN_PI/24;
 const float friction_coefficient = 0.9;
 

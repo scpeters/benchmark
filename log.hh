@@ -202,14 +202,16 @@ class Log
       accel->mutable_angular()->set_z(_angAccel.Z()); 
     }
 
-    public: void recordContactInfo(int &_modelIdx, const std::vector<double> &_position,
-                             const std::vector<double> &_normal, const std::vector<double> 
-                             &_force, const std::vector<double> &_torque)
+    public: void recordContactInfo(int &_modelIdx, int &_contactIdx, bool contactStatus,
+                                   const std::vector<double> &_position, const std::vector<double> &_normal,
+                                   const std::vector<double> &_force, const std::vector<double> &_torque)
     {
+      auto contact_status = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx);
       auto contact_pos = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_position();
       auto contact_normal = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_normal(); 
       auto contact_wrench = msg.mutable_date(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_wrench();
-
+      
+      contact_status->add_contact_status(contactStatus);
       contact_pos->set_x(_position[0]);
       contact_pos->set_y(_position[1]);
       contact_pos->set_z(_position[2]);
@@ -227,14 +229,16 @@ class Log
       contact_wrench->mutale_torques()->set_z(_torque[3]);
     }
 
-    public: void recordContactInfo(int &_modelIdx, int &_contactIdx, const ignition::math::Vector3d &_position,
-                             const ignition::math::Vector3d &_normal, const ignition::math::Vector3d &_force, 
-                             const ignition::math::Vector3d &_torque)
-    {
+    public: void recordContactInfo(int &_modelIdx, int &_contactIdx, bool contactStatus,
+                                   const ignition::math::Vector3d &_position, const ignition::math::Vector3d &_normal,
+                                   const ignition::math::Vector3d &_force, const ignition::math::Vector3d &_torque)
+    { 
+      auto contact_status = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx);
       auto contact_pos = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_position();
       auto contact_normal = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_normal(); 
       auto contact_wrench = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_wrench();
-
+      
+      contact_status->add_contact_status(contactStatus);
       contact_pos->set_x(_position.X());
       contact_pos->set_y(_position.Y());
       contact_pos->set_z(_position.Z());

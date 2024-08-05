@@ -1,7 +1,8 @@
 
 import os
 import sys
-benchmark_dir = os.path.dirname(os.getcwd())
+tools_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+benchmark_dir = os.path.dirname(tools_dir)
 sys.path.append(os.path.join(benchmark_dir,"mcap/python/mcap"))
 sys.path.append(os.path.join(benchmark_dir, "mcap/python/mcap-protobuf-support"))
 from mcap_protobuf.decoder import DecoderFactory
@@ -15,21 +16,22 @@ STATES_NAMES = ["sim_time", "model_no", "linear_accel_x", "linear_accel_y",
                 "angular_accel_z", "linear_vel_x", "linear_vel_y",
                 "linear_vel_z", "angular_vel_x", "angular_vel_y",
                 "angular_vel_z", "pos_x", "pos_y", "pos_z", "quat_w",
-                "quat_x", "quat_y", "quat_z", "contact1_pos_x", "contact1_pos_y",
-                "contact1_pos_z", "contact1_normal_x", "contact1_normal_y",
-                "contact1_normal_z", "contact1_force_x", "contact1_force_y",
-                "contact1_force_z", "contact1_torque_x", "contact1_torque_y",
-                "contact1_torque_z", "contact2_pos_x", "contact2_pos_y", "contact2_pos_z",
-                "contact2_normal_x", "contact2_normal_y", "contact2_normal_z",
-                "contact2_force_x", "contact2_force_y", "contact2_force_z", 
-                "contact2_torque_x", "contact2_torque_y", "contact2_torque_z", "contact3_pos_x",
-                "contact3_pos_y", "contact3_pos_z", "contact3_normal_x", "contact3_normal_y",
-                "contact3_normal_z", "contact3_force_x", "contact3_force_y", "contact3_force_z",
-                "contact3_torque_x", "contact3_torque_y", "contact3_torque_z"]
+                "quat_x", "quat_y", "quat_z"]
+
+for i in range(1,4):
+    contact_info = []
+    status = ["{}{}{}".format("contact", str(i), "_status")]
+    contact_info += status
+    for j in ["_pos_", "_normal_", "_torque_"]:
+        x = ["{}{}{}".format("contact", str(i),  j + "x")]
+        y = ["{}{}{}".format("contact", str(i), j + "y")]
+        z = ["{}{}{}".format("contact", str(i), j + "z")]
+        contact_info += x + y + z
+    STATES_NAMES = STATES_NAMES + contact_info
 
 CONFIGURATION  = ["physics_engine", "time_step", "complex", 
-                  "slope", "friction_coefficeint","friction_model", 
-                  "wall_time"]
+                  "slope", "friction coefficeint","friction model", 
+                  "cog height", "wall_time"]
 
 
 
@@ -58,6 +60,9 @@ def add_acceleration(data, t):
     return [data.acceleration[t].linear.x, data.acceleration[t].linear.y,
             data.acceleration[t].linear.z, data.acceleration[t].angular.x, 
             data.acceleration[t].angular.y, data.acceleration[t].angular.z]
+
+def add_contact_status(data, t, idx):
+    return [data.contact_info[idx].contact_status[t]]
 
 def add_contact_position(data, t, idx):
     return [data.contact_info[idx].contact_position[t].x, 
@@ -122,7 +127,7 @@ def MCAP_to_CSV(result_dir, file_name):
                           add_twist(data, t) + add_pose(data, t) 
                     
                     for idx in range(3):
-                        row = row + add_contact_position(data, t , idx) +\
+                        row = row + add_contact_status(data, t, idx) + add_contact_position(data, t , idx) +\
                               add_contact_normal(data, t, idx) + add_contact_wrench(data, t, idx)
                     
                     csv_writer.writerow(row)
@@ -136,5 +141,6 @@ print("Started converting files from MCAP to CSV")
 result_dir,file_names = get_file_names(DIRECTORY_NAME)
 for file_name in file_names:
     MCAP_to_CSV(result_dir, file_name)
+    print(file_name)
 
 print("Successfully !! converted all files from MCAP to CSV")

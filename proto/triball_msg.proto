@@ -1,3 +1,4 @@
+
 syntax = "proto3";
 
 import "Pose.proto";
@@ -9,15 +10,17 @@ import "Accel.proto";
 package benchmark_proto;
 
 message ContactInfo{
+    // contact on
+    repeated bool contact_status = 1;
 
     // model contact position
-    repeated benchmark_proto.Vector3 contact_position = 1;
+    repeated benchmark_proto.Vector3 contact_position = 2;
 
     // model contact normal 
-    repeated benchmark_proto.Vector3 contact_normal = 2;
+    repeated benchmark_proto.Vector3 contact_normal = 3;
 
     // model Wrench 
-    repeated benchmark_proto.Wrench contact_wrench = 3; 
+    repeated benchmark_proto.Wrench contact_wrench = 4; 
 }
 
 message TriballsMsg {

@@ -64,7 +64,7 @@ macro (gz_build_tests)
 
     # Convert junit file to csv and place in test_results in source folder.
     add_test(NAME mcap2csv_${BINARY_NAME}
-      COMMAND python3 ${PROJECT_SOURCE_DIR}/tools/boxes/mcap_to_csv.py 
+      COMMAND python3 ${PROJECT_SOURCE_DIR}/tools/${TEST_NAME}/mcap_to_csv.py 
       ${BINARY_NAME}
     )
 
@@ -79,4 +79,5 @@ macro (gz_build_tests)
   endforeach()
 
   set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS "")
+  set(TEST_NAME "")
 endmacro()
