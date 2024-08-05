@@ -72,7 +72,6 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
  
   physics::WorldPtr world = physics::get_world("default");
   ASSERT_NE(world, nullptr);
-  
 
   physics::PhysicsEnginePtr physics = world->Physics();
   ASSERT_NE(physics, nullptr);
@@ -87,14 +86,10 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   ASSERT_TRUE(mgr->NeverDropContacts());
   ASSERT_GT(mgr->GetContactCount(), 0);
 
-
-   
-
   // initial time
   common::Time t0 = world->SimTime();
 
   ignition::math::Vector3d gravity = world->Gravity();
-
 
   std::size_t modelCount = world->ModelCount();
   // checking if number of model spwaned are correct.
@@ -112,14 +107,12 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   int contactCount = 3;
   EXPECT_EQ(mgr->GetContactCount(), contactCount*(modelCount - 1));
 
- 
   physics::LinkPtr link; 
   
   double _dt = 0.001;
   const double simDuration = 1.0;
   int steps = ceil(simDuration/_dt);
 
-  
   std::vector<std::string> collisionNames{"collision_a", "collision_b", "collision_c"};
   collisionNames.reserve(3);
   
@@ -174,7 +167,6 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
         log.recordContactInfo(modelIdx, contactIdx, contactStatus, contactPosition, 
                               contactnormal, contactForce, contactTorque);
       }
-
     }
    }
   }
