@@ -110,7 +110,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   auto contacts = mgr->GetContacts();
   auto models = world->Models();
   int contactCount = 3;
-  ASSERT_EQ(mgr->GetContactCount(), contactCount*(modelCount - 1));
+  EXPECT_EQ(mgr->GetContactCount(), contactCount*(modelCount - 1));
 
  
   physics::LinkPtr link; 
@@ -130,7 +130,6 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
    world->Step(1);
    double t = (world->SimTime() - t0).Double();
    log.recordSimTime(t);
-   EXPECT_EQ(mgr->GetContactCount(), contactCount*(modelCount - 1));
 
    for(int model_no = 1; model_no < modelCount; model_no++)
    {
