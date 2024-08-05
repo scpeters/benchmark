@@ -22,7 +22,7 @@ for i in range(1,4):
     contact_info = []
     status = ["{}{}{}".format("contact", str(i), "_status")]
     contact_info += status
-    for j in ["_pos_", "_normal_", "_torque_"]:
+    for j in ["_pos_", "_normal_", "force", "_torque_"]:
         x = ["{}{}{}".format("contact", str(i),  j + "x")]
         y = ["{}{}{}".format("contact", str(i), j + "y")]
         z = ["{}{}{}".format("contact", str(i), j + "z")]

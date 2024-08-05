@@ -142,31 +142,31 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
     log.recordAccel(modelIdx, linearAcceleration, angularAcceleration);
 
     for(int contactIdx = 0; contactIdx < collisionNames.size(); contactIdx++)
-    {
+    { 
+      bool contactStatus = false;
+      ignition::math::Vector3d contactPosition;
+      ignition::math::Vector3d contactNormal;
+      ignition::math::Vector3d contactForce;
+      ignition::math::Vector3d contactTorque;
+
       for(auto contact : contacts)
       { 
         std::string scopedName(contact->collision1->GetScopedName());
         std::string collisionName(scopedName.substr(scopedName.rfind("::") +2));
-        
-        bool contactStatus = false;
-        ignition::math::Vector3d contactPosition;
-        ignition::math::Vector3d contactnormal;
-        ignition::math::Vector3d contactForce;
-        ignition::math::Vector3d contactTorque;
 
         if(collisionName == collisionNames[contactIdx] && 
            contact->collision1->GetLink() == link)
         { 
           contactStatus = true;
           contactPosition = contact->positions[0];
-          contactnormal = contact->normals[0];
+          contactNormal = contact->normals[0];
           contactForce = contact->wrench[0].body1Force;
           contactTorque = contact->wrench[0].body1Torque;
-        }
-
-        log.recordContactInfo(modelIdx, contactIdx, contactStatus, contactPosition, 
-                              contactnormal, contactForce, contactTorque);
+        }  
       }
+
+      log.recordContactInfo(modelIdx, contactIdx, contactStatus, contactPosition, 
+                              contactNormal, contactForce, contactTorque);
     }
    }
   }
