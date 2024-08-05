@@ -85,6 +85,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   // std::cout << "number of contacts " << mgr->GetContactCount();
   ASSERT_TRUE(mgr->NeverDropContacts());
   ASSERT_GT(mgr->GetContactCount(), 0);
+  std::cout << mgr->GetContactCount() << std::endl;
 
   // initial time
   common::Time t0 = world->SimTime();
@@ -110,7 +111,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   physics::LinkPtr link; 
   
   double _dt = 0.001;
-  const double simDuration = 1.0;
+  const double simDuration = 1;
   int steps = ceil(simDuration/_dt);
 
   std::vector<std::string> collisionNames{"collision_a", "collision_b", "collision_c"};
@@ -121,6 +122,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   for(int i = 0; i<steps; ++i)
   {
    world->Step(1);
+   EXPECT_EQ(mgr->GetContactCount(), contactCount*(modelCount - 1));
    double t = (world->SimTime() - t0).Double();
    log.recordSimTime(t);
 
@@ -164,7 +166,6 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
           contactTorque = contact->wrench[0].body1Torque;
         }  
       }
-
       log.recordContactInfo(modelIdx, contactIdx, contactStatus, contactPosition, 
                               contactNormal, contactForce, contactTorque);
     }
