@@ -33,19 +33,20 @@ using namespace benchmark;
 
 void TriballTest::Triball(const std::string &_physicsEngine, const std::string &_frictionModel, 
                           bool _complex, double _surfaceSlope, float _frictionCoefficient
-                          , double _cogH)
+                          , double _cogH, bool _equalKE)
 {
   
   // logging result directory location
   std::string result_name = boost::str(boost::format("%1%/%2%/MCAP/triball_frictionModel"
-                                       "%3%_complex%4%_surfaceSlope%5%_frictionCoefficient%6%_cogH%7%_%8%.mcap") 
+                                       "%3%_complex%4%_surfaceSlope%5%_frictionCoefficient%6%_cogH%7%_equalKE%8%_%9%.mcap") 
                                        % RESULT_DIR_PATH % TEST_NAME % _frictionModel % _complex 
-                                       % _surfaceSlope % _frictionCoefficient % _cogH % _physicsEngine);
+                                       % _surfaceSlope % _frictionCoefficient % _cogH % _equalKE %
+                                       _physicsEngine);
 
   Log<benchmark_proto::TriballsMsg> log(result_name);
   // setting benchmark parameters
   log.setTriballMsg(_physicsEngine, _surfaceSlope, _frictionCoefficient, 
-                    _complex, _frictionModel, _cogH);
+                    _complex, _frictionModel, _cogH, _equalKE);
 
   // World creation based on test parameters using boxes.world.erb file.
   std::string world_erb_path =
@@ -54,9 +55,9 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   std::string worldPath = boost::str(
       boost::format(
           "%1%/%2%/"
-          "triball_frictionModel%3%_complex%4%_surfaceSlope%5%_frictionCoefficient%6%_cogH%7%.world") %
+          "triball_frictionModel%3%_complex%4%_surfaceSlope%5%_frictionCoefficient%6%_cogH%7%_equalKE%8%.world") %
       WORLDS_DIR_PATH % TEST_NAME % _frictionModel % _complex % _surfaceSlope % _frictionCoefficient %
-      _cogH);
+      _cogH % _equalKE);
 
   // Final world sdf path
   std::string command = boost::str(
@@ -189,10 +190,11 @@ TEST_P(TriballTest, Triball) {
   double surfaceSlope = std::tr1::get<3>(GetParam());
   float frictionCoefficient = std::tr1::get<4>(GetParam());
   float cogH = std::tr1::get<5>(GetParam());
+  float equalKE = std::tr1::get<6>(GetParam());
 
   gzdbg << physicsEngine << ", friction model: " << frictionModel << ", complex: " << complex
         << ", surface slope: " << surfaceSlope << ", friction coefficient: " << frictionCoefficient
         << "center of gravity of height" << cogH << std::endl;
 
-  Triball(physicsEngine, frictionModel, complex, surfaceSlope, frictionCoefficient, cogH);
+  Triball(physicsEngine, frictionModel, complex, surfaceSlope, frictionCoefficient, cogH, equalKE);
 }

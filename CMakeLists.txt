@@ -81,6 +81,7 @@ set_tests_properties(BENCHMARK_boxes_model_count PROPERTIES TIMEOUT 3000)
 set(TEST_NAME triball)
 set(TRIBALL_TEST_FILES
   triball_configuration.cc
+  triball_sliding.cc
 )
 
 set(GZ_BUILD_TESTS_EXTRA_EXE_SRCS

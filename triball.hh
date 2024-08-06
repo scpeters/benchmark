@@ -36,6 +36,7 @@ namespace gazebo
                             , double
                             , float
                             , double
+                            , bool
                             > char1double1int1bool2;
 
     class TriballTest : public ServerFixture,
@@ -48,12 +49,14 @@ namespace gazebo
       /// \param[in] _surfaceSlope Flag for collision shape on / off.
       /// \param[in] _frictionCoefficient Flag for complex trajectory on / off.
       /// \param[in] _cogH
+      /// \param[in] _equalKE
       public: void Triball(const std::string &_physicsEngine
                        , const std::string &_frictionModel
                        , bool _complex
                        , double _surfaceSlope
                        , float _frictionCoefficient
-                       , double _cogH);
+                       , double _cogH
+                       , bool _equalKE);
     };
   }
 }
