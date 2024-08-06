@@ -3,7 +3,7 @@
 <%
   # default values
   unless defined?(frictionModel)
-    frictionModel = "pyramid"  
+    frictionModel = "pyramid_model"  
   end
 
   unless defined?(complex)
@@ -81,6 +81,11 @@
     </include>
 
     <physics type="ignored">
+      <ode>
+        <solver>
+          <friction_model><%= frictionModel %></friction_model>
+        </solver>
+      </ode>
     </physics>
 
 <% 

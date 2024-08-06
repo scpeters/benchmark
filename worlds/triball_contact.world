@@ -15,7 +15,7 @@
       <uri>model://sun</uri>
     </include>
 
-    <physics type="ode">
+    <physics type="ignored">
       <ode>
         <solver>
           <friction_model>cone_model</friction_model>

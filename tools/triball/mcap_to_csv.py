@@ -31,7 +31,7 @@ for i in range(1,4):
 
 CONFIGURATION  = ["physics_engine", "time_step", "complex", 
                   "slope", "friction coefficeint","friction model", 
-                  "cog height", "wall_time"]
+                  "cog height", "wall_time", "equal_KE"]
 
 
 
@@ -105,6 +105,7 @@ def MCAP_to_CSV(result_dir, file_name):
             friction_model = proto_msg.friction_model
             friction_coefficeint = proto_msg.friction_coefficient
             wall_time = proto_msg.computation_time
+            equal_KE = proto_msg.equal_ke
             dt = 1e-3
 
 
@@ -118,7 +119,7 @@ def MCAP_to_CSV(result_dir, file_name):
                 engine = physics_engine
 
             csv_writer.writerow([engine, dt, complex, slope, friction_coefficeint,
-                                 friction_model, wall_time])
+                                 friction_model, wall_time, equal_KE])
 
             csv_writer.writerow(STATES_NAMES)
             for data in proto_msg.data:

@@ -16,8 +16,14 @@ const double cog_h_min = -0.02;
 const double cog_h_step = 0.01;
 
 INSTANTIATE_TEST_CASE_P(
-    OdeTriball, TriballTest,
-    ::testing::Combine(::testing::Values("ode"), ::testing::Values("pyramid"),
+    OdeTriballPyramidModel, TriballTest,
+    ::testing::Combine(::testing::Values("ode"), ::testing::Values("pyramid_model"),
+                       ::testing::Values(true), ::testing::Values(0.0),
+                       ::testing::Values(friction_coefficient), 
+                       ::testing::Range(cog_h_min, cog_h_max, cog_h_step), ::testing::Bool()));
+INSTANTIATE_TEST_CASE_P(
+    OdeTriballConeModel, TriballTest,
+    ::testing::Combine(::testing::Values("ode"), ::testing::Values("cone_model"),
                        ::testing::Values(true), ::testing::Values(0.0),
                        ::testing::Values(friction_coefficient), 
                        ::testing::Range(cog_h_min, cog_h_max, cog_h_step), ::testing::Bool()));
