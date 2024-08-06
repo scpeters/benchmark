@@ -63,8 +63,14 @@ macro (gz_build_tests)
 	  #   ${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml)
 
     # Convert junit file to csv and place in test_results in source folder.
-    add_test(NAME csv_${BINARY_NAME}
-      COMMAND python3 ${PROJECT_SOURCE_DIR}/tools/mcap_to_csv.py ${BINARY_NAME}
+    add_test(NAME mcap2csv_${BINARY_NAME}
+      COMMAND python3 ${PROJECT_SOURCE_DIR}/tools/boxes/mcap_to_csv.py 
+      ${BINARY_NAME}
+    )
+
+    add_test(NAME post_processing_${BINARY_NAME}
+      COMMAND python3 ${PROJECT_SOURCE_DIR}/boxes_post_processing.py 
+      ${BINARY_NAME}
     )
 
     install(TARGETS ${BINARY_NAME}
