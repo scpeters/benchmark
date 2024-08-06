@@ -7,7 +7,7 @@
   end
 
   unless defined?(complex)
-    complex = 0
+    complex = 1
   end
 
   unless defined?(surfaceSlope)
@@ -22,13 +22,41 @@
     cogH = 0
   end
 
+  def get_velocities(E)
+    linear_vel = []
+    angular_vel = []
+    factor = Vector.elements((-10..10).to_a)
+    for i in 1..10
+
+      v = Math.sqrt((i/10)*E*2/mass)
+      linear_vel.insert(0, v)
+      
+      w = Math.sqrt((1-(i/10))*E*2/(Izz))
+      angular_vel.insert(0, w)
+    
+      if i !=10
+        linear_vel.insert(1, v)
+        w = - Math.sqrt((1-(i/10))*E*2/(Izz))
+        angular_vel.insert(1, w)
+      end
+    end
+    [linear_vel, angular_vel]
+  end 
+
   require "matrix"
 
-  v0 = [0, 15, 0]
+  v0 = [0, 15, 0] # linear velocity along y axis
   N = 16
   w0max = 150.0
-  w0mags = w0max * Vector.elements((-N..N).to_a) / N.to_f
+  w0mags = w0max * Vector.elements((-N..N).to_a) / N.to_f # angular velocity along z axis 
+  
+  mass = 0.060318578948924034
+  Izz = 0.0006128367621210681
+  initial_energy = 0.5 * mass * v0*v0
+  if equalEnergy.to_i == 1
+    v0, w0mags = get_velocities(initial_energy)
 
+  
   gravity = [-9.8*Math::sin(surfaceSlope.to_f), 0, -9.8*Math::cos(surfaceSlope.to_f)]
  
 %>
@@ -1150,7 +1178,13 @@
   else 
     w0mags.to_a.each_index do |i|
       name = "triball_" + i.to_s
-      w0 = [0, 0, w0mags[i]]
+      if equalEnergy.to_i == 1
+        v0 = [0, v[i], 0]
+        w0 = [0, 0, w0mags[i]]
+      else
+        w0 = [0, 0, w0mags[i]]
+      end
+
       x0 = 0.3 * i
 %>
 
