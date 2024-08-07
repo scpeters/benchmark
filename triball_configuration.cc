@@ -21,7 +21,7 @@ const double cog_h_step = 0.01;
 
 INSTANTIATE_TEST_CASE_P(
     OdeTriball, TriballTest,
-    ::testing::Combine(::testing::Values("ode"), ::testing::Values("pyramid"),
+    ::testing::Combine(::testing::Values("ode"), ::testing::Values("pyramid_model"),
                        ::testing::Values(false), ::testing::Range(slope_min, slope_max, slope_step),
                        ::testing::Values(friction_coefficient), 
                        ::testing::Range(cog_h_min, cog_h_max, cog_h_step), ::testing::Values(true)));

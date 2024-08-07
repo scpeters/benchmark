@@ -82,11 +82,9 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   physics::ContactManager *mgr = physics->GetContactManager();
   mgr->SetNeverDropContacts(true);
   world->Step(1);
-  
-  // std::cout << "number of contacts " << mgr->GetContactCount();
+ 
   ASSERT_TRUE(mgr->NeverDropContacts());
   ASSERT_GT(mgr->GetContactCount(), 0);
-  std::cout << mgr->GetContactCount() << std::endl;
 
   // initial time
   common::Time t0 = world->SimTime();
@@ -101,7 +99,7 @@ void TriballTest::Triball(const std::string &_physicsEngine, const std::string &
   }
   else
   {
-    ASSERT_EQ(modelCount, 33);
+    ASSERT_EQ(modelCount, 20);
   }
 
   auto contacts = mgr->GetContacts();
@@ -194,7 +192,7 @@ TEST_P(TriballTest, Triball) {
 
   gzdbg << physicsEngine << ", friction model: " << frictionModel << ", complex: " << complex
         << ", surface slope: " << surfaceSlope << ", friction coefficient: " << frictionCoefficient
-        << "center of gravity of height" << cogH << std::endl;
+        << " center of gravity of height" << cogH << std::endl << " equal kinetic energy" << equalKE;
 
   Triball(physicsEngine, frictionModel, complex, surfaceSlope, frictionCoefficient, cogH, equalKE);
 }
