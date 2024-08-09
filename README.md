@@ -11,6 +11,8 @@ or on your own machine following the instructions given below:
 ![boxes benchmark animation: simple trajectory](img/boxes_5_simple.gif)
 ![boxes benchmark animation: complex trajectory](img/boxes_5_complex.gif)
 
+* [Triball: rigid bodies in contact](triball_description.ipynb)
+
 These benchmarks can be run for the physics engines supported by gazebo:
 
 * [Open Dynamics Engine (ODE)](http://ode.org), (source code on [bitbucket](https://bitbucket.org/odedevs/ode))
