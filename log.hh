@@ -2,6 +2,7 @@
 #include "mcap/writer.hpp"
 #include "protobuf/BuildFileDescriptorSet.h"
 #include <boxes_msg.pb.h>
+#include <triball_msg.pb.h>
 #include <iostream>
 #include <ignition/math/Pose3.hh>
 #include <ignition/math/Vector3.hh>
@@ -49,6 +50,49 @@ class Log
     
       else
         msg.add_data()->set_model_no(1);
+    }
+
+    public: void setTriballMsg(const std::string &_physicsEngine, 
+                     double &_slope, float &_frictionCoefficient,
+                     bool &_complex, const std::string &_frictionModel,
+                     double _cogH, bool _equalKE)
+    {
+      mcap::Schema schema("benchmark_proto.TriballsMsg", "protobuf",
+                         foxglove::BuildFileDescriptorSet(benchmark_proto::TriballsMsg::descriptor()).SerializeAsString());
+    
+      writer.addSchema(schema);
+      mcap::Channel channel("model_states", "protobuf", schema.id);
+      writer.addChannel(channel);
+      channelId = channel.id;
+      msg.set_physics_engine(_physicsEngine);
+      msg.set_slope(_slope);
+      msg.set_friction_coefficient(_frictionCoefficient);
+      msg.set_complex(_complex);
+      msg.set_friction_model(_frictionModel);
+      msg.set_cog_h(_cogH);
+      msg.set_equal_ke(_equalKE);
+
+      int modelCount;
+      if(_complex)
+      {
+       modelCount = 32;
+      }
+      else
+      {
+       modelCount = 5;
+      }
+     
+      for(int i = 0; i < modelCount; i++)
+      {
+        msg.add_data()->set_model_no(i);
+
+        for(int j = 0; j < 3; j++)
+        {
+         msg.mutable_data(i)->add_contact_info(); 
+        }
+        
+      }
+    
     }
 
     public: void stop()
@@ -131,7 +175,91 @@ class Log
       twist->mutable_angular()->set_z(_angVelocity.Z());           
     }
 
+    public: void recordAccel(int &_modelIdx, const std::vector<double> &_linAccel,
+                             const std::vector<double> &_angAccel)
+    {
+      auto accel = msg.mutable_data(_modelIdx)->add_acceleration();
+
+      accel->mutable_linear()->set_x(_linAccel[0]);
+      accel->mutable_linear()->set_y(_linAccel[1]);
+      accel->mutable_linear()->set_z(_linAccel[3]);
+    
+      accel->mutable_angular()->set_x(_angAccel[0]);
+      accel->mutable_angular()->set_y(_angAccel[1]);
+      accel->mutable_angular()->set_z(_angAccel[3]); 
+    }
+
+    public: void recordAccel(int &_modelIdx, const ignition::math::Vector3d &_linAccel,
+                             const ignition::math::Vector3d &_angAccel)
+    {
+      auto accel = msg.mutable_data(_modelIdx)->add_acceleration();
+
+      accel->mutable_linear()->set_x(_linAccel.X());
+      accel->mutable_linear()->set_y(_linAccel.Y());
+      accel->mutable_linear()->set_z(_linAccel.Z());
+    
+      accel->mutable_angular()->set_x(_angAccel.X());
+      accel->mutable_angular()->set_y(_angAccel.Y());
+      accel->mutable_angular()->set_z(_angAccel.Z()); 
+    }
+
+    public: void recordContactInfo(int &_modelIdx, int &_contactIdx, bool contactStatus,
+                                   const std::vector<double> &_position, const std::vector<double> &_normal,
+                                   const std::vector<double> &_force, const std::vector<double> &_torque)
+    {
+      auto contact_status = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx);
+      auto contact_pos = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_position();
+      auto contact_normal = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_normal(); 
+      auto contact_wrench = msg.mutable_date(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_wrench();
+      
+      contact_status->add_contact_status(contactStatus);
+      contact_pos->set_x(_position[0]);
+      contact_pos->set_y(_position[1]);
+      contact_pos->set_z(_position[2]);
+    
+      contact_normal->set_x(_normal[0]);
+      contact_normal->set_y(_normal[1]);
+      contact_normal->set_z(_normal[2]); 
+
+      contact_wrench->mutale_forces()->set_x(_force[0]);
+      contact_wrench->mutale_forces()->set_y(_force[1]);
+      contact_wrench->mutale_forces()->set_z(_force[2]);
+
+      contact_wrench->mutale_torques()->set_x(_torque[0]);
+      contact_wrench->mutale_torques()->set_y(_torque[2]);
+      contact_wrench->mutale_torques()->set_z(_torque[3]);
+    }
+
+    public: void recordContactInfo(int &_modelIdx, int &_contactIdx, bool contactStatus,
+                                   const ignition::math::Vector3d &_position, const ignition::math::Vector3d &_normal,
+                                   const ignition::math::Vector3d &_force, const ignition::math::Vector3d &_torque)
+    { 
+      auto contact_status = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx);
+      auto contact_pos = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_position();
+      auto contact_normal = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_normal(); 
+      auto contact_wrench = msg.mutable_data(_modelIdx)->mutable_contact_info(_contactIdx)->add_contact_wrench();
+      
+      contact_status->add_contact_status(contactStatus);
+      contact_pos->set_x(_position.X());
+      contact_pos->set_y(_position.Y());
+      contact_pos->set_z(_position.Z());
+    
+      contact_normal->set_x(_normal.X());
+      contact_normal->set_y(_normal.Y());
+      contact_normal->set_z(_normal.Z()); 
+
+      contact_wrench->mutable_forces()->set_x(_force.X());
+      contact_wrench->mutable_forces()->set_y(_force.Y());
+      contact_wrench->mutable_forces()->set_z(_force.Z());
+
+      contact_wrench->mutable_torques()->set_x(_torque.X());
+      contact_wrench->mutable_torques()->set_y(_torque.Y());
+      contact_wrench->mutable_torques()->set_z(_torque.Z());
+    }
+
+    
+
     private: mcap::McapWriter writer;
     private: mcap::ChannelId channelId;
-    private: T msg;
+    private: T msg;                   
 };

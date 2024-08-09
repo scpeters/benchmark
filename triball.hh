@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Open Source Robotics Foundation
+ * Copyright (C) 2024 Open Source Robotics Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  *
 */
 
-#ifndef BENCHMARK_GAZEBO_BOXES_HH_
-#define BENCHMARK_GAZEBO_BOXES_HH_
+#ifndef BENCHMARK_GAZEBO_TRIBALL_HH_
+#define BENCHMARK_GAZEBO_TRIBALL_HH_
 
 #include <string>
 #include "gazebo/test/ServerFixture.hh"
@@ -31,26 +31,32 @@ namespace gazebo
     // collision shape on / off
     // complex trajectory on / off
     typedef std::tr1::tuple < const char *
-                            , double
-                            , int
+                            , const char *
                             , bool
+                            , double
+                            , float
+                            , double
                             , bool
                             > char1double1int1bool2;
-                            
-    class BoxesTest : public ServerFixture,
+
+    class TriballTest : public ServerFixture,
                       public testing::WithParamInterface<char1double1int1bool2>
     {
       /// \brief Test accuracy of unconstrained rigid body motion.
       /// \param[in] _physicsEngine Physics engine to use.
-      /// \param[in] _dt Max time step size.
-      /// \param[in] _modelCount Number of boxes to spawn.
-      /// \param[in] _collision Flag for collision shape on / off.
-      /// \param[in] _complex Flag for complex trajectory on / off.
-      public: void Boxes(const std::string &_physicsEngine
-                       , double _dt
-                       , int _modelCount
-                       , bool _collision
-                       , bool _complex);
+      /// \param[in] _frictionModel Max time step size.
+      /// \param[in] _complex Number of boxes to spawn.
+      /// \param[in] _surfaceSlope Flag for collision shape on / off.
+      /// \param[in] _frictionCoefficient Flag for complex trajectory on / off.
+      /// \param[in] _cogH
+      /// \param[in] _equalKE
+      public: void Triball(const std::string &_physicsEngine
+                       , const std::string &_frictionModel
+                       , bool _complex
+                       , double _surfaceSlope
+                       , float _frictionCoefficient
+                       , double _cogH
+                       , bool _equalKE);
     };
   }
 }

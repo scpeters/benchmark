@@ -3,11 +3,11 @@
 <%
   # default values
   unless defined?(frictionModel)
-    frictionModel = "pyramid"  
+    frictionModel = "pyramid_model"  
   end
 
-  unless defined?(fixed_configuration)
-    fixed_configuration = 0
+  unless defined?(complex)
+    complex = 1
   end
 
   unless defined?(surfaceSlope)
@@ -18,19 +18,58 @@
     frictionCoefficient = 0.9
   end
 
+  unless defined?(cogH)
+    cogH = 0
+  end
+
+  unless defined?(equalKE)
+    equalKE = 0
+  end
+
+  def get_velocities(energy)
+    linear_vel = []
+    angular_vel = []
+    mass = 0.060318578948924034
+    izz = 0.0006128367621210681
+    for i in 1..10
+      v = Math.sqrt(i * 2 * energy / (mass*10))
+
+      linear_vel.insert(i -1, v)
+      
+      w = Math.sqrt((10 - i) * 2 * energy / (izz*10))
+      angular_vel.insert(i -1, w)
+    
+      if i !=10
+        linear_vel.insert(i - 1, v)
+        w = - w
+        angular_vel.insert(i - 1, w)
+      end
+    end
+    [linear_vel, angular_vel]
+  end 
+
   require "matrix"
 
-  v0 = [0, 15, 0]
-  N = 16
+  v0 = [0, 15, 0] # linear velocity along y axis
+  N = 9
   w0max = 150.0
-  w0mags = w0max * Vector.elements((-N..N).to_a) / N.to_f
+  w0mags = w0max * Vector.elements((-N..N).to_a) / N.to_f # angular velocity along z axis 
 
-  gravity = [-9.8*Math::sin(surfaceSlope), 0, -9.8*Math::cos(surfaceSlope)]
- 
+  mass = 0.060318578948924034
+  Izz = 0.0006128367621210681
+  initial_energy = 0.5 * mass * v0.map {|x| x*x }.sum
+  if equalKE.to_i == 1
+    v, w0mags = get_velocities(initial_energy)
+  end
+
+  
+  gravity = [-9.8*Math::sin(surfaceSlope.to_f), 0, -9.8*Math::cos(surfaceSlope.to_f)]
+
 %>
 
 <sdf version="1.6">
   <world name="default">
+    
     <gravity><%= gravity.join(" ") %></gravity>
 
     <include>
@@ -41,17 +80,36 @@
       <uri>model://sun</uri>
     </include>
 
+    <physics type="ignored">
+      <ode>
+        <solver>
+          <friction_model><%= frictionModel %></friction_model>
+        </solver>
+      </ode>
+    </physics>
+
 <% 
-  if fixed_configuration == 0
+  if complex.to_i == 0
 %> 
     
 
     <model name="triball_30">
+     <pose> 0 0 0 0 0 0 </pose>
      <link name="link">
       <pose>0 0 0.02  0 0 0</pose>
-      <inertial auto="true">
-           <density>600</density>
+      <inertial>
+          <pose>0.0022414159556670668 0 <%= cogH %> 0 0 0</pose>
+          <mass>0.078742493606727915</mass>
+          <inertia>
+            <ixx>8.4732487219449371e-05</ixx>
+            <ixy>-1.3552527156068805e-20</ixy>
+            <ixz>2.5214795814616026e-21</ixz>
+            <iyy>0.00035705300836722431</iyy>
+            <iyz>4.4766275773390029e-22</iyz>
+            <izz>0.00043190422402162329</izz>
+          </inertia>
       </inertial>
+
       <sensor name="imu" type="imu">
         <always_on>true</always_on>
       </sensor>
@@ -165,7 +223,7 @@
           <friction>
             <ode>
               <mu><%= frictionCoefficient %></mu>
-              <mu2><%= frictionCoefficient %>/mu2>
+              <mu2><%= frictionCoefficient %></mu2>
               <fdir1>1 0 0</fdir1>
             </ode>
           </friction>
@@ -255,11 +313,22 @@
     </model>
 
     <model name="triball_45">
+     <pose> 0 1 0 0 0 0 </pose>
      <link name="link">
       <pose>0 0 0.02  0 0 0</pose>
-      <inertial auto="true">
-           <density>600</density>
+      <inertial>
+          <pose>0.0011016530914522173 0 <%= cogH %> 0 0 0</pose>
+          <mass>0.081476344460819278</mass>
+          <inertia>
+            <ixx>0.00019232606045470671</ixx>
+            <ixy>1.3552527156068805e-20</ixy>
+            <ixz>1.2627017167609311e-20</ixz>
+            <iyy>0.00036422223881746503</iyy>
+            <iyz>1.6650309163384415e-21</iyz>
+            <izz>0.0005466328545714452</izz>
+          </inertia>
       </inertial>
+
       <sensor name="imu" type="imu">
         <always_on>true</always_on>
       </sensor>
@@ -464,9 +533,9 @@
     
     <model name="triball_60">
      <link name="link">
-      <pose>0 0 0.02  0 0 0</pose>
+      <pose>0 2 0.02  0 0 0</pose>
       <inertial>
-        <pose>0.0 0.0 0  0 0 0</pose>
+        <pose>0.0 0.0 <%= cogH %>  0 0 0</pose>
         <mass>0.060318578948924034</mass>
         <inertia>
           <ixx>0.000311243867376448</ixx>
@@ -680,10 +749,20 @@
     </model>
 
     <model name="triball_75">
+     <pose> 0 3 0 0 0 0 </pose>
      <link name="link">
       <pose>0 0 0.02  0 0 0</pose>
-      <inertial auto="true">
-           <density>600</density>
+      <inertial>
+          <pose>-0.0010889786320120855 0 <%= cogH %> 0 0 0</pose>
+          <mass>0.088985917618018107</mass>
+          <inertia>
+            <ixx>0.00066921849216050014</ixx>
+            <ixy>2.7105054312137611e-20</ixy>
+            <ixz>-3.3685125287159029e-21</ixz>
+            <iyy>0.00038309493110161302</iyy>
+            <iyz>1.0621606046267175e-20</iyz>
+            <izz>0.0010423041088969216</izz>
+          </inertia>
       </inertial>
       <sensor name="imu" type="imu">
         <always_on>true</always_on>
@@ -888,11 +967,22 @@
     </model>
 
     <model name="triball_90">
+     <pose> 0 4 0 0 0 0 </pose>
      <link name="link">
       <pose>0 0 0.02  0 0 0</pose>
-      <inertial auto="true">
-           <density>600</density>
+      <inertial>
+          <pose>-0.0021920256670695452 0 <%= cogH %> 0 0 0</pose>
+          <mass>0.094448719111790758</mass>
+          <inertia>
+            <ixx>0.0011706814995045239</ixx>
+            <ixy>2.7105054312137611e-20</ixy>
+            <ixz>-3.3881317890172014e-21</ixz>
+            <iyy>0.00039647954261617555</iyy>
+            <iyz>2.3523493101256951e-20</iyz>
+            <izz>0.0015570834427368358</izz>
+          </inertia>
       </inertial>
+
       <sensor name="imu" type="imu">
         <always_on>true</always_on>
       </sensor>
@@ -1099,15 +1189,22 @@
   else 
     w0mags.to_a.each_index do |i|
       name = "triball_" + i.to_s
-      w0 = [0, 0, w0mags[i]]
+      if equalKE.to_i == 1
+        v0 = [0, v[i], 0]
+        w0 = [0, 0, w0mags[i]]
+      else
+        w0 = [0, 0, w0mags[i]]
+      end
+
       x0 = 0.3 * i
 %>
 
     <model name="<%= name %>">
+     <pose> <%= x0 %> 0 0 0 0 0 </pose>
      <link name="link">
-     <pose>0 0 0.02  0 0 0</pose>
+     <pose>0 0 0.02 0 0 0</pose>
      <inertial>
-       <pose>0.0 0.0 0  0 0 0</pose>
+       <pose>0.0 0.0 <%= cogH %> 0 0 0</pose>
        <mass>0.060318578948924034</mass>
        <inertia>
          <ixx>0.000311243867376448</ixx>
@@ -1336,3 +1433,4 @@
    </gui>
   </world>
 </sdf>
+
