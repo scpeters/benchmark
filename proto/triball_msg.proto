@@ -1,0 +1,70 @@
+
+syntax = "proto3";
+
+import "Pose.proto";
+import "Vector3.proto";
+import "Wrench.proto";
+import "Twist.proto";
+import "Accel.proto";
+
+package benchmark_proto;
+
+message ContactInfo{
+    // contact on
+    repeated bool contact_status = 1;
+
+    // model contact position
+    repeated benchmark_proto.Vector3 contact_position = 2;
+
+    // model contact normal 
+    repeated benchmark_proto.Vector3 contact_normal = 3;
+
+    // model Wrench 
+    repeated benchmark_proto.Wrench contact_wrench = 4; 
+}
+
+message TriballsMsg {
+    // name of physics engine
+    string physics_engine = 1;
+
+    // gravity option 
+    double slope = 2;
+
+    // collision check
+    double friction_coefficient = 3;
+
+    // fixed configuration 
+    bool complex = 4;
+    
+    // friction model pyramid or cone
+    string friction_model = 5;
+
+    // centre of gravity height
+    double cog_h = 6;
+
+    // log if models have equal kinetic energy
+    bool equal_ke = 7;
+
+    message TriballMsg{
+    // model number 
+    int32 model_no = 1;
+    // model pose in world frame
+    repeated benchmark_proto.Pose poses = 2;
+
+    // model twist in world frame
+    repeated benchmark_proto.Twist twists = 3;
+
+    // model acceleration 
+    repeated benchmark_proto.Accel acceleration = 4;
+    
+    // model contact information
+    repeated ContactInfo contact_info = 5;
+    }
+    // simulation time
+    repeated double sim_time = 8;
+
+    // computational time
+    double computation_time = 9;
+    // array of box msg
+    repeated TriballMsg data = 10;
+}

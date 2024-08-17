@@ -53,14 +53,16 @@ def plotEnginesDt(params, yname
     if not skipDart:
         engines['dart'] = ['$d$', 'g--']
     engines['ode'] = ['$O$', 'r--']
-    engines['simbody'] = ['$S$', 'k--']
+    # engines['simbody'] = ['$S$', 'k--']
     fig = plt.figure()
     xdata = {}
     ydata = {}
     for e in sorted(engines.keys()):
         params['engine'] = e
         ii = np.array(list(query(csvDict, params)))
+        print(f"here here {ii} {e}")
         xdata[e] = csvDict[xname][ii]
+        
         ydata[e] = csvDict[yname][ii]
         color = engines[e][1][0]
         plt.plot(xdata[e]

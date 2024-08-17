@@ -1,0 +1,13 @@
+syntax = "proto3";
+import "Vector3.proto";
+
+package benchmark_proto;
+
+
+message Twist{
+    // linear velocity in world frame
+    benchmark_proto.Vector3 linear = 1;
+
+    //angular velocity in world frame 
+    benchmark_proto.Vector3 angular = 2;
+}
