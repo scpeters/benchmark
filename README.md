@@ -37,7 +37,8 @@ and then clone and build the benchmarks:
 
 ~~~
 git clone https://github.com/scpeters/benchmark
-pip install lz4 protobuf zstandard
+pip install lz4 protobuf zstandard pandas
+sudo apt-get install python3-gz-math7
 cd benchmark
 git submodule update --init --recursive
 mkdir build

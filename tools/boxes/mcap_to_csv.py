@@ -1,40 +1,30 @@
 
 import os
 import sys
-benchmark_dir = os.path.dirname(os.getcwd())
+tools_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+benchmark_dir = os.path.dirname(tools_dir)
+print(f"the path is {benchmark_dir}")
 sys.path.append(os.path.join(benchmark_dir,"mcap/python/mcap"))
 sys.path.append(os.path.join(benchmark_dir, "mcap/python/mcap-protobuf-support"))
 from mcap_protobuf.decoder import DecoderFactory
 from mcap.reader import make_reader
 import csv
 
-DIRECTORY_NAME = sys.argv[1]
+BENCHMARK_NAME = sys.argv[1]
 
-STATES_NAMES = ["sim_time",
-                "model_no",
-                "linear_velocity_x",
-                "linear_velocity_y",
-                "linear_velocity_z",
-                "angular_velocity_x",
-                "angular_velocity_y",
-                "angular_velocity_z",
-                "position_x",
-                "position_y",
-                "position_z",
-                "quaternion_w",
-                "quaternion_x",
-                "quaternion_y",
-                "quaternion_z",]
+STATES_NAMES = ["sim_time", "model_no", "linear_velocity_x", 
+                "linear_velocity_y", "linear_velocity_z",
+                "angular_velocity_x", "angular_velocity_y",
+                "angular_velocity_z", "position_x",
+                "position_y", "position_z", "quaternion_w",
+                "quaternion_x", "quaternion_y", "quaternion_z",]
 
 CONFIGURATION  = ["physics_engine", "time_step", "complex", 
                   "collisiion", "model_count","wall_time", 
                   "log_multiple", "classname"]
 
-
-
 def get_file_names(result_folder):
     result_dir = os.path.join(benchmark_dir,"test_results", result_folder)
-    result_dir = os.path.expanduser(result_dir)
     mcap_dir = os.path.join(result_dir, "MCAP")
     file_names = os.listdir(mcap_dir)
     csv_dir = os.path.join(result_dir,"CSV")
@@ -42,9 +32,7 @@ def get_file_names(result_folder):
         os.mkdir(csv_dir)
     return result_dir, file_names
 
-
 def MCAP_to_CSV(result_dir, file_name):
-
     csv_filename = file_name.split('.mcap')[0] + '.csv'
     
     csv_filepath = os.path.join(result_dir,"CSV",csv_filename)
@@ -54,7 +42,6 @@ def MCAP_to_CSV(result_dir, file_name):
     csv_writer = csv.writer(csv_file)
     csv_writer.writerow(CONFIGURATION)
     
-
     with open(mcap_filepath, "rb") as f:
         reader = make_reader(f, decoder_factories=[DecoderFactory()])
             
@@ -68,10 +55,13 @@ def MCAP_to_CSV(result_dir, file_name):
             wall_time = proto_msg.computation_time
             log_multiple = proto_msg.log_multiple
 
-            if complex:
-                class_name = "DtComplex"
+            if "model_count" in result_dir:
+                class_name = "Boxes"
             else:
-                class_name = "DtSimple"
+                if complex:
+                    class_name = "DtComplex"
+                else:
+                    class_name = "DtSimple"
 
             if "dartsim-plugin" in physics_engine:
                engine = "dart"
@@ -100,12 +90,10 @@ def MCAP_to_CSV(result_dir, file_name):
                     csv_writer.writerow(row)
                 
         csv_file.close()
-    
-            
-
+  
 print("Started converting files from MCAP to CSV")
 
-result_dir,file_names = get_file_names(DIRECTORY_NAME)
+result_dir,file_names = get_file_names(BENCHMARK_NAME)
 for file_name in file_names:
     MCAP_to_CSV(result_dir, file_name)
 
